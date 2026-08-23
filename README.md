@@ -34,10 +34,11 @@ Maps embed.) All three share the same `assets/` folder.
   series*, quality ingredients + handcrafted technique.
 - **Real drink photos and names** (with the Chinese names shown on the packaging):
   Brown Sugar Tapioca Milk 黑糖珍珠鮮奶 · Strawberry Tea w/ Cheese Foam 芝芝草莓 ·
-  Black Jade Tea w/ Cheese Foam 芝士紅玉 · Matcha Tapioca Milk 靜岡抹茶珍珠鮮奶 ·
-  Strawberry Tapioca Milk 草莓珍珠鮮奶 · Four Season Green Tea 四季春 ·
+  White Peach Tea w/ Cheese Foam 芝士白桃 · Matcha Tapioca Milk 靜岡抹茶珍珠鮮奶 ·
+  Strawberry Tapioca Milk 草莓珍珠鮮奶 · Lime Bomber 暴檸四季春 ·
   Super Fruitea 超級水果茶 · Topping Treasure Milk Tea 寶藏奶茶.
-  Plus mentioned: Pistachio Matcha, Matcha White Chocolate, Taro Soft Serve, Coco Papaya.
+  Plus in the "more" list: Dirty OREO, Dirty BISCOFF, Hojicha, Taro, Pistachio Milk,
+  Purple Quencher, Lychee Dragon and the OHAYO Shiba Waffle.
 - **Ohayo Rewards Club** — free reusable tumbler with a £5+ purchase for new members;
   limited-edition monthly collectable pins for members.
 - **Vegan menu** exists (linked to the live page).
@@ -52,10 +53,12 @@ Maps embed.) All three share the same `assets/` folder.
 - **Deliveroo link** points to the real store:
   `deliveroo.co.uk/brands/ohayo-tea`.
 
+All eight featured drinks are current on-menu items with their exact menu prices. (Two
+earlier photo-only items — Black Jade Tea and a plain Four Season Green Tea — were swapped
+for the closest real menu drinks that match the photos: **White Peach Tea w/ Cheese Foam**
+£4.5 and **Lime Bomber** 暴檸四季春 £5.5.)
+
 **Still worth a quick client check:**
-- Two legacy photo items — **Black Jade Tea w/ Cheese Foam** and **Four Season Green Tea**
-  — aren't on the current A3 menu by that exact name, so they're priced to the matching
-  series (cheese-foam brewed tea £4.5; four-season fruit tea £5.5). Confirm or swap.
 - Google Maps embed is by address; fine as-is, but confirm the pin.
 
 ---
