@@ -45,12 +45,17 @@ Maps embed.) All three share the same `assets/` folder.
   **contact@ohayotea.com** · open **7 days a week from 12pm** · IG `@ohayotea` ·
   Facebook `/OHAYOTEA` · Deliveroo.
 
-**Placeholders — swap before launch:**
-- **Prices** (£4.50–£6.20) are realistic UK bubble-tea estimates, not confirmed. The real
-  menu lives on the site as an image (`OHAYO A3 MENU.jpg`), so exact prices/items should be
-  copied from that.
-- **Deliveroo link** points to `deliveroo.co.uk` — replace with OHAYO TEA's actual
-  Deliveroo store URL.
+**Now real (added from the live site):**
+- **Prices** are taken from the current in-store menu (`OHAYO A3 MENU.jpg`) — shown as
+  *Regular / Large* where the drink has two sizes, single price for large-only fruit teas.
+  Toppings from £0.5; non-dairy (oat/soya) milk +£0.6.
+- **Deliveroo link** points to the real store:
+  `deliveroo.co.uk/brands/ohayo-tea`.
+
+**Still worth a quick client check:**
+- Two legacy photo items — **Black Jade Tea w/ Cheese Foam** and **Four Season Green Tea**
+  — aren't on the current A3 menu by that exact name, so they're priced to the matching
+  series (cheese-foam brewed tea £4.5; four-season fruit tea £5.5). Confirm or swap.
 - Google Maps embed is by address; fine as-is, but confirm the pin.
 
 ---
@@ -88,8 +93,8 @@ included).
 
 ## Suggested next steps
 1. Pick a direction (or combine — e.g. Kawaii warmth with the Craft layout).
-2. Confirm the real menu items + prices from the in-store menu.
-3. Add the real Deliveroo store URL and, if wanted, an online-order / gift-card link.
+2. Confirm the two legacy items noted above (Black Jade / Four Season) or swap them.
+3. Optional: add an online-order / gift-card link alongside Deliveroo.
 4. Optional: wire the newsletter/rewards sign-up to an email provider and swap in any
    newer product photography.
 
