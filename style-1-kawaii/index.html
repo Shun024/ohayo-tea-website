@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OHAYO TEA — Kawaii Pop concept</title>
+<meta name="description" content="OHAYO TEA — Shiba Inu themed tea house in the heart of Manchester. Fresh fruit tea, bubble tea & matcha. Drink it! Don't ask why!" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#fff7ec;
+    --paper:#fffdf8;
+    --coral:#e8574b;      /* from the brand chop / cheese-foam bubble */
+    --coral-deep:#c93d33;
+    --pink:#ffb4b0;
+    --mustard:#f0a52e;
+    --brown:#7a4a2b;
+    --ink:#2c211b;
+    --leaf:#7ba05a;
+    --shadow:0 14px 0 rgba(44,33,27,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;overflow-x:hidden}
+  h1,h2,h3,.display{font-family:'Baloo 2',cursive;line-height:1.05;font-weight:800}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{width:min(1180px,92vw);margin-inline:auto}
+  .pill{display:inline-block;background:var(--coral);color:#fff;padding:.5rem 1.1rem;border-radius:999px;font-weight:800;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,247,236,.92);backdrop-filter:blur(8px);border-bottom:3px solid var(--ink)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:.7rem 0}
+  .brand{display:flex;align-items:center;gap:.6rem;font-family:'Baloo 2';font-weight:800;font-size:1.35rem}
+  .brand img{width:42px;height:42px;border-radius:50%;border:3px solid var(--ink);background:#fff;object-fit:cover}
+  .menu{display:flex;gap:1.6rem;align-items:center;font-weight:800;font-size:.95rem}
+  .menu a{position:relative}
+  .menu a:hover{color:var(--coral)}
+  .btn{background:var(--ink);color:#fff!important;padding:.55rem 1.2rem;border-radius:999px;font-family:'Baloo 2';box-shadow:var(--shadow);transition:transform .15s}
+  .btn:hover{transform:translateY(-2px)}
+  .btn.coral{background:var(--coral)}
+  .navtoggle{display:none}
+
+  /* HERO */
+  .hero{position:relative;padding:3.2rem 0 4rem;background:
+     radial-gradient(1200px 500px at 85% -10%,#ffe1c2 0,transparent 60%),
+     radial-gradient(900px 500px at 5% 110%,#ffd9d5 0,transparent 55%),
+     var(--cream)}
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center}
+  .hero h1{font-size:clamp(2.8rem,6vw,5rem)}
+  .hero h1 .out{color:var(--coral)}
+  .tag{font-family:'Baloo 2';font-weight:800;font-size:clamp(1.1rem,2.4vw,1.6rem);color:var(--brown);margin-top:.4rem;transform:rotate(-2deg);display:inline-block}
+  .lede{font-size:1.1rem;max-width:44ch;margin:1.1rem 0 1.6rem}
+  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap}
+  .hero-art{position:relative}
+  .hero-art .blob{position:absolute;inset:-6% -4% -6% -4%;background:conic-gradient(from 30deg,#ffd7a0,#ffb4b0,#ffe1c2,#ffd7a0);border-radius:46% 54% 55% 45%/52% 48% 52% 48%;filter:blur(2px);animation:spin 22s linear infinite;z-index:0}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .hero-art .cup{position:relative;z-index:1;border-radius:32px;border:4px solid var(--ink);box-shadow:var(--shadow);background:#111}
+  .sticker{position:absolute;z-index:2;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:.5rem .8rem;font-family:'Baloo 2';font-weight:800;box-shadow:var(--shadow)}
+  .sticker.one{top:6%;left:-6%;transform:rotate(-8deg);color:var(--coral)}
+  .sticker.two{bottom:8%;right:-5%;transform:rotate(7deg);color:var(--leaf)}
+
+  /* MARQUEE */
+  .marquee{background:var(--coral);color:#fff;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);overflow:hidden;padding:.7rem 0}
+  .marquee .track{display:flex;gap:2.4rem;white-space:nowrap;font-family:'Baloo 2';font-weight:800;font-size:1.1rem;letter-spacing:.04em;animation:scroll 26s linear infinite}
+  .marquee .track span{display:inline-flex;gap:2.4rem}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* SECTION */
+  section{padding:4.5rem 0}
+  .eyebrow{color:var(--coral);font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:.85rem}
+  .h-sec{font-size:clamp(2rem,4.5vw,3.2rem);margin:.3rem 0 1rem}
+
+  /* ABOUT */
+  .about .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.6rem;align-items:center}
+  .about-card{background:var(--paper);border:3px solid var(--ink);border-radius:26px;box-shadow:var(--shadow);padding:1.4rem}
+  .about-card img{border-radius:16px}
+  .facts{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.2rem}
+  .fact{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:.7rem 1rem;font-weight:800;box-shadow:var(--shadow)}
+  .fact b{display:block;font-family:'Baloo 2';font-size:1.4rem;color:var(--coral)}
+
+  /* MENU */
+  .menu-sec{background:var(--paper);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-top:2rem}
+  .card{background:#fff;border:3px solid var(--ink);border-radius:22px;overflow:hidden;box-shadow:var(--shadow);transition:transform .18s}
+  .card:hover{transform:translateY(-6px) rotate(-1deg)}
+  .card .ph{aspect-ratio:1;overflow:hidden;background:#f5ece0}
+  .card .ph img{width:100%;height:100%;object-fit:cover}
+  .card .body{padding:.9rem 1rem 1.1rem}
+  .card h3{font-size:1.15rem}
+  .card .zh{color:var(--brown);font-weight:700;font-size:.9rem}
+  .card .price{margin-top:.5rem;display:inline-block;background:var(--mustard);color:#3a2a12;font-family:'Baloo 2';font-weight:800;padding:.15rem .7rem;border-radius:999px}
+  .more-list{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem;justify-content:center}
+  .chip{background:#fff;border:3px solid var(--ink);border-radius:999px;padding:.4rem 1rem;font-weight:800;box-shadow:var(--shadow)}
+
+  /* REWARDS */
+  .rewards{background:var(--coral);color:#fff;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+  .rewards .wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:center}
+  .rewards h2{color:#fff}
+  .reward-box{background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:24px;padding:1.6rem;box-shadow:0 14px 0 rgba(0,0,0,.18)}
+  .reward-box li{list-style:none;padding:.6rem 0;border-bottom:2px dashed #e7d8c6;font-weight:700;display:flex;gap:.6rem;align-items:flex-start}
+  .reward-box li:last-child{border:0}
+  .reward-box .em{font-size:1.3rem}
+
+  /* VEGAN */
+  .vegan{background:#eef6e6}
+  .vegan .wrap{display:flex;gap:1.4rem;align-items:center;justify-content:space-between;flex-wrap:wrap;background:#fff;border:3px solid var(--ink);border-radius:26px;padding:1.6rem 1.8rem;box-shadow:var(--shadow)}
+  .vegan h3{font-size:1.6rem;color:var(--leaf)}
+
+  /* VISIT */
+  .visit .wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  .info li{list-style:none;font-weight:700;padding:.55rem 0;border-bottom:2px dashed #e7d8c6;display:flex;gap:.7rem;align-items:center}
+  .info .em{font-size:1.3rem;width:1.6rem;text-align:center}
+  .map{border:3px solid var(--ink);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);min-height:320px}
+  .map iframe{width:100%;height:100%;min-height:320px;border:0;filter:saturate(1.05)}
+
+  /* FOOTER */
+  footer{background:var(--ink);color:#fff;padding:3rem 0 2rem;text-align:center}
+  footer .brand{justify-content:center;color:#fff;font-size:1.6rem;margin-bottom:.6rem}
+  footer .brand img{border-color:#fff}
+  .socials{display:flex;gap:1rem;justify-content:center;margin:1.2rem 0}
+  .socials a{background:#fff;color:var(--ink)!important;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:800;transition:transform .15s}
+  .socials a:hover{transform:translateY(-3px);background:var(--coral);color:#fff!important}
+  .fine{opacity:.6;font-size:.85rem;margin-top:1rem}
+  .fine .note{opacity:.8}
+
+  @media(max-width:880px){
+    .menu{display:none}
+    .hero .wrap,.about .wrap,.rewards .wrap,.visit .wrap{grid-template-columns:1fr}
+    .grid{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="../assets/logo-shiba.jpg" alt="OHAYO TEA Shiba logo" /> OHAYO&nbsp;TEA</a>
+    <nav class="menu">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#vegan">Vegan</a>
+      <a href="#rewards">Rewards</a>
+      <a href="#visit">Visit</a>
+      <a class="btn coral" href="https://deliveroo.co.uk/" target="_blank" rel="noopener">Order on Deliveroo</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill">🐕 Shiba Inu tea house · Manchester</span>
+      <h1>Say <span class="out">ohayo</span><br/>to your new<br/>favourite cup</h1>
+      <div class="tag">“Drink it! Don't ask why!”</div>
+      <p class="lede">Freshly brewed fruit tea, silky bubble tea and stone-ground matcha — handcrafted in the heart of Manchester's Chinatown and stamped with our little tea-dog.</p>
+      <div class="cta-row">
+        <a class="btn coral" href="#menu">See the menu</a>
+        <a class="btn" href="#visit">Find us →</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="blob"></div>
+      <img class="cup" src="../assets/hero-brown-sugar-dark.jpg" alt="OHAYO TEA brown sugar tapioca milk" />
+      <div class="sticker one">Freshly brewed ✿</div>
+      <div class="sticker two">Boba goals ♥</div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee">
+  <div class="track">
+    <span>🍓 FRESH FRUIT TEA&nbsp;&nbsp;•&nbsp;&nbsp;🧋 BROWN SUGAR BOBA&nbsp;&nbsp;•&nbsp;&nbsp;🍵 STONE-GROUND MATCHA&nbsp;&nbsp;•&nbsp;&nbsp;🧀 CHEESE FOAM&nbsp;&nbsp;•&nbsp;&nbsp;🐕 OHAYO REWARDS&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+    <span>🍓 FRESH FRUIT TEA&nbsp;&nbsp;•&nbsp;&nbsp;🧋 BROWN SUGAR BOBA&nbsp;&nbsp;•&nbsp;&nbsp;🍵 STONE-GROUND MATCHA&nbsp;&nbsp;•&nbsp;&nbsp;🧀 CHEESE FOAM&nbsp;&nbsp;•&nbsp;&nbsp;🐕 OHAYO REWARDS&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-card"><img src="../assets/logo-shiba.jpg" alt="OHAYO TEA hand-drawn Shiba Inu logo" /></div>
+    <div>
+      <span class="eyebrow">Who are we?</span>
+      <h2 class="h-sec">A little tea-dog with big flavour</h2>
+      <p>OHAYO TEA is a Shiba Inu-themed tea house in the heart of Manchester. We're proud to be the <b>first tea company in Manchester</b> to bring freshly brewed fruit tea into our Fresh Fruit Tea series — no shortcuts, no powders where it counts.</p>
+      <p style="margin-top:.9rem">Every cup is made with quality ingredients and professional handcrafted technique, so each drink is a little piece of art. That's the OHAYO promise — <i>drink it, don't ask why!</i></p>
+      <div class="facts">
+        <div class="fact"><b>7 days</b> open weekly</div>
+        <div class="fact"><b>12pm</b> daily open</div>
+        <div class="fact"><b>#1</b> fresh fruit tea in MCR</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="menu-sec" id="menu">
+  <div class="wrap">
+    <div style="text-align:center">
+      <span class="eyebrow">Signature cups</span>
+      <h2 class="h-sec">The menu 🧋</h2>
+      <p style="max-width:52ch;margin-inline:auto">Our most-loved pours. Add pudding, herbal jelly, coconut jelly or extra tapioca to any cup.</p>
+    </div>
+    <div class="grid">
+      <article class="card"><div class="ph"><img src="../assets/drink-brown-sugar-milk.jpg" alt=""></div><div class="body"><h3>Brown Sugar Tapioca Milk</h3><div class="zh">黑糖珍珠鮮奶</div><span class="price">£5.50</span></div></article>
+      <article class="card"><div class="ph"><img src="../assets/drink-strawberry-cheese.jpg" alt=""></div><div class="body"><h3>Strawberry Tea w/ Cheese Foam</h3><div class="zh">芝芝草莓</div><span class="price">£5.80</span></div></article>
+      <article class="card"><div class="ph"><img src="../assets/drink-matcha-milk.jpg" alt=""></div><div class="body"><h3>Matcha Tapioca Milk</h3><div class="zh">靜岡抹茶珍珠鮮奶</div><span class="price">£5.80</span></div></article>
+      <article class="card"><div class="ph"><img src="../assets/drink-super-fruitea.jpg" alt=""></div><div class="body"><h3>Super Fruitea</h3><div class="zh">超級水果茶</div><span class="price">£6.20</span></div></article>
+      <article class="card"><div class="ph"><img src="../assets/drink-black-jade.jpg" alt=""></div><div class="body"><h3>Black Jade Tea w/ Cheese Foam</h3><div class="zh">芝士紅玉</div><span class="price">£5.60</span></div></article>
+      <article class="card"><div class="ph"><img src="../assets/drink-strawberry-milk.jpg" alt=""></div><div class="body"><h3>Strawberry Tapioca Milk</h3><div class="zh">草莓珍珠鮮奶</div><span class="price">£5.60</span></div></article>
+      <article class="card"><div class="ph"><img src="../assets/drink-four-season.jpg" alt=""></div><div class="body"><h3>Four Season Green Tea</h3><div class="zh">四季春</div><span class="price">£4.50</span></div></article>
+      <article class="card"><div class="ph"><img src="../assets/drink-topping-treasure.jpg" alt=""></div><div class="body"><h3>Topping Treasure Milk Tea</h3><div class="zh">寶藏奶茶</div><span class="price">£5.90</span></div></article>
+    </div>
+    <div class="more-list">
+      <span class="chip">Pistachio Matcha</span>
+      <span class="chip">Matcha White Chocolate</span>
+      <span class="chip">Taro Soft Serve</span>
+      <span class="chip">Coco Papaya</span>
+      <span class="chip">…and more in store</span>
+    </div>
+  </div>
+</section>
+
+<section class="rewards" id="rewards">
+  <div class="wrap">
+    <div>
+      <span class="pill" style="background:#fff;color:var(--coral)">Ohayo Rewards Club</span>
+      <h2 class="h-sec" style="margin-top:.6rem">Loyal pup? Get spoiled.</h2>
+      <p>Join the pack and every visit gives back — plus collectable pins you'll actually want to keep.</p>
+    </div>
+    <ul class="reward-box">
+      <li><span class="em">🥤</span><div><b>New members:</b> a free reusable OHAYO tumbler with any purchase over £5.</div></li>
+      <li><span class="em">📌</span><div><b>Members:</b> a limited-edition collectable pin, new design every month.</div></li>
+      <li><span class="em">🐾</span><div>Points on every cup — redeem for free drinks &amp; toppings.</div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="vegan" id="vegan">
+  <div class="wrap">
+    <div>
+      <h3>🌱 Yes, we have a full Vegan Menu</h3>
+      <p>Plant-based milks, vegan-friendly jellies and fruit teas — a whole menu made for you.</p>
+    </div>
+    <a class="btn coral" href="https://www.ohayotea.com/vegan-menu" target="_blank" rel="noopener">See the vegan menu →</a>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Where are we?</span>
+      <h2 class="h-sec">Come say ohayo</h2>
+      <ul class="info">
+        <li><span class="em">📍</span> 95 Princess Street, Manchester M1 4HT</li>
+        <li><span class="em">🕛</span> Open 7 days a week from 12pm</li>
+        <li><span class="em">📞</span> <a href="tel:01612364883">0161 236 4883</a></li>
+        <li><span class="em">✉️</span> <a href="mailto:contact@ohayotea.com">contact@ohayotea.com</a></li>
+      </ul>
+      <div class="cta-row" style="margin-top:1.4rem">
+        <a class="btn coral" href="https://deliveroo.co.uk/" target="_blank" rel="noopener">Order on Deliveroo</a>
+        <a class="btn" href="https://maps.google.com/?q=95+Princess+Street+Manchester+M1+4HT" target="_blank" rel="noopener">Get directions</a>
+      </div>
+    </div>
+    <div class="map">
+      <iframe loading="lazy" title="OHAYO TEA location" src="https://www.google.com/maps?q=95%20Princess%20Street%20Manchester%20M1%204HT&output=embed"></iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><img src="../assets/logo-shiba.jpg" alt="" /> OHAYO&nbsp;TEA</div>
+    <div class="tag" style="color:var(--pink)">“Drink it! Don't ask why!”</div>
+    <div class="socials">
+      <a href="https://instagram.com/ohayotea" target="_blank" rel="noopener" title="Instagram">IG</a>
+      <a href="https://facebook.com/OHAYOTEA/" target="_blank" rel="noopener" title="Facebook">f</a>
+      <a href="https://deliveroo.co.uk/" target="_blank" rel="noopener" title="Deliveroo">D</a>
+    </div>
+    <div class="fine">95 Princess Street, Manchester M1 4HT · 0161 236 4883 · contact@ohayotea.com</div>
+    <div class="fine note">Concept redesign · “Kawaii Pop” direction. Prices &amp; some items are placeholders — confirm before launch.</div>
+  </div>
+</footer>
+
+</body>
+</html>
