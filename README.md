@@ -90,9 +90,11 @@ OHAYO's real content, photos and menu.
   `#32645a`, gold buttons `#c48426`.
 - **Type:** Noto Sans JP (the closest free match to the site's Tazugane Gothic / Yakumono).
 - **Replicated signatures:**
-  - Full-bleed **illustrated landscape background** (hills, river, tea bushes, trees, sun,
-    clouds) you scroll over — the closest static approximation of misatoto's animated canvas
-    map.
+  - Full-bleed **illustrated landscape** (hills, river, tea bushes, trees, sun, clouds) with
+    **scroll-reactive parallax** — the layers move at different speeds as you scroll, clouds
+    drift, and the floating drink/shiba illustrations parallax past — plus **scroll-reveal**
+    animation (headlines fade + rise line-by-line as they enter view). This is the misatoto
+    "images move as you scroll" interface, done in vanilla JS (rAF parallax + IntersectionObserver).
   - Two fixed **round buttons top-right** (dark rounded-square hamburger + circular character
     avatar) and a round **scroll-down button** bottom-right.
   - Poetic **multi-line headlines** with the exact **white marker-highlighter** behind each
@@ -102,10 +104,12 @@ OHAYO's real content, photos and menu.
   - Poetic closing (「物語はつづくよ、どこまでも。ずっと、おはよう。」) with stacked **gold buttons**,
     and a **fullscreen overlay menu** with drink "story teasers" — both straight from the
     reference.
-- **Caveat:** misatoto's bespoke animated illustrated *map* is custom commissioned artwork;
-  this concept approximates it with an SVG landscape. A full match would mean commissioning a
-  matching illustration set. Its real fonts (Tazugane/Yakumono) are also paid licences —
-  Noto Sans JP is the free stand-in.
+- **Caveat:** the scroll *motion* is there, but misatoto's background art is a bespoke,
+  hand-illustrated *animated canvas map* of the whole town — commissioned artwork. This
+  concept recreates the same **interface/behaviour** (parallax + reveal on scroll) with an
+  SVG landscape stand-in; a 1:1 match would mean commissioning a matching illustration set.
+  Its real fonts (Tazugane/Yakumono) are also paid licences — Noto Sans JP is the free
+  stand-in.
 
 ### 03 · Modern Craft
 - **Palette:** warm paper `#f6efe4`, muted matcha `#5e6b3f`, clay `#b4553f`.

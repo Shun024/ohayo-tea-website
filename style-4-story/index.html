@@ -10,18 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --sand:#efdbcb;
-    --sky:#f6e6d3;
-    --paper:#fef9f3;
-    --ink:#2d2927;
-    --purple:#503278;
-    --peach:#ffc8b8;
-    --coral:#f15464;
-    --green:#32645a;
-    --green2:#3f7a6d;
-    --gold:#c48426;
-    --yellow:#ffd258;
-    --ochre:#d89c52;
+    --sand:#efdbcb;--sky:#f6e6d3;--paper:#fef9f3;--ink:#2d2927;
+    --purple:#503278;--peach:#ffc8b8;--coral:#f15464;--green:#32645a;--green2:#3f7a6d;
+    --gold:#c48426;--yellow:#ffd258;--ochre:#d89c52;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -32,13 +23,19 @@
   .Container{width:min(1040px,88vw);margin-inline:auto}
   .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-  /* ===== illustrated background (approximation of the canvas map) ===== */
-  .map{position:fixed;inset:0;z-index:0;overflow:hidden}
-  .map svg{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:1600px;max-width:none}
-  .map .sky{position:absolute;inset:0;background:linear-gradient(180deg,var(--sky) 0%,#f8ecdd 45%,var(--sand) 100%)}
-  .cloud{position:absolute;opacity:.8}
+  /* ===== parallax illustrated background (scroll-reactive) ===== */
+  .scenery{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .scenery .sky{position:absolute;inset:0;background:linear-gradient(180deg,var(--sky) 0%,#f8ecdd 45%,var(--sand) 100%)}
+  .layer{position:absolute;left:50%;bottom:-4%;width:1800px;margin-left:-900px;will-change:transform}
+  .sun{position:absolute;top:6%;right:8%;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#ffe9b0,#ffe09a);will-change:transform}
+  .cloud{position:absolute;will-change:transform}
+  .cloud svg{width:100%}
+  .cloud.a{top:12%;left:-6%;width:200px;animation:drift 26s linear infinite alternate}
+  .cloud.b{top:26%;right:-4%;width:160px;animation:drift 34s linear infinite alternate-reverse}
+  .cloud.c{top:40%;left:20%;width:130px;animation:drift 44s linear infinite alternate}
+  @keyframes drift{from{transform:translateX(-30px)}to{transform:translateX(60px)}}
 
-  /* ===== fixed chrome (matches SiteHeader) ===== */
+  /* ===== fixed chrome ===== */
   .chrome{position:fixed;top:0;left:0;right:0;z-index:20;pointer-events:none}
   .chrome .Container{position:relative;height:0}
   .menuBtn{pointer-events:auto;position:absolute;width:56px;height:56px;top:40px;right:0;border:0;border-radius:16px;background:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .35s}
@@ -51,11 +48,13 @@
   .scrollBtn{pointer-events:auto;position:fixed;width:56px;height:56px;right:max(6vw,20px);bottom:40px;border:0;border-radius:50%;background:var(--ink);color:#fff;cursor:pointer;z-index:20;display:grid;place-items:center;transition:.35s;font-size:1.2rem}
   .scrollBtn:hover{background:#fff;color:var(--ink);outline:2px solid var(--ink)}
   .scrollBtn.is-hide{opacity:0;visibility:hidden}
+  .scrollBtn .arw{animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(-3px)}50%{transform:translateY(3px)}}
 
-  /* ===== content over the map ===== */
+  /* ===== content over the scenery ===== */
   main{position:relative;z-index:5}
   .scene{padding:6vh 0}
-  .teasers .scene{position:relative;min-height:62vh;display:flex;align-items:center}
+  .teasers .scene{position:relative;min-height:66vh;display:flex;align-items:center}
 
   /* HERO */
   .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:14vh 0 8vh}
@@ -65,28 +64,27 @@
   .hero__desc.small{font-size:clamp(1rem,2.4vw,1.4rem);margin-top:1.4em;margin-left:2em}
   .hero__en{margin-top:1.8rem;opacity:.8;font-weight:500}
 
-  /* FEATURED story card */
-  .featured{margin:3rem auto 0;max-width:560px;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(45,41,39,.55);text-align:left;transition:transform .2s}
+  /* FEATURED */
+  .featured{margin:0 auto;max-width:560px;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(45,41,39,.55);text-align:left;transition:transform .25s}
   .featured:hover{transform:translateY(-5px)}
   .featured .thumb{aspect-ratio:16/10;overflow:hidden;background:#fff}
   .featured .thumb img{width:100%;height:100%;object-fit:cover}
   .featured .body{padding:1.4rem 1.6rem 1.7rem}
   .featured .lead{font-size:.92rem;opacity:.75;margin-bottom:.6rem}
+  .featured .title{font-weight:700;font-size:1.3rem;line-height:1.5;margin:.7rem 0 1rem}
 
-  /* BADGE (exact) */
+  /* BADGE */
   .Badge{display:inline-block;padding:.35em .5em .2em;font-weight:300;font-size:1.05rem;line-height:1;color:#fff;background:var(--purple);transition:background .35s}
   .Badge b{font-weight:500;color:var(--peach);transition:color .35s}
   .teaser:hover .Badge,.featured:hover .Badge{background:var(--coral)}
   .teaser:hover .Badge b,.featured:hover .Badge b{color:var(--purple)}
-  .featured .title{font-weight:700;font-size:1.3rem;line-height:1.5;margin:.7rem 0 1rem}
 
-  /* READ pill (exact) */
+  /* READ pill */
   .read{display:inline-block;padding:.7em 1.6em .5em;border-radius:99em;font-weight:700;font-size:1.05rem;color:#fff;background:var(--ink);transition:.35s}
   .teaser:hover .read,.featured:hover .read{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
 
-  /* STORY TEASERS */
-  .teasers{position:relative;z-index:5}
-  .teaser{display:block;max-width:640px;margin:0 0 2.2rem}
+  /* TEASERS */
+  .teaser{display:block;max-width:640px;margin:0}
   .teaser.right{margin-left:auto;text-align:right}
   .teaser__badge{margin-bottom:15px}
   .headline{font-weight:700;line-height:1.35;font-size:clamp(1.6rem,4.4vw,2.6rem)}
@@ -95,29 +93,30 @@
   .headline .en{font-weight:500;font-size:.66em;opacity:.95}
   .teaser__more{margin-top:28px}
 
-  /* spot illustrations floating in the scene */
-  .spot{position:absolute;width:130px;height:auto;z-index:1;opacity:.96}
+  /* floating spot illustrations (parallax) */
+  .spot{position:absolute;width:140px;height:auto;z-index:1;will-change:transform}
 
-  /* MENU (same language) */
+  /* MENU */
   .panel{position:relative;z-index:5;background:var(--paper);border-radius:28px;box-shadow:0 30px 60px -40px rgba(45,41,39,.5);padding:clamp(1.6rem,4vw,3rem);margin:2rem auto}
   .panel h2{font-weight:900;font-size:clamp(1.6rem,3.6vw,2.3rem);text-align:center}
   .panel .lead{text-align:center;opacity:.75;margin:.4rem 0 2rem}
   .m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
   .m-card{background:var(--sand);border-radius:16px;overflow:hidden}
   .m-card .ph{aspect-ratio:1;overflow:hidden;background:#fff}
-  .m-card .ph img{width:100%;height:100%;object-fit:cover}
+  .m-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .m-card:hover .ph img{transform:scale(1.05)}
   .m-card .b{padding:.8rem .9rem 1rem}
   .m-card h4{font-weight:700;font-size:.98rem;line-height:1.35}
   .m-card .zh{color:var(--green);font-size:.82rem;margin-top:.1rem}
   .m-card .pr{margin-top:.4rem;font-weight:700;color:var(--coral)}
   .m-note{text-align:center;opacity:.7;margin-top:1.4rem;font-size:.9rem}
 
-  /* STORY FOOTER (poetic close + gold buttons) */
-  .storyFooter{position:relative;z-index:5;text-align:center;padding:8vh 0 6vh}
+  /* STORY FOOTER */
+  .storyFooter{position:relative;z-index:5;text-align:center;padding:10vh 0 6vh}
   .storyFooter__desc{font-weight:700;font-size:clamp(1.4rem,3.4vw,2.125rem);line-height:2;margin-bottom:2.2rem}
   .storyFooter__desc span{background:linear-gradient(to bottom,var(--paper) 90%,transparent 90%);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .18em}
   .goldBtn{width:min(320px,80vw);display:block;margin:0 auto 18px;padding:.75em 1.6em .55em;border-radius:99em;font-weight:700;font-size:1.2rem;color:#fff;background:var(--gold);text-align:right;position:relative;transition:.35s}
-  .goldBtn::before{content:"";position:absolute;left:1.4em;top:50%;width:22px;height:22px;transform:translateY(-50%);background:currentColor;-webkit-mask:no-repeat center/contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 12h14M13 6l7 6-7 6" fill="none" stroke="white" stroke-width="2"/></svg>');mask:no-repeat center/contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 12h14M13 6l7 6-7 6" fill="none" stroke="white" stroke-width="2"/></svg>')}
+  .goldBtn::before{content:"→";position:absolute;left:1.2em;top:50%;transform:translateY(-50%)}
   .goldBtn:hover{background:#fff;color:var(--ink)}
 
   /* real footer */
@@ -129,9 +128,22 @@
   .socials a:hover{background:var(--paper);color:var(--ink)}
   .fine{opacity:.6;font-size:.82rem;line-height:1.7}
 
-  /* ===== fullscreen menu overlay ===== */
-  .FullscreenMenu{position:fixed;inset:0;z-index:30;background:var(--sand);overflow-y:auto;padding:2.5rem 0 4rem;
-     opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .4s,transform .4s,visibility .4s}
+  /* ===== scroll-reveal animation (the js-parallaxItem effect) ===== */
+  .reveal{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.22,.94,.44,1),transform .9s cubic-bezier(.22,.94,.44,1)}
+  .reveal.in{opacity:1;transform:none}
+  .headline.reveal .line{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.94,.44,1)}
+  .headline.reveal.in .line{opacity:1;transform:none}
+  .headline.reveal.in .line:nth-child(1){transition-delay:.05s}
+  .headline.reveal.in .line:nth-child(2){transition-delay:.15s}
+  .headline.reveal.in .line:nth-child(3){transition-delay:.25s}
+  .headline.reveal.in .line:nth-child(4){transition-delay:.35s}
+  @media(prefers-reduced-motion:reduce){
+    .reveal,.headline.reveal .line{opacity:1;transform:none;transition:none}
+    .cloud{animation:none}
+  }
+
+  /* ===== fullscreen menu ===== */
+  .FullscreenMenu{position:fixed;inset:0;z-index:30;background:var(--sand);overflow-y:auto;padding:2.5rem 0 4rem;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .4s,transform .4s,visibility .4s}
   .FullscreenMenu.is-open{opacity:1;visibility:visible;transform:none}
   .FM__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
   .FM__logo{display:flex;align-items:center;gap:.6rem;font-weight:900;font-size:1.3rem}
@@ -152,38 +164,39 @@
   @media(max-width:820px){
     .m-grid{grid-template-columns:1fr 1fr}
     .MenuStoryList{grid-template-columns:1fr}
-    .spot{display:none}
+    .spot{width:96px}
     .hero__logo{width:150px;height:150px}
+    .layer{width:1200px;margin-left:-600px}
   }
 </style>
 </head>
 <body>
 
-<!-- illustrated map background (approximation of misatoto's canvas scenery) -->
-<div class="map" aria-hidden="true">
+<!-- parallax illustrated scenery -->
+<div class="scenery" aria-hidden="true">
   <div class="sky"></div>
-  <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax meet">
-    <circle cx="1240" cy="180" r="120" fill="#ffe6a6"/>
-    <!-- far hills -->
-    <path d="M0 640 Q 300 540 600 620 T 1200 600 T 1600 640 V900 H0 Z" fill="#bfd8c4"/>
-    <path d="M0 720 Q 360 620 720 700 T 1600 690 V900 H0 Z" fill="#8fbea1"/>
-    <!-- river -->
-    <path d="M760 900 C 720 760 900 720 840 600 C 800 520 900 470 880 420" fill="none" stroke="#cfe6ea" stroke-width="46" stroke-linecap="round"/>
-    <!-- near hill -->
-    <path d="M0 800 Q 400 700 800 780 T 1600 770 V900 H0 Z" fill="#5f9773"/>
-    <!-- tea bushes -->
-    <g fill="#3f7a6d">
-      <circle cx="180" cy="806" r="26"/><circle cx="230" cy="812" r="30"/><circle cx="285" cy="806" r="24"/>
-      <circle cx="1320" cy="812" r="30"/><circle cx="1372" cy="818" r="26"/><circle cx="1268" cy="818" r="24"/>
-    </g>
-    <!-- little trees -->
-    <g>
-      <rect x="470" y="760" width="10" height="40" fill="#7a4a2b"/><circle cx="475" cy="748" r="34" fill="#32645a"/>
-      <rect x="1090" y="748" width="12" height="48" fill="#7a4a2b"/><circle cx="1096" cy="734" r="40" fill="#2f5c50"/>
-    </g>
+  <div class="sun" data-bg="0,0.05"></div>
+  <div class="cloud a" data-bg="-0.06,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="34"/><circle cx="105" cy="45" r="40"/><circle cx="150" cy="58" r="30"/><rect x="55" y="60" width="100" height="26" rx="13"/></g></svg></div>
+  <div class="cloud b" data-bg="0.05,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="30"/><circle cx="105" cy="45" r="36"/><circle cx="150" cy="58" r="26"/><rect x="58" y="62" width="94" height="24" rx="12"/></g></svg></div>
+  <div class="cloud c" data-bg="-0.04,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="24"/><circle cx="100" cy="46" r="30"/><circle cx="140" cy="58" r="22"/><rect x="58" y="60" width="84" height="22" rx="11"/></g></svg></div>
+
+  <!-- far hills (slow) -->
+  <svg class="layer" data-bg="0,-0.04" viewBox="0 0 1800 520" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 300 Q 300 200 640 280 T 1240 260 T 1800 300 V520 H0 Z" fill="#cfe3d1"/>
   </svg>
-  <svg class="cloud" style="top:12%;left:6%;width:180px" viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="34"/><circle cx="105" cy="45" r="40"/><circle cx="150" cy="58" r="30"/><rect x="55" y="60" width="100" height="26" rx="13"/></g></svg>
-  <svg class="cloud" style="top:24%;right:10%;width:150px" viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="30"/><circle cx="105" cy="45" r="36"/><circle cx="150" cy="58" r="26"/><rect x="58" y="62" width="94" height="24" rx="12"/></g></svg>
+  <!-- mid hills + river (medium) -->
+  <svg class="layer" data-bg="0,-0.08" viewBox="0 0 1800 460" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 240 Q 380 140 760 220 T 1800 210 V460 H0 Z" fill="#9ec7a6"/>
+    <path d="M900 460 C 850 320 1040 280 980 190 C 940 120 1020 80 1000 30" fill="none" stroke="#d6ecef" stroke-width="42" stroke-linecap="round"/>
+  </svg>
+  <!-- near hill + trees + tea bushes (fast) -->
+  <svg class="layer" data-bg="0,-0.14" viewBox="0 0 1800 420" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 220 Q 450 120 900 200 T 1800 190 V420 H0 Z" fill="#5f9773"/>
+    <g fill="#3f7a6d"><circle cx="240" cy="230" r="28"/><circle cx="292" cy="236" r="32"/><circle cx="350" cy="230" r="26"/>
+      <circle cx="1480" cy="236" r="32"/><circle cx="1536" cy="242" r="28"/><circle cx="1424" cy="242" r="26"/></g>
+    <g><rect x="600" y="176" width="12" height="52" fill="#7a4a2b"/><circle cx="606" cy="162" r="40" fill="#32645a"/>
+      <rect x="1230" y="168" width="14" height="58" fill="#7a4a2b"/><circle cx="1237" cy="150" r="46" fill="#2f5c50"/></g>
+  </svg>
 </div>
 
 <!-- fixed chrome -->
@@ -193,23 +206,23 @@
     <a class="avatarBtn" href="#top" aria-label="OHAYO TEA"><img src="../assets/logo-shiba.jpg" alt=""></a>
   </div>
 </div>
-<button class="scrollBtn" id="scrollBtn" aria-label="Scroll down">↓</button>
+<button class="scrollBtn" id="scrollBtn" aria-label="Scroll down"><span class="arw">↓</span></button>
 
 <main id="top">
 
-  <!-- HERO / scene0 -->
-  <section class="hero scene">
+  <!-- HERO -->
+  <section class="hero">
     <div class="Container">
-      <img class="hero__logo" src="../assets/logo-shiba.jpg" alt="OHAYO TEA" />
-      <p class="hero__desc palt"><span class="text">ふつうの一杯の、</span><br/><span class="text">どこにもない物語。</span></p>
-      <p class="hero__desc small palt"><span class="text">マンチェスターの茶犬から――。</span></p>
-      <p class="hero__en">An ordinary cup, and the little story behind it.</p>
+      <img class="hero__logo reveal" src="../assets/logo-shiba.jpg" alt="OHAYO TEA" data-fg="0.04" />
+      <p class="hero__desc palt reveal"><span class="text">ふつうの一杯の、</span><br/><span class="text">どこにもない物語。</span></p>
+      <p class="hero__desc small palt reveal"><span class="text">マンチェスターの茶犬から――。</span></p>
+      <p class="hero__en reveal">An ordinary cup, and the little story behind it.</p>
     </div>
   </section>
 
-  <!-- FEATURED story -->
+  <!-- FEATURED -->
   <section class="scene" id="featured"><div class="Container">
-    <a class="featured" href="#menu">
+    <a class="featured reveal" href="#menu">
       <div class="thumb"><img src="../assets/hero-hand-sign.jpg" alt=""></div>
       <div class="body">
         <p class="lead">A new story is brewing at OHAYO TEA. Come and read it.</p>
@@ -226,78 +239,78 @@
 
     <section class="scene" id="story1">
       <a class="teaser">
-        <div class="teaser__badge"><div class="Badge">おはよう<b> 黑糖</b></div></div>
-        <div class="headline palt">
+        <div class="teaser__badge reveal"><div class="Badge">おはよう<b> 黑糖</b></div></div>
+        <div class="headline palt reveal">
           <span class="line"><span>ふつうの一杯じゃない。</span></span>
           <span class="line"><span class="en">Slow-cooked pearls,</span></span>
           <span class="line"><span class="en">tiger-striped in the cup —</span></span>
           <span class="line"><span class="en">brown sugar, done right.</span></span>
         </div>
-        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+        <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:10%;right:2%" viewBox="0 0 100 120"><path d="M28 34 h44 l-5 66 a10 10 0 0 1 -10 9 h-14 a10 10 0 0 1 -10 -9 Z" fill="#fff" stroke="#d89c52" stroke-width="3"/><path d="M31 74 h38 l-3 26 a10 10 0 0 1 -10 9 h-14 a10 10 0 0 1 -10 -9 Z" fill="#5b3b28"/><rect x="26" y="28" width="48" height="9" rx="4" fill="#2d2927"/><circle cx="40" cy="92" r="4" fill="#2d2927"/><circle cx="52" cy="96" r="4" fill="#2d2927"/><circle cx="62" cy="92" r="4" fill="#2d2927"/></svg>
+      <svg class="spot" style="top:8%;right:2%" data-fg="0.12" viewBox="0 0 100 120"><path d="M28 34 h44 l-5 66 a10 10 0 0 1 -10 9 h-14 a10 10 0 0 1 -10 -9 Z" fill="#fff" stroke="#d89c52" stroke-width="3"/><path d="M31 74 h38 l-3 26 a10 10 0 0 1 -10 9 h-14 a10 10 0 0 1 -10 -9 Z" fill="#5b3b28"/><rect x="26" y="28" width="48" height="9" rx="4" fill="#2d2927"/><circle cx="40" cy="92" r="4" fill="#2d2927"/><circle cx="52" cy="96" r="4" fill="#2d2927"/><circle cx="62" cy="92" r="4" fill="#2d2927"/></svg>
     </section>
 
     <section class="scene">
       <a class="teaser right">
-        <div class="teaser__badge"><div class="Badge">おはよう<b> 抹茶</b></div></div>
-        <div class="headline palt">
+        <div class="teaser__badge reveal"><div class="Badge">おはよう<b> 抹茶</b></div></div>
+        <div class="headline palt reveal">
           <span class="line"><span>石臼で、ゆっくりと。</span></span>
           <span class="line"><span class="en">Stone-ground matcha,</span></span>
           <span class="line"><span class="en">whisked fresh for</span></span>
           <span class="line"><span class="en">every single cup.</span></span>
         </div>
-        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+        <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:12%;left:2%" viewBox="0 0 110 110"><circle cx="55" cy="58" r="34" fill="#dff0ea"/><path d="M55 22 q11 13 0 24 q-11 -11 0 -24Z" fill="#32645a"/><path d="M33 50 q16 28 44 10" stroke="#32645a" stroke-width="4" fill="none"/><circle cx="46" cy="64" r="4" fill="#32645a"/><circle cx="66" cy="64" r="4" fill="#32645a"/></svg>
+      <svg class="spot" style="top:10%;left:2%" data-fg="0.16" viewBox="0 0 110 110"><circle cx="55" cy="58" r="34" fill="#dff0ea"/><path d="M55 22 q11 13 0 24 q-11 -11 0 -24Z" fill="#32645a"/><path d="M33 50 q16 28 44 10" stroke="#32645a" stroke-width="4" fill="none"/><circle cx="46" cy="64" r="4" fill="#32645a"/><circle cx="66" cy="64" r="4" fill="#32645a"/></svg>
     </section>
 
     <section class="scene">
       <a class="teaser">
-        <div class="teaser__badge"><div class="Badge">おはよう<b> 果茶</b></div></div>
-        <div class="headline palt">
+        <div class="teaser__badge reveal"><div class="Badge">おはよう<b> 果茶</b></div></div>
+        <div class="headline palt reveal">
           <span class="line"><span>畑から、コップへ。</span></span>
           <span class="line"><span class="en">Manchester's first</span></span>
           <span class="line"><span class="en">freshly-brewed fruit tea —</span></span>
           <span class="line"><span class="en">real leaves, real fruit.</span></span>
         </div>
-        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+        <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:8%;right:3%" viewBox="0 0 110 110"><circle cx="42" cy="50" r="22" fill="#f15464"/><circle cx="68" cy="58" r="17" fill="#ffb0a3"/><path d="M42 26 q9 9 0 18 q-9 -9 0 -18Z" fill="#32645a"/><circle cx="56" cy="80" r="11" fill="#ffd258"/></svg>
+      <svg class="spot" style="top:6%;right:3%" data-fg="0.1" viewBox="0 0 110 110"><circle cx="42" cy="50" r="22" fill="#f15464"/><circle cx="68" cy="58" r="17" fill="#ffb0a3"/><path d="M42 26 q9 9 0 18 q-9 -9 0 -18Z" fill="#32645a"/><circle cx="56" cy="80" r="11" fill="#ffd258"/></svg>
     </section>
 
     <section class="scene">
       <a class="teaser right">
-        <div class="teaser__badge"><div class="Badge">おはよう<b> 柴犬燒</b></div></div>
-        <div class="headline palt">
+        <div class="teaser__badge reveal"><div class="Badge">おはよう<b> 柴犬燒</b></div></div>
+        <div class="headline palt reveal">
           <span class="line"><span>あたたかい、しばいぬ。</span></span>
           <span class="line"><span class="en">A warm little Shiba waffle,</span></span>
           <span class="line"><span class="en">just for you.</span></span>
         </div>
-        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+        <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:6%;left:2%;width:150px" viewBox="0 0 140 130"><g transform="translate(14 8)"><path d="M0 60 q8 -60 56 -60 q48 0 56 60 q5 56 -56 62 q-61 -6 -56 -62Z" fill="#e7a86a"/><path d="M6 10 q-14 -26 6 -30 q20 8 16 30Z" fill="#e7a86a"/><path d="M106 10 q14 -26 -6 -30 q-20 8 -16 30Z" fill="#e7a86a"/><path d="M18 66 q38 24 76 0 q-10 36 -38 36 q-28 0 -38 -36Z" fill="#fff6ee"/><circle cx="36" cy="52" r="5.5" fill="#2d2927"/><circle cx="76" cy="52" r="5.5" fill="#2d2927"/><circle cx="56" cy="70" r="4.5" fill="#2d2927"/><circle cx="20" cy="64" r="8" fill="#ffb0a3"/><circle cx="92" cy="64" r="8" fill="#ffb0a3"/></g></svg>
+      <svg class="spot" style="top:4%;left:2%;width:160px" data-fg="0.14" viewBox="0 0 140 130"><g transform="translate(14 8)"><path d="M0 60 q8 -60 56 -60 q48 0 56 60 q5 56 -56 62 q-61 -6 -56 -62Z" fill="#e7a86a"/><path d="M6 10 q-14 -26 6 -30 q20 8 16 30Z" fill="#e7a86a"/><path d="M106 10 q14 -26 -6 -30 q-20 8 -16 30Z" fill="#e7a86a"/><path d="M18 66 q38 24 76 0 q-10 36 -38 36 q-28 0 -38 -36Z" fill="#fff6ee"/><circle cx="36" cy="52" r="5.5" fill="#2d2927"/><circle cx="76" cy="52" r="5.5" fill="#2d2927"/><circle cx="56" cy="70" r="4.5" fill="#2d2927"/><circle cx="20" cy="64" r="8" fill="#ffb0a3"/><circle cx="92" cy="64" r="8" fill="#ffb0a3"/></g></svg>
     </section>
 
     <section class="scene">
       <a class="teaser">
-        <div class="teaser__badge"><div class="Badge">おはよう<b> ヴィーガン</b></div></div>
-        <div class="headline palt">
+        <div class="teaser__badge reveal"><div class="Badge">おはよう<b> ヴィーガン</b></div></div>
+        <div class="headline palt reveal">
           <span class="line"><span>だれの一杯も、ここに。</span></span>
           <span class="line"><span class="en">A full vegan menu —</span></span>
           <span class="line"><span class="en">a whole menu, not</span></span>
           <span class="line"><span class="en">an afterthought.</span></span>
         </div>
-        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+        <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:12%;right:3%" viewBox="0 0 100 110"><path d="M50 26 C40 42 40 60 50 76 C60 60 60 42 50 26Z" fill="#32645a"/><path d="M50 76 C34 68 27 55 27 42 C43 46 50 62 50 76Z" fill="#3f7a6d"/><path d="M50 76 C66 68 73 55 73 42 C57 46 50 62 50 76Z" fill="#3f7a6d"/></svg>
+      <svg class="spot" style="top:12%;right:3%" data-fg="0.13" viewBox="0 0 100 110"><path d="M50 26 C40 42 40 60 50 76 C60 60 60 42 50 26Z" fill="#32645a"/><path d="M50 76 C34 68 27 55 27 42 C43 46 50 62 50 76Z" fill="#3f7a6d"/><path d="M50 76 C66 68 73 55 73 42 C57 46 50 62 50 76Z" fill="#3f7a6d"/></svg>
     </section>
 
   </div>
 
-  <!-- MENU panel (same visual language) -->
+  <!-- MENU -->
   <section id="menu"><div class="Container">
-    <div class="panel">
+    <div class="panel reveal">
       <h2>品書き · Signature cups</h2>
       <p class="lead">A few favourites — full menu &amp; vegan options in store and on Deliveroo.</p>
       <div class="m-grid">
@@ -316,10 +329,10 @@
 
   <!-- STORY FOOTER -->
   <section class="storyFooter"><div class="Container">
-    <p class="storyFooter__desc palt"><span>物語はつづくよ、どこまでも。</span><br/><span>ずっと、おはよう。</span></p>
-    <a class="goldBtn" href="#menu">メニューを見る</a>
-    <a class="goldBtn" href="https://maps.google.com/?q=95+Princess+Street+Manchester+M1+4HT" target="_blank" rel="noopener">お店について</a>
-    <a class="goldBtn" href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Deliverooで注文</a>
+    <p class="storyFooter__desc palt reveal"><span>物語はつづくよ、どこまでも。</span><br/><span>ずっと、おはよう。</span></p>
+    <a class="goldBtn reveal" href="#menu">メニューを見る</a>
+    <a class="goldBtn reveal" href="https://maps.google.com/?q=95+Princess+Street+Manchester+M1+4HT" target="_blank" rel="noopener">お店について</a>
+    <a class="goldBtn reveal" href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Deliverooで注文</a>
   </div></section>
 
 </main>
@@ -363,6 +376,7 @@
 </div>
 
 <script>
+  /* fullscreen menu */
   var fs=document.getElementById('fsMenu');
   document.getElementById('menuBtn').addEventListener('click',function(){fs.classList.add('is-open');fs.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';});
   function closeFs(){fs.classList.remove('is-open');fs.setAttribute('aria-hidden','true');document.body.style.overflow='';}
@@ -370,11 +384,39 @@
   fs.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeFs);});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeFs();});
 
+  /* scroll-down button */
   var scrollBtn=document.getElementById('scrollBtn');
   scrollBtn.addEventListener('click',function(){window.scrollBy({top:window.innerHeight*0.9,behavior:'smooth'});});
-  window.addEventListener('scroll',function(){
-    if(window.scrollY>window.innerHeight*0.6)scrollBtn.classList.add('is-hide');else scrollBtn.classList.remove('is-hide');
-  },{passive:true});
+
+  /* ===== scroll-reactive parallax (background layers + floating spots) ===== */
+  var bgEls=[].slice.call(document.querySelectorAll('[data-bg]'));
+  var fgEls=[].slice.call(document.querySelectorAll('[data-fg]'));
+  var ticking=false, vh=window.innerHeight;
+  window.addEventListener('resize',function(){vh=window.innerHeight;},{passive:true});
+  function frame(){
+    var y=window.scrollY;
+    for(var i=0;i<bgEls.length;i++){
+      var s=bgEls[i].getAttribute('data-bg').split(',');
+      bgEls[i].style.transform='translate3d('+(y*parseFloat(s[0]))+'px,'+(y*parseFloat(s[1]))+'px,0)';
+    }
+    for(var j=0;j<fgEls.length;j++){
+      var sp=parseFloat(fgEls[j].getAttribute('data-fg'));
+      var r=fgEls[j].getBoundingClientRect();
+      var d=(r.top+r.height/2)-vh/2;
+      fgEls[j].style.transform='translate3d(0,'+(-d*sp)+'px,0)';
+    }
+    /* hide scroll button after first view */
+    if(y>vh*0.6)scrollBtn.classList.add('is-hide');else scrollBtn.classList.remove('is-hide');
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(frame);ticking=true;}},{passive:true});
+  frame();
+
+  /* ===== scroll-reveal (js-parallaxItem style) ===== */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.18,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 </script>
 </body>
 </html>
