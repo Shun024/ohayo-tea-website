@@ -80,17 +80,32 @@ for the closest real menu drinks that match the photos: **White Peach Tea w/ Che
   marquee, hover-zoom product grid. Uses the dark/neon-sign photography. Best for a Gen-Z,
   night-out, viral-boba crowd.
 
-### 04 · Story · お茶物語  ← client's requested direction
-- **Palette:** warm cream `#fef9f3` / `#fef3e9` / `#efdbcb`, warm-black ink `#2d2927`,
-  deep green `#32645a`, soft accents peach `#ffc8b8`, yellow `#ffd258`, coral `#f15464`,
-  ochre `#d89c52`, purple `#503278`.
-- **Type:** Zen Old Mincho (lyrical serif headlines) + Zen Kaku Gothic New (Japanese-capable
-  gothic body) + Zen Maru Gothic (rounded accents).
-- **Feel:** Japanese editorial "digital magazine" — flat rounded inline-SVG illustrations
-  (shiba, boba cup, tea leaves, fruit, shiba waffle), poetic bilingual headlines, story-card
-  grid, generous whitespace. Modelled on the **misatoto** microsite
-  (`town.shimane-misato.lg.jp/misatoto/`) the client referenced; palette & type sampled from
-  it, then fitted to OHAYO's real content, photos and menu.
+### 04 · Story · お茶物語  ← client's requested direction (close replica of misatoto)
+Built as a **faithful replica** of the misatoto microsite
+(`town.shimane-misato.lg.jp/misatoto/`) the client shared — its structure, palette, type
+scale and signature components were sampled directly from the site's own CSS, then fitted to
+OHAYO's real content, photos and menu.
+- **Palette (sampled from misatoto):** sand `#efdbcb`, cream `#fef9f3`, ink `#2d2927`,
+  badge purple `#503278` with peach `#ffc8b8` highlight → coral `#f15464` on hover, green
+  `#32645a`, gold buttons `#c48426`.
+- **Type:** Noto Sans JP (the closest free match to the site's Tazugane Gothic / Yakumono).
+- **Replicated signatures:**
+  - Full-bleed **illustrated landscape background** (hills, river, tea bushes, trees, sun,
+    clouds) you scroll over — the closest static approximation of misatoto's animated canvas
+    map.
+  - Two fixed **round buttons top-right** (dark rounded-square hamburger + circular character
+    avatar) and a round **scroll-down button** bottom-right.
+  - Poetic **multi-line headlines** with the exact **white marker-highlighter** behind each
+    line, paced as full-screen "scenes" you scroll through.
+  - The **「おはよう + category」badge** system (mirrors misatoto's 「みさとと + tag」) and the
+    **「読む / Read」** pill buttons.
+  - Poetic closing (「物語はつづくよ、どこまでも。ずっと、おはよう。」) with stacked **gold buttons**,
+    and a **fullscreen overlay menu** with drink "story teasers" — both straight from the
+    reference.
+- **Caveat:** misatoto's bespoke animated illustrated *map* is custom commissioned artwork;
+  this concept approximates it with an SVG landscape. A full match would mean commissioning a
+  matching illustration set. Its real fonts (Tazugane/Yakumono) are also paid licences —
+  Noto Sans JP is the free stand-in.
 
 ### 03 · Modern Craft
 - **Palette:** warm paper `#f6efe4`, muted matcha `#5e6b3f`, clay `#b4553f`.

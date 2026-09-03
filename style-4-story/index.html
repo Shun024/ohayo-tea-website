@@ -3,395 +3,378 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>OHAYO TEA — Story / お茶物語 concept</title>
-<meta name="description" content="OHAYO TEA — a Shiba-Inu tea house in the heart of Manchester. An ordinary cup, an extraordinary little story." />
+<title>OHAYO TEA — Story / みさとと-style concept</title>
+<meta name="description" content="OHAYO TEA — an ordinary cup, and the little story behind it. A Shiba-Inu tea house in the heart of Manchester." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Zen+Maru+Gothic:wght@500;700&family=Zen+Old+Mincho:wght@600;700;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --paper:#fef9f3;
-    --paper2:#fef3e9;
     --sand:#efdbcb;
+    --sky:#f6e6d3;
+    --paper:#fef9f3;
     --ink:#2d2927;
-    --green:#32645a;
-    --peach:#ffc8b8;
-    --yellow:#ffd258;
-    --coral:#f15464;
-    --ochre:#d89c52;
     --purple:#503278;
-    --line:#e7d6c6;
+    --peach:#ffc8b8;
+    --coral:#f15464;
+    --green:#32645a;
+    --green2:#3f7a6d;
+    --gold:#c48426;
+    --yellow:#ffd258;
+    --ochre:#d89c52;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:'Zen Kaku Gothic New',system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.85;-webkit-font-smoothing:antialiased}
+  body{font-family:'Noto Sans JP',system-ui,sans-serif;color:var(--ink);background:var(--sand);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
-  .wrap{width:min(1080px,90vw);margin-inline:auto}
-  .mincho{font-family:'Zen Old Mincho',serif}
-  .maru{font-family:'Zen Maru Gothic',sans-serif}
-  .jp{font-feature-settings:"palt" 1}
+  .palt{font-feature-settings:"palt" 1;letter-spacing:.08em}
+  .Container{width:min(1040px,88vw);margin-inline:auto}
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-  /* NAV */
-  header.nav{position:sticky;top:0;z-index:50;background:rgba(254,249,243,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:.8rem 0}
-  .brand{display:flex;align-items:center;gap:.6rem;font-family:'Zen Maru Gothic';font-weight:700;font-size:1.2rem;letter-spacing:.02em}
-  .brand img{width:40px;height:40px;border-radius:50%;object-fit:cover;background:#fff}
-  .menu{display:flex;gap:1.9rem;align-items:center;font-size:.92rem;font-weight:500}
-  .menu a{color:var(--ink);opacity:.75}
-  .menu a:hover{opacity:1;color:var(--green)}
-  .btn{background:var(--green);color:#fff!important;padding:.6rem 1.3rem;border-radius:999px;font-weight:700;font-size:.9rem;transition:transform .15s,background .2s}
-  .btn:hover{transform:translateY(-2px);background:#264c44}
-  .btn.coral{background:var(--coral)}
-  .btn.coral:hover{background:#d83b4c}
-  .btn.line{background:transparent;color:var(--ink)!important;border:1.5px solid var(--ink)}
-  .btn.line:hover{background:var(--ink);color:var(--paper)!important}
+  /* ===== illustrated background (approximation of the canvas map) ===== */
+  .map{position:fixed;inset:0;z-index:0;overflow:hidden}
+  .map svg{position:absolute;left:50%;transform:translateX(-50%);bottom:0;width:1600px;max-width:none}
+  .map .sky{position:absolute;inset:0;background:linear-gradient(180deg,var(--sky) 0%,#f8ecdd 45%,var(--sand) 100%)}
+  .cloud{position:absolute;opacity:.8}
+
+  /* ===== fixed chrome (matches SiteHeader) ===== */
+  .chrome{position:fixed;top:0;left:0;right:0;z-index:20;pointer-events:none}
+  .chrome .Container{position:relative;height:0}
+  .menuBtn{pointer-events:auto;position:absolute;width:56px;height:56px;top:40px;right:0;border:0;border-radius:16px;background:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .35s}
+  .menuBtn span{display:block;width:22px;height:2px;background:#fff;margin:3px 0;transition:.35s}
+  .menuBtn:hover{background:#fff;outline:2px solid var(--ink)}
+  .menuBtn:hover span{background:var(--ink)}
+  .avatarBtn{pointer-events:auto;position:absolute;width:56px;height:56px;top:106px;right:0;border:0;border-radius:50%;background:var(--ink);cursor:pointer;overflow:hidden;padding:6px}
+  .avatarBtn img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#fff}
+  .avatarBtn:hover{outline:2px solid var(--ink);background:#fff}
+  .scrollBtn{pointer-events:auto;position:fixed;width:56px;height:56px;right:max(6vw,20px);bottom:40px;border:0;border-radius:50%;background:var(--ink);color:#fff;cursor:pointer;z-index:20;display:grid;place-items:center;transition:.35s;font-size:1.2rem}
+  .scrollBtn:hover{background:#fff;color:var(--ink);outline:2px solid var(--ink)}
+  .scrollBtn.is-hide{opacity:0;visibility:hidden}
+
+  /* ===== content over the map ===== */
+  main{position:relative;z-index:5}
+  .scene{padding:6vh 0}
+  .teasers .scene{position:relative;min-height:62vh;display:flex;align-items:center}
 
   /* HERO */
-  .hero{position:relative;overflow:hidden;padding:3.5rem 0 4.5rem;background:
-      radial-gradient(60% 80% at 88% 12%,#fff4d7 0,transparent 60%),var(--paper)}
-  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:2.5rem;align-items:center}
-  .hero .eyebrow{color:var(--green);font-weight:700;letter-spacing:.16em;font-size:.82rem}
-  .hero h1{font-family:'Zen Old Mincho',serif;font-weight:900;font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.35;margin:.8rem 0;letter-spacing:.02em}
-  .hero h1 .g{color:var(--green)}
-  .hero h1 .o{color:var(--ochre)}
-  .hero .en{font-size:1.05rem;max-width:40ch;opacity:.85;margin-bottom:1.8rem}
-  .cta-row{display:flex;gap:.8rem;flex-wrap:wrap}
-  .hero-art{position:relative}
-  .hero-art svg{width:100%;height:auto;display:block}
-  .dots{position:absolute;inset:0;background-image:radial-gradient(var(--sand) 2px,transparent 2px);background-size:22px 22px;opacity:.5;z-index:0;pointer-events:none}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:14vh 0 8vh}
+  .hero__logo{width:200px;height:200px;border-radius:50%;object-fit:cover;background:var(--paper);border:6px solid var(--paper);box-shadow:0 20px 50px -24px rgba(45,41,39,.5);margin:0 auto 2rem}
+  .hero__desc{font-weight:700;font-size:clamp(1.4rem,3.6vw,2.125rem);line-height:2}
+  .hero__desc .text{background:linear-gradient(to bottom,var(--paper) 92%,transparent 92%);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .15em}
+  .hero__desc.small{font-size:clamp(1rem,2.4vw,1.4rem);margin-top:1.4em;margin-left:2em}
+  .hero__en{margin-top:1.8rem;opacity:.8;font-weight:500}
 
-  /* WAVE divider */
-  .wave{display:block;width:100%;height:40px}
+  /* FEATURED story card */
+  .featured{margin:3rem auto 0;max-width:560px;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(45,41,39,.55);text-align:left;transition:transform .2s}
+  .featured:hover{transform:translateY(-5px)}
+  .featured .thumb{aspect-ratio:16/10;overflow:hidden;background:#fff}
+  .featured .thumb img{width:100%;height:100%;object-fit:cover}
+  .featured .body{padding:1.4rem 1.6rem 1.7rem}
+  .featured .lead{font-size:.92rem;opacity:.75;margin-bottom:.6rem}
 
-  /* SECTION */
-  section{padding:4.5rem 0}
-  .sec-head{text-align:center;margin-bottom:2.6rem}
-  .sec-head .kicker{color:var(--coral);font-weight:700;letter-spacing:.2em;font-size:.8rem}
-  .sec-head h2{font-family:'Zen Old Mincho',serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.6rem);margin-top:.4rem}
-  .sec-head p{opacity:.75;margin-top:.6rem}
+  /* BADGE (exact) */
+  .Badge{display:inline-block;padding:.35em .5em .2em;font-weight:300;font-size:1.05rem;line-height:1;color:#fff;background:var(--purple);transition:background .35s}
+  .Badge b{font-weight:500;color:var(--peach);transition:color .35s}
+  .teaser:hover .Badge,.featured:hover .Badge{background:var(--coral)}
+  .teaser:hover .Badge b,.featured:hover .Badge b{color:var(--purple)}
+  .featured .title{font-weight:700;font-size:1.3rem;line-height:1.5;margin:.7rem 0 1rem}
 
-  /* STORY GRID (the misatoto-style cards) */
-  .stories{background:var(--paper2)}
-  .story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem}
-  .story{background:var(--paper);border-radius:20px;overflow:hidden;border:1px solid var(--line);transition:transform .2s,box-shadow .2s}
-  .story:hover{transform:translateY(-6px);box-shadow:0 22px 40px -28px rgba(45,41,39,.5)}
-  .story .top{aspect-ratio:1/1;display:grid;place-items:center;padding:1.4rem}
-  .story .top svg{width:76%;height:auto}
-  .story .top.c1{background:#dff0ea}.story .top.c2{background:#ffe6dd}
-  .story .top.c3{background:#fff1cf}.story .top.c4{background:#efe6f4}
-  .story .top.c5{background:#f6e2d0}.story .top.c6{background:#e7f0e4}
-  .story .body{padding:1.1rem 1.3rem 1.5rem}
-  .num{font-family:'Zen Old Mincho',serif;color:var(--ochre);font-size:.9rem;letter-spacing:.1em}
-  .story h3{font-family:'Zen Maru Gothic';font-weight:700;font-size:1.15rem;margin:.25rem 0 .5rem}
-  .story .sub{font-size:.92rem;opacity:.75}
+  /* READ pill (exact) */
+  .read{display:inline-block;padding:.7em 1.6em .5em;border-radius:99em;font-weight:700;font-size:1.05rem;color:#fff;background:var(--ink);transition:.35s}
+  .teaser:hover .read,.featured:hover .read{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
 
-  /* ABOUT */
-  .about .wrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:3rem;align-items:center}
-  .about .frame{border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#fff}
-  .about .frame img{width:100%;aspect-ratio:4/5;object-fit:cover}
-  .about .kicker{color:var(--coral);font-weight:700;letter-spacing:.2em;font-size:.8rem}
-  .about h2{font-family:'Zen Old Mincho',serif;font-weight:700;font-size:clamp(1.7rem,3.6vw,2.4rem);margin:.5rem 0 1rem;line-height:1.5}
-  .about p{opacity:.85;margin-bottom:1rem}
-  .about .quote{font-family:'Zen Old Mincho',serif;color:var(--green);font-size:1.2rem;border-left:3px solid var(--yellow);padding-left:1rem;margin-top:1.4rem}
+  /* STORY TEASERS */
+  .teasers{position:relative;z-index:5}
+  .teaser{display:block;max-width:640px;margin:0 0 2.2rem}
+  .teaser.right{margin-left:auto;text-align:right}
+  .teaser__badge{margin-bottom:15px}
+  .headline{font-weight:700;line-height:1.35;font-size:clamp(1.6rem,4.4vw,2.6rem)}
+  .headline .line{display:block}
+  .headline .line span{background:linear-gradient(to bottom,var(--paper) 90%,rgba(255,255,255,0) 90%);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:.02em .22em}
+  .headline .en{font-weight:500;font-size:.66em;opacity:.95}
+  .teaser__more{margin-top:28px}
 
-  /* MENU */
-  .menu-sec{background:var(--sand)}
-  .m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem}
-  .m-card{background:var(--paper);border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+  /* spot illustrations floating in the scene */
+  .spot{position:absolute;width:130px;height:auto;z-index:1;opacity:.96}
+
+  /* MENU (same language) */
+  .panel{position:relative;z-index:5;background:var(--paper);border-radius:28px;box-shadow:0 30px 60px -40px rgba(45,41,39,.5);padding:clamp(1.6rem,4vw,3rem);margin:2rem auto}
+  .panel h2{font-weight:900;font-size:clamp(1.6rem,3.6vw,2.3rem);text-align:center}
+  .panel .lead{text-align:center;opacity:.75;margin:.4rem 0 2rem}
+  .m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+  .m-card{background:var(--sand);border-radius:16px;overflow:hidden}
   .m-card .ph{aspect-ratio:1;overflow:hidden;background:#fff}
   .m-card .ph img{width:100%;height:100%;object-fit:cover}
-  .m-card .b{padding:.9rem 1rem 1.1rem}
-  .m-card h4{font-family:'Zen Maru Gothic';font-weight:700;font-size:1rem;line-height:1.35}
-  .m-card .zh{color:var(--green);font-size:.85rem;margin-top:.1rem}
-  .m-card .pr{margin-top:.5rem;font-weight:700;color:var(--coral)}
-  .m-note{text-align:center;opacity:.7;margin-top:1.6rem;font-size:.92rem}
+  .m-card .b{padding:.8rem .9rem 1rem}
+  .m-card h4{font-weight:700;font-size:.98rem;line-height:1.35}
+  .m-card .zh{color:var(--green);font-size:.82rem;margin-top:.1rem}
+  .m-card .pr{margin-top:.4rem;font-weight:700;color:var(--coral)}
+  .m-note{text-align:center;opacity:.7;margin-top:1.4rem;font-size:.9rem}
 
-  /* FEATURE band */
-  .band{background:var(--green);color:#fff}
-  .band .wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:center}
-  .band .kicker{color:var(--yellow);font-weight:700;letter-spacing:.2em;font-size:.8rem}
-  .band h2{font-family:'Zen Old Mincho',serif;font-weight:700;font-size:clamp(1.6rem,3.4vw,2.3rem);margin:.5rem 0 1rem}
-  .band p{opacity:.9;margin-bottom:1.4rem}
-  .band .art{display:grid;place-items:center}
-  .band .art svg{width:min(320px,80%);height:auto}
+  /* STORY FOOTER (poetic close + gold buttons) */
+  .storyFooter{position:relative;z-index:5;text-align:center;padding:8vh 0 6vh}
+  .storyFooter__desc{font-weight:700;font-size:clamp(1.4rem,3.4vw,2.125rem);line-height:2;margin-bottom:2.2rem}
+  .storyFooter__desc span{background:linear-gradient(to bottom,var(--paper) 90%,transparent 90%);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .18em}
+  .goldBtn{width:min(320px,80vw);display:block;margin:0 auto 18px;padding:.75em 1.6em .55em;border-radius:99em;font-weight:700;font-size:1.2rem;color:#fff;background:var(--gold);text-align:right;position:relative;transition:.35s}
+  .goldBtn::before{content:"";position:absolute;left:1.4em;top:50%;width:22px;height:22px;transform:translateY(-50%);background:currentColor;-webkit-mask:no-repeat center/contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 12h14M13 6l7 6-7 6" fill="none" stroke="white" stroke-width="2"/></svg>');mask:no-repeat center/contain url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 12h14M13 6l7 6-7 6" fill="none" stroke="white" stroke-width="2"/></svg>')}
+  .goldBtn:hover{background:#fff;color:var(--ink)}
 
-  /* REWARDS + VEGAN two-up */
-  .duo{display:grid;grid-template-columns:1fr 1fr;gap:1.6rem}
-  .pane{border-radius:22px;padding:2rem;border:1px solid var(--line)}
-  .pane.peach{background:var(--peach)}
-  .pane.mint{background:#dff0ea}
-  .pane .ico{width:52px;height:52px;margin-bottom:.6rem}
-  .pane h3{font-family:'Zen Maru Gothic';font-weight:700;font-size:1.4rem;margin-bottom:.6rem}
-  .pane ul{margin:.8rem 0 0;padding:0}
-  .pane li{list-style:none;padding:.5rem 0;border-top:1px dashed rgba(45,41,39,.2);display:flex;gap:.6rem}
-  .pane li:first-child{border-top:0}
-
-  /* VISIT */
-  .visit .wrap{display:grid;grid-template-columns:1fr 1fr;gap:2.2rem}
-  .info div{padding:.75rem 0;border-bottom:1px solid var(--line)}
-  .info .l{font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--green);font-weight:700}
-  .info .v{font-family:'Zen Maru Gothic';font-size:1.1rem;margin-top:.1rem}
-  .map{border-radius:22px;overflow:hidden;border:1px solid var(--line);min-height:330px}
-  .map iframe{width:100%;height:100%;min-height:330px;border:0}
-
-  /* FOOTER */
-  footer{background:var(--ink);color:var(--paper);padding:3.2rem 0 2rem;text-align:center}
-  footer .brand{justify-content:center;color:var(--paper);font-size:1.4rem;margin-bottom:.4rem}
-  footer .tag{font-family:'Zen Old Mincho',serif;color:var(--yellow);margin-bottom:1.2rem}
-  .socials{display:flex;gap:.8rem;justify-content:center;margin-bottom:1.4rem}
+  /* real footer */
+  .siteFooter{position:relative;z-index:5;background:var(--ink);color:var(--paper);text-align:center;padding:3rem 0 2rem}
+  .siteFooter .brand{font-weight:900;font-size:1.4rem;margin-bottom:.4rem}
+  .siteFooter .tag{color:var(--yellow);margin-bottom:1.2rem;font-weight:700}
+  .socials{display:flex;gap:.8rem;justify-content:center;margin-bottom:1.2rem}
   .socials a{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;font-weight:700}
   .socials a:hover{background:var(--paper);color:var(--ink)}
   .fine{opacity:.6;font-size:.82rem;line-height:1.7}
 
-  @media(max-width:880px){
-    .menu{display:none}
-    .hero .wrap,.about .wrap,.band .wrap,.visit .wrap{grid-template-columns:1fr}
-    .story-grid{grid-template-columns:1fr 1fr}
+  /* ===== fullscreen menu overlay ===== */
+  .FullscreenMenu{position:fixed;inset:0;z-index:30;background:var(--sand);overflow-y:auto;padding:2.5rem 0 4rem;
+     opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .4s,transform .4s,visibility .4s}
+  .FullscreenMenu.is-open{opacity:1;visibility:visible;transform:none}
+  .FM__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
+  .FM__logo{display:flex;align-items:center;gap:.6rem;font-weight:900;font-size:1.3rem}
+  .FM__logo img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff}
+  .closeBtn{width:56px;height:56px;border:0;border-radius:16px;background:var(--ink);color:#fff;font-size:1.4rem;cursor:pointer}
+  .closeBtn:hover{background:#fff;color:var(--ink);outline:2px solid var(--ink)}
+  .MenuList{list-style:none;border-top:1px solid #dcc7b2}
+  .MenuList a{display:flex;justify-content:space-between;align-items:center;padding:1.1rem .2rem;border-bottom:1px solid #dcc7b2;font-weight:700;font-size:1.3rem}
+  .MenuList a:hover{color:var(--coral)}
+  .MenuStory__title{display:block;font-weight:900;margin:2rem 0 1rem;font-size:1.1rem;color:var(--green)}
+  .MenuStoryList{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+  .StoryTeaser{display:flex;gap:.9rem;background:var(--paper);border-radius:14px;overflow:hidden;padding:.6rem}
+  .StoryTeaser:hover{transform:translateY(-3px);transition:transform .2s}
+  .StoryTeaser .thumb{width:84px;height:84px;border-radius:10px;overflow:hidden;flex:none;background:#fff}
+  .StoryTeaser .thumb img{width:100%;height:100%;object-fit:cover}
+  .StoryTeaser .title{font-weight:700;font-size:.95rem;line-height:1.4;margin-top:.4rem}
+
+  @media(max-width:820px){
     .m-grid{grid-template-columns:1fr 1fr}
-    .duo{grid-template-columns:1fr}
+    .MenuStoryList{grid-template-columns:1fr}
+    .spot{display:none}
+    .hero__logo{width:150px;height:150px}
   }
 </style>
 </head>
 <body>
 
-<header class="nav">
-  <div class="wrap">
-    <a class="brand" href="#top"><img src="../assets/logo-shiba.jpg" alt="OHAYO TEA" /> OHAYO TEA</a>
-    <nav class="menu jp">
-      <a href="#stories">物語 Stories</a>
-      <a href="#about">About</a>
-      <a href="#menu">Menu</a>
-      <a href="#visit">Visit</a>
-      <a class="btn coral" href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Order</a>
-    </nav>
-  </div>
-</header>
+<!-- illustrated map background (approximation of misatoto's canvas scenery) -->
+<div class="map" aria-hidden="true">
+  <div class="sky"></div>
+  <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax meet">
+    <circle cx="1240" cy="180" r="120" fill="#ffe6a6"/>
+    <!-- far hills -->
+    <path d="M0 640 Q 300 540 600 620 T 1200 600 T 1600 640 V900 H0 Z" fill="#bfd8c4"/>
+    <path d="M0 720 Q 360 620 720 700 T 1600 690 V900 H0 Z" fill="#8fbea1"/>
+    <!-- river -->
+    <path d="M760 900 C 720 760 900 720 840 600 C 800 520 900 470 880 420" fill="none" stroke="#cfe6ea" stroke-width="46" stroke-linecap="round"/>
+    <!-- near hill -->
+    <path d="M0 800 Q 400 700 800 780 T 1600 770 V900 H0 Z" fill="#5f9773"/>
+    <!-- tea bushes -->
+    <g fill="#3f7a6d">
+      <circle cx="180" cy="806" r="26"/><circle cx="230" cy="812" r="30"/><circle cx="285" cy="806" r="24"/>
+      <circle cx="1320" cy="812" r="30"/><circle cx="1372" cy="818" r="26"/><circle cx="1268" cy="818" r="24"/>
+    </g>
+    <!-- little trees -->
+    <g>
+      <rect x="470" y="760" width="10" height="40" fill="#7a4a2b"/><circle cx="475" cy="748" r="34" fill="#32645a"/>
+      <rect x="1090" y="748" width="12" height="48" fill="#7a4a2b"/><circle cx="1096" cy="734" r="40" fill="#2f5c50"/>
+    </g>
+  </svg>
+  <svg class="cloud" style="top:12%;left:6%;width:180px" viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="34"/><circle cx="105" cy="45" r="40"/><circle cx="150" cy="58" r="30"/><rect x="55" y="60" width="100" height="26" rx="13"/></g></svg>
+  <svg class="cloud" style="top:24%;right:10%;width:150px" viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="30"/><circle cx="105" cy="45" r="36"/><circle cx="150" cy="58" r="26"/><rect x="58" y="62" width="94" height="24" rx="12"/></g></svg>
+</div>
 
-<a id="top"></a>
-<section class="hero">
-  <div class="dots"></div>
-  <div class="wrap">
-    <div>
-      <div class="eyebrow jp">みさとの茶犬・マンチェスター &nbsp;·&nbsp; SHIBA TEA HOUSE</div>
-      <h1 class="jp">ふつうの一杯の、<br/><span class="g">どこにもない</span><span class="o">物語</span>。</h1>
-      <p class="en">An ordinary cup — and the little story behind it. Freshly brewed fruit tea, stone-ground matcha and brown-sugar boba, handcrafted in the heart of Manchester.</p>
-      <div class="cta-row">
-        <a class="btn" href="#stories">Read our stories</a>
-        <a class="btn line" href="#menu">See the menu</a>
+<!-- fixed chrome -->
+<div class="chrome">
+  <div class="Container">
+    <button class="menuBtn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a class="avatarBtn" href="#top" aria-label="OHAYO TEA"><img src="../assets/logo-shiba.jpg" alt=""></a>
+  </div>
+</div>
+<button class="scrollBtn" id="scrollBtn" aria-label="Scroll down">↓</button>
+
+<main id="top">
+
+  <!-- HERO / scene0 -->
+  <section class="hero scene">
+    <div class="Container">
+      <img class="hero__logo" src="../assets/logo-shiba.jpg" alt="OHAYO TEA" />
+      <p class="hero__desc palt"><span class="text">ふつうの一杯の、</span><br/><span class="text">どこにもない物語。</span></p>
+      <p class="hero__desc small palt"><span class="text">マンチェスターの茶犬から――。</span></p>
+      <p class="hero__en">An ordinary cup, and the little story behind it.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED story -->
+  <section class="scene" id="featured"><div class="Container">
+    <a class="featured" href="#menu">
+      <div class="thumb"><img src="../assets/hero-hand-sign.jpg" alt=""></div>
+      <div class="body">
+        <p class="lead">A new story is brewing at OHAYO TEA. Come and read it.</p>
+        <div class="Badge">おはよう<b> 茶犬</b></div>
+        <p class="title">The little tea-dog of Manchester — freshly brewed fruit tea, handcrafted cup by cup.</p>
+        <span class="read">読む &nbsp;Read</span>
       </div>
-    </div>
-    <div class="hero-art">
-      <!-- flat illustration: shiba + boba cup + fruit + leaves -->
-      <svg viewBox="0 0 460 420" role="img" aria-label="OHAYO TEA illustration">
-        <circle cx="300" cy="150" r="130" fill="#ffe9b0"/>
-        <!-- tea leaves -->
-        <path d="M70 120 C40 150 45 200 95 205 C110 160 105 135 70 120 Z" fill="#32645a"/>
-        <path d="M95 205 C95 175 90 150 72 122" stroke="#274f47" stroke-width="4" fill="none"/>
-        <!-- peach -->
-        <circle cx="118" cy="285" r="46" fill="#ffc8b8"/>
-        <path d="M118 245 q14 -18 30 -8 q-10 16 -30 10 Z" fill="#32645a"/>
-        <!-- big boba cup -->
-        <g>
-          <path d="M175 150 h150 l-16 210 a20 20 0 0 1 -20 18 h-78 a20 20 0 0 1 -20 -18 Z" fill="#fff"/>
-          <path d="M175 150 h150 l-4 52 h-142 Z" fill="#bfe0d5"/>
-          <path d="M186 320 h128 l-6 40 a20 20 0 0 1 -20 18 h-76 a20 20 0 0 1 -20 -18 Z" fill="#5b3b28"/>
-          <!-- straw -->
-          <rect x="238" y="90" width="22" height="150" rx="10" fill="#f15464" transform="rotate(9 249 165)"/>
-          <!-- lid -->
-          <rect x="168" y="138" width="164" height="22" rx="11" fill="#2d2927"/>
-          <!-- pearls -->
-          <circle cx="212" cy="350" r="10" fill="#2d2927"/><circle cx="238" cy="358" r="10" fill="#2d2927"/>
-          <circle cx="266" cy="350" r="10" fill="#2d2927"/><circle cx="292" cy="356" r="10" fill="#2d2927"/>
-          <circle cx="226" cy="338" r="10" fill="#2d2927"/><circle cx="280" cy="338" r="10" fill="#2d2927"/>
-          <!-- OHAYO label -->
-          <circle cx="250" cy="250" r="34" fill="none" stroke="#d89c52" stroke-width="3"/>
-        </g>
-        <!-- shiba peeking -->
-        <g transform="translate(322 250)">
-          <path d="M0 40 q6 -46 44 -46 q38 0 44 46 q4 40 -44 44 q-48 -4 -44 -44 Z" fill="#e7a86a"/>
-          <path d="M6 6 q-10 -26 4 -30 q16 6 14 30 Z" fill="#e7a86a"/>
-          <path d="M82 6 q10 -26 -4 -30 q-16 6 -14 30 Z" fill="#e7a86a"/>
-          <path d="M14 44 q30 22 60 0 q-8 30 -30 30 q-22 0 -30 -30 Z" fill="#fff6ee"/>
-          <circle cx="28" cy="36" r="4.5" fill="#2d2927"/><circle cx="60" cy="36" r="4.5" fill="#2d2927"/>
-          <circle cx="44" cy="50" r="4" fill="#2d2927"/>
-          <circle cx="16" cy="48" r="6" fill="#ffb0a3"/><circle cx="72" cy="48" r="6" fill="#ffb0a3"/>
-        </g>
-      </svg>
-    </div>
-  </div>
-  <svg class="wave" viewBox="0 0 1440 40" preserveAspectRatio="none"><path d="M0 20 Q 120 0 240 20 T 480 20 T 720 20 T 960 20 T 1200 20 T 1440 20 V40 H0 Z" fill="#fef3e9"/></svg>
-</section>
+    </a>
+  </div></section>
 
-<section class="stories" id="stories">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker jp">お茶物語</div>
-      <h2>OHAYO Stories</h2>
-      <p>Seven little things that make every cup ours.</p>
-    </div>
-    <div class="story-grid">
-      <article class="story">
-        <div class="top c1">
-          <svg viewBox="0 0 100 100"><path d="M30 30 h40 l-5 46 a10 10 0 0 1 -10 9 h-10 a10 10 0 0 1 -10 -9 Z" fill="#fff" stroke="#32645a" stroke-width="3"/><rect x="28" y="24" width="44" height="8" rx="4" fill="#32645a"/><circle cx="42" cy="74" r="4" fill="#2d2927"/><circle cx="54" cy="76" r="4" fill="#2d2927"/><circle cx="48" cy="66" r="4" fill="#2d2927"/></svg>
-        </div>
-        <div class="body"><div class="num">物語 01</div><h3>Freshly brewed fruit tea</h3><p class="sub">Manchester's first — real leaves, brewed to order, never powdered.</p></div>
-      </article>
-      <article class="story">
-        <div class="top c2">
-          <svg viewBox="0 0 100 100"><circle cx="50" cy="52" r="30" fill="#dff0ea"/><path d="M50 22 q10 12 0 22 q-10 -10 0 -22Z" fill="#32645a"/><path d="M30 44 q14 26 40 10" stroke="#32645a" stroke-width="4" fill="none"/><circle cx="42" cy="58" r="3.5" fill="#32645a"/><circle cx="60" cy="58" r="3.5" fill="#32645a"/></svg>
-        </div>
-        <div class="body"><div class="num">物語 02</div><h3>Stone-ground matcha</h3><p class="sub">静岡抹茶 — grassy, smooth, whisked fresh for every drink.</p></div>
-      </article>
-      <article class="story">
-        <div class="top c3">
-          <svg viewBox="0 0 100 100"><path d="M32 34 h36 l-4 40 a9 9 0 0 1 -9 8 h-10 a9 9 0 0 1 -9 -8 Z" fill="#fff" stroke="#d89c52" stroke-width="3"/><path d="M34 66 h32 l-2 12 a9 9 0 0 1 -9 8 h-10 a9 9 0 0 1 -9 -8 Z" fill="#5b3b28"/><circle cx="42" cy="76" r="3.5" fill="#2d2927"/><circle cx="52" cy="78" r="3.5" fill="#2d2927"/><circle cx="60" cy="76" r="3.5" fill="#2d2927"/></svg>
-        </div>
-        <div class="body"><div class="num">物語 03</div><h3>Brown-sugar boba</h3><p class="sub">黑糖珍珠 — slow-cooked pearls, tiger-striped in the cup.</p></div>
-      </article>
-      <article class="story">
-        <div class="top c4">
-          <svg viewBox="0 0 100 100"><path d="M28 56 q4 -30 27 -30 q23 0 27 30 q2 26 -27 28 q-29 -2 -27 -28Z" fill="#e7a86a"/><path d="M32 30 q-7 -18 3 -20 q11 4 9 20Z" fill="#e7a86a"/><path d="M68 30 q7 -18 -3 -20 q-11 4 -9 20Z" fill="#e7a86a"/><path d="M38 58 q17 14 24 0 q-4 18 -12 18 q-8 0 -12 -18Z" fill="#fff6ee"/><circle cx="43" cy="50" r="3.2" fill="#2d2927"/><circle cx="62" cy="50" r="3.2" fill="#2d2927"/></svg>
-        </div>
-        <div class="body"><div class="num">物語 04</div><h3>The tea-dog · 茶犬</h3><p class="sub">Our hand-drawn Shiba — stamped on every cup we make.</p></div>
-      </article>
-      <article class="story">
-        <div class="top c5">
-          <svg viewBox="0 0 100 100"><circle cx="38" cy="46" r="20" fill="#f15464"/><circle cx="62" cy="52" r="16" fill="#ffb0a3"/><path d="M38 24 q8 8 0 16 q-8 -8 0 -16Z" fill="#32645a"/><circle cx="52" cy="72" r="10" fill="#ffd258"/></svg>
-        </div>
-        <div class="body"><div class="num">物語 05</div><h3>Real fruit, cheese foam</h3><p class="sub">Strawberry, peach &amp; more — topped with salted cheese cream.</p></div>
-      </article>
-      <article class="story">
-        <div class="top c6">
-          <svg viewBox="0 0 100 100"><path d="M50 30 C40 44 40 60 50 74 C60 60 60 44 50 30Z" fill="#32645a"/><path d="M50 74 C36 66 30 54 30 42 C44 46 50 60 50 74Z" fill="#3f7a6d"/><path d="M50 74 C64 66 70 54 70 42 C56 46 50 60 50 74Z" fill="#3f7a6d"/></svg>
-        </div>
-        <div class="body"><div class="num">物語 06</div><h3>A full vegan menu</h3><p class="sub">Plant milks &amp; vegan jellies — a whole menu, not an afterthought.</p></div>
-      </article>
-    </div>
-  </div>
-</section>
+  <!-- STORY TEASERS -->
+  <h2 class="vh">OHAYO 物語</h2>
+  <div class="teasers Container">
 
-<section class="about" id="about">
-  <div class="wrap">
-    <div class="frame"><img src="../assets/hero-hand-sign.jpg" alt="A hand holding an OHAYO TEA cup by the shop sign" /></div>
-    <div>
-      <div class="kicker jp">私たちのこと · Who we are</div>
-      <h2>The little tea-dog<br/>of Manchester.</h2>
-      <p>OHAYO TEA is a Shiba-Inu-themed tea house in the heart of Manchester — proud to be the first tea company in the city to brew fresh fruit tea into our Fresh Fruit Tea series.</p>
-      <p>We use quality ingredients and a professional handcrafted technique, so every cup is a little piece of art. Nothing rushed, nothing powdered where it matters.</p>
-      <div class="quote jp">「飲めばわかる。」— Drink it, don't ask why.</div>
-    </div>
-  </div>
-</section>
+    <section class="scene" id="story1">
+      <a class="teaser">
+        <div class="teaser__badge"><div class="Badge">おはよう<b> 黑糖</b></div></div>
+        <div class="headline palt">
+          <span class="line"><span>ふつうの一杯じゃない。</span></span>
+          <span class="line"><span class="en">Slow-cooked pearls,</span></span>
+          <span class="line"><span class="en">tiger-striped in the cup —</span></span>
+          <span class="line"><span class="en">brown sugar, done right.</span></span>
+        </div>
+        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+      </a>
+      <svg class="spot" style="top:10%;right:2%" viewBox="0 0 100 120"><path d="M28 34 h44 l-5 66 a10 10 0 0 1 -10 9 h-14 a10 10 0 0 1 -10 -9 Z" fill="#fff" stroke="#d89c52" stroke-width="3"/><path d="M31 74 h38 l-3 26 a10 10 0 0 1 -10 9 h-14 a10 10 0 0 1 -10 -9 Z" fill="#5b3b28"/><rect x="26" y="28" width="48" height="9" rx="4" fill="#2d2927"/><circle cx="40" cy="92" r="4" fill="#2d2927"/><circle cx="52" cy="96" r="4" fill="#2d2927"/><circle cx="62" cy="92" r="4" fill="#2d2927"/></svg>
+    </section>
 
-<section class="menu-sec" id="menu">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="kicker jp">品書き</div>
-      <h2>Signature cups</h2>
-      <p>A few favourites — the full menu &amp; vegan options are in store and on Deliveroo.</p>
-    </div>
-    <div class="m-grid">
-      <article class="m-card"><div class="ph"><img src="../assets/drink-brown-sugar-milk.jpg" alt=""></div><div class="b"><h4>Brown Sugar Tapioca Milk</h4><div class="zh jp">黑糖珍珠鮮奶</div><div class="pr">£4.7 / £5.2</div></div></article>
-      <article class="m-card"><div class="ph"><img src="../assets/drink-matcha-milk.jpg" alt=""></div><div class="b"><h4>Matcha Tapioca Milk</h4><div class="zh jp">靜岡抹茶珍珠鮮奶</div><div class="pr">£5.0 / £5.5</div></div></article>
-      <article class="m-card"><div class="ph"><img src="../assets/drink-strawberry-cheese.jpg" alt=""></div><div class="b"><h4>Strawberry Tea · Cheese Foam</h4><div class="zh jp">芝芝草莓</div><div class="pr">£5.9</div></div></article>
-      <article class="m-card"><div class="ph"><img src="../assets/drink-super-fruitea.jpg" alt=""></div><div class="b"><h4>Super Fruitea</h4><div class="zh jp">超級水果茶</div><div class="pr">£5.6</div></div></article>
-      <article class="m-card"><div class="ph"><img src="../assets/drink-white-peach-cheese.jpg" alt=""></div><div class="b"><h4>White Peach · Cheese Foam</h4><div class="zh jp">芝士白桃</div><div class="pr">£4.5</div></div></article>
-      <article class="m-card"><div class="ph"><img src="../assets/drink-strawberry-milk.jpg" alt=""></div><div class="b"><h4>Strawberry Tapioca Milk</h4><div class="zh jp">草莓珍珠鮮奶</div><div class="pr">£5.0 / £5.5</div></div></article>
-      <article class="m-card"><div class="ph"><img src="../assets/drink-lime-bomber.jpg" alt=""></div><div class="b"><h4>Lime Bomber</h4><div class="zh jp">暴檸四季春</div><div class="pr">£5.5</div></div></article>
-      <article class="m-card"><div class="ph"><img src="../assets/drink-topping-treasure.jpg" alt=""></div><div class="b"><h4>Topping Treasure Milk Tea</h4><div class="zh jp">寶藏奶茶</div><div class="pr">£4.6 / £5.2</div></div></article>
-    </div>
-    <p class="m-note">Regular / Large sizes · toppings from £0.5 · non-dairy milk +£0.6</p>
-  </div>
-</section>
+    <section class="scene">
+      <a class="teaser right">
+        <div class="teaser__badge"><div class="Badge">おはよう<b> 抹茶</b></div></div>
+        <div class="headline palt">
+          <span class="line"><span>石臼で、ゆっくりと。</span></span>
+          <span class="line"><span class="en">Stone-ground matcha,</span></span>
+          <span class="line"><span class="en">whisked fresh for</span></span>
+          <span class="line"><span class="en">every single cup.</span></span>
+        </div>
+        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+      </a>
+      <svg class="spot" style="top:12%;left:2%" viewBox="0 0 110 110"><circle cx="55" cy="58" r="34" fill="#dff0ea"/><path d="M55 22 q11 13 0 24 q-11 -11 0 -24Z" fill="#32645a"/><path d="M33 50 q16 28 44 10" stroke="#32645a" stroke-width="4" fill="none"/><circle cx="46" cy="64" r="4" fill="#32645a"/><circle cx="66" cy="64" r="4" fill="#32645a"/></svg>
+    </section>
 
-<section class="band">
-  <div class="wrap">
-    <div>
-      <div class="kicker jp">柴犬燒 · Shiba Waffle</div>
-      <h2>A warm little Shiba, just for you.</h2>
-      <p>Golden shiba-shaped waffles filled with brown-sugar tapioca, red bean, Nutella or HK-style peanut butter — the perfect friend for your cup.</p>
-      <a class="btn coral" href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Order a set →</a>
-    </div>
-    <div class="art">
-      <svg viewBox="0 0 300 220" role="img" aria-label="Shiba waffle">
-        <g transform="translate(90 30)">
-          <path d="M0 70 q10 -70 60 -70 q50 0 60 70 q6 66 -60 72 q-66 -6 -60 -72Z" fill="#e7a86a"/>
-          <path d="M8 12 q-16 -30 6 -34 q22 8 18 34Z" fill="#e7a86a"/>
-          <path d="M112 12 q16 -30 -6 -34 q-22 8 -18 34Z" fill="#e7a86a"/>
-          <path d="M20 78 q40 26 80 0 q-10 40 -40 40 q-30 0 -40 -40Z" fill="#fff6ee"/>
-          <circle cx="38" cy="60" r="6" fill="#2d2927"/><circle cx="82" cy="60" r="6" fill="#2d2927"/>
-          <circle cx="60" cy="80" r="5" fill="#2d2927"/>
-          <circle cx="22" cy="74" r="9" fill="#ffb0a3"/><circle cx="98" cy="74" r="9" fill="#ffb0a3"/>
-          <g stroke="#c9884f" stroke-width="3" opacity=".6"><path d="M18 40 h84M14 58 h92M18 76 h84" fill="none"/></g>
-        </g>
-      </svg>
-    </div>
-  </div>
-</section>
+    <section class="scene">
+      <a class="teaser">
+        <div class="teaser__badge"><div class="Badge">おはよう<b> 果茶</b></div></div>
+        <div class="headline palt">
+          <span class="line"><span>畑から、コップへ。</span></span>
+          <span class="line"><span class="en">Manchester's first</span></span>
+          <span class="line"><span class="en">freshly-brewed fruit tea —</span></span>
+          <span class="line"><span class="en">real leaves, real fruit.</span></span>
+        </div>
+        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+      </a>
+      <svg class="spot" style="top:8%;right:3%" viewBox="0 0 110 110"><circle cx="42" cy="50" r="22" fill="#f15464"/><circle cx="68" cy="58" r="17" fill="#ffb0a3"/><path d="M42 26 q9 9 0 18 q-9 -9 0 -18Z" fill="#32645a"/><circle cx="56" cy="80" r="11" fill="#ffd258"/></svg>
+    </section>
 
-<section class="stories">
-  <div class="wrap">
-    <div class="duo">
-      <div class="pane peach">
-        <svg class="ico" viewBox="0 0 48 48"><rect x="10" y="14" width="28" height="26" rx="6" fill="#fff"/><rect x="14" y="8" width="20" height="10" rx="5" fill="#2d2927"/><circle cx="24" cy="28" r="6" fill="none" stroke="#f15464" stroke-width="3"/></svg>
-        <h3>Ohayo Rewards Club</h3>
-        <p>Join the pack — every visit gives a little back.</p>
-        <ul>
-          <li><b>New:</b>&nbsp;a free reusable OHAYO tumbler with any £5+ purchase.</li>
-          <li><b>Members:</b>&nbsp;a limited-edition collectable pin, new each month.</li>
-          <li><b>Always:</b>&nbsp;points on every cup toward free drinks &amp; toppings.</li>
-        </ul>
+    <section class="scene">
+      <a class="teaser right">
+        <div class="teaser__badge"><div class="Badge">おはよう<b> 柴犬燒</b></div></div>
+        <div class="headline palt">
+          <span class="line"><span>あたたかい、しばいぬ。</span></span>
+          <span class="line"><span class="en">A warm little Shiba waffle,</span></span>
+          <span class="line"><span class="en">just for you.</span></span>
+        </div>
+        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+      </a>
+      <svg class="spot" style="top:6%;left:2%;width:150px" viewBox="0 0 140 130"><g transform="translate(14 8)"><path d="M0 60 q8 -60 56 -60 q48 0 56 60 q5 56 -56 62 q-61 -6 -56 -62Z" fill="#e7a86a"/><path d="M6 10 q-14 -26 6 -30 q20 8 16 30Z" fill="#e7a86a"/><path d="M106 10 q14 -26 -6 -30 q-20 8 -16 30Z" fill="#e7a86a"/><path d="M18 66 q38 24 76 0 q-10 36 -38 36 q-28 0 -38 -36Z" fill="#fff6ee"/><circle cx="36" cy="52" r="5.5" fill="#2d2927"/><circle cx="76" cy="52" r="5.5" fill="#2d2927"/><circle cx="56" cy="70" r="4.5" fill="#2d2927"/><circle cx="20" cy="64" r="8" fill="#ffb0a3"/><circle cx="92" cy="64" r="8" fill="#ffb0a3"/></g></svg>
+    </section>
+
+    <section class="scene">
+      <a class="teaser">
+        <div class="teaser__badge"><div class="Badge">おはよう<b> ヴィーガン</b></div></div>
+        <div class="headline palt">
+          <span class="line"><span>だれの一杯も、ここに。</span></span>
+          <span class="line"><span class="en">A full vegan menu —</span></span>
+          <span class="line"><span class="en">a whole menu, not</span></span>
+          <span class="line"><span class="en">an afterthought.</span></span>
+        </div>
+        <div class="teaser__more"><span class="read">読む &nbsp;Read</span></div>
+      </a>
+      <svg class="spot" style="top:12%;right:3%" viewBox="0 0 100 110"><path d="M50 26 C40 42 40 60 50 76 C60 60 60 42 50 26Z" fill="#32645a"/><path d="M50 76 C34 68 27 55 27 42 C43 46 50 62 50 76Z" fill="#3f7a6d"/><path d="M50 76 C66 68 73 55 73 42 C57 46 50 62 50 76Z" fill="#3f7a6d"/></svg>
+    </section>
+
+  </div>
+
+  <!-- MENU panel (same visual language) -->
+  <section id="menu"><div class="Container">
+    <div class="panel">
+      <h2>品書き · Signature cups</h2>
+      <p class="lead">A few favourites — full menu &amp; vegan options in store and on Deliveroo.</p>
+      <div class="m-grid">
+        <article class="m-card"><div class="ph"><img src="../assets/drink-brown-sugar-milk.jpg" alt=""></div><div class="b"><h4>Brown Sugar Tapioca Milk</h4><div class="zh palt">黑糖珍珠鮮奶</div><div class="pr">£4.7 / £5.2</div></div></article>
+        <article class="m-card"><div class="ph"><img src="../assets/drink-matcha-milk.jpg" alt=""></div><div class="b"><h4>Matcha Tapioca Milk</h4><div class="zh palt">靜岡抹茶珍珠鮮奶</div><div class="pr">£5.0 / £5.5</div></div></article>
+        <article class="m-card"><div class="ph"><img src="../assets/drink-strawberry-cheese.jpg" alt=""></div><div class="b"><h4>Strawberry Tea · Cheese Foam</h4><div class="zh palt">芝芝草莓</div><div class="pr">£5.9</div></div></article>
+        <article class="m-card"><div class="ph"><img src="../assets/drink-super-fruitea.jpg" alt=""></div><div class="b"><h4>Super Fruitea</h4><div class="zh palt">超級水果茶</div><div class="pr">£5.6</div></div></article>
+        <article class="m-card"><div class="ph"><img src="../assets/drink-white-peach-cheese.jpg" alt=""></div><div class="b"><h4>White Peach · Cheese Foam</h4><div class="zh palt">芝士白桃</div><div class="pr">£4.5</div></div></article>
+        <article class="m-card"><div class="ph"><img src="../assets/drink-strawberry-milk.jpg" alt=""></div><div class="b"><h4>Strawberry Tapioca Milk</h4><div class="zh palt">草莓珍珠鮮奶</div><div class="pr">£5.0 / £5.5</div></div></article>
+        <article class="m-card"><div class="ph"><img src="../assets/drink-lime-bomber.jpg" alt=""></div><div class="b"><h4>Lime Bomber</h4><div class="zh palt">暴檸四季春</div><div class="pr">£5.5</div></div></article>
+        <article class="m-card"><div class="ph"><img src="../assets/drink-topping-treasure.jpg" alt=""></div><div class="b"><h4>Topping Treasure Milk Tea</h4><div class="zh palt">寶藏奶茶</div><div class="pr">£4.6 / £5.2</div></div></article>
       </div>
-      <div class="pane mint">
-        <svg class="ico" viewBox="0 0 48 48"><path d="M24 10 C18 18 18 28 24 38 C30 28 30 18 24 10Z" fill="#32645a"/><path d="M24 38 C15 32 11 24 11 17 C20 20 24 29 24 38Z" fill="#3f7a6d"/></svg>
-        <h3>Full vegan menu 🌱</h3>
-        <p>Plant milks, vegan-friendly jellies and fresh fruit teas — a whole menu built for you.</p>
-        <ul>
-          <li>Oat &amp; alternative milks on any drink (+£0.6)</li>
-          <li>Vegan-friendly toppings</li>
-          <li>Fresh fruit teas, naturally plant-based</li>
-        </ul>
-        <a class="btn" style="margin-top:1.2rem;display:inline-block" href="https://www.ohayotea.com/vegan-menu" target="_blank" rel="noopener">See the vegan menu →</a>
-      </div>
+      <p class="m-note">Regular / Large · toppings from £0.5 · non-dairy milk +£0.6 · 95 Princess Street, Manchester M1 4HT · open 7 days from 12pm</p>
     </div>
-  </div>
-</section>
+  </div></section>
 
-<section class="visit" id="visit">
-  <div class="wrap">
-    <div>
-      <div class="kicker jp" style="color:var(--coral);font-weight:700;letter-spacing:.2em;font-size:.8rem">お店 · Visit us</div>
-      <h2 class="mincho" style="font-size:clamp(1.7rem,3.6vw,2.4rem);margin:.5rem 0 1.2rem">Come say ohayo.</h2>
-      <div class="info">
-        <div><div class="l">Address</div><div class="v">95 Princess Street, Manchester M1 4HT</div></div>
-        <div><div class="l">Opening hours</div><div class="v">7 days a week · from 12pm</div></div>
-        <div><div class="l">Phone</div><div class="v"><a href="tel:01612364883">0161 236 4883</a></div></div>
-        <div><div class="l">Email</div><div class="v"><a href="mailto:contact@ohayotea.com">contact@ohayotea.com</a></div></div>
-      </div>
-      <div class="cta-row" style="margin-top:1.4rem">
-        <a class="btn coral" href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Order on Deliveroo</a>
-        <a class="btn line" href="https://maps.google.com/?q=95+Princess+Street+Manchester+M1+4HT" target="_blank" rel="noopener">Get directions</a>
-      </div>
-    </div>
-    <div class="map">
-      <iframe loading="lazy" title="OHAYO TEA location" src="https://www.google.com/maps?q=95%20Princess%20Street%20Manchester%20M1%204HT&output=embed"></iframe>
-    </div>
-  </div>
-</section>
+  <!-- STORY FOOTER -->
+  <section class="storyFooter"><div class="Container">
+    <p class="storyFooter__desc palt"><span>物語はつづくよ、どこまでも。</span><br/><span>ずっと、おはよう。</span></p>
+    <a class="goldBtn" href="#menu">メニューを見る</a>
+    <a class="goldBtn" href="https://maps.google.com/?q=95+Princess+Street+Manchester+M1+4HT" target="_blank" rel="noopener">お店について</a>
+    <a class="goldBtn" href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Deliverooで注文</a>
+  </div></section>
 
-<footer>
-  <div class="wrap">
-    <a class="brand" href="#top"><img src="../assets/logo-shiba.jpg" alt="" /> OHAYO TEA</a>
-    <div class="tag jp">ふつうの一杯の、どこにもない物語。</div>
+</main>
+
+<footer class="siteFooter">
+  <div class="Container">
+    <div class="brand">OHAYO TEA</div>
+    <div class="tag palt">ふつうの一杯の、どこにもない物語。</div>
     <div class="socials">
       <a href="https://instagram.com/ohayotea" target="_blank" rel="noopener" title="Instagram">IG</a>
       <a href="https://facebook.com/OHAYOTEA/" target="_blank" rel="noopener" title="Facebook">f</a>
       <a href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener" title="Deliveroo">D</a>
     </div>
-    <div class="fine">95 Princess Street, Manchester M1 4HT · 0161 236 4883 · contact@ohayotea.com<br/>Concept redesign — “Story / お茶物語” direction, inspired by Japanese editorial microsites. Menu &amp; prices from the current in-store menu.</div>
+    <div class="fine">95 Princess Street, Manchester M1 4HT · 0161 236 4883 · contact@ohayotea.com<br/>
+    Concept redesign — “Story” direction, modelled closely on the misatoto microsite (town.shimane-misato.lg.jp/misatoto). Menu &amp; prices from the current in-store menu.</div>
   </div>
 </footer>
 
+<!-- FULLSCREEN MENU -->
+<div class="FullscreenMenu" id="fsMenu" aria-hidden="true">
+  <div class="Container">
+    <div class="FM__header">
+      <div class="FM__logo"><img src="../assets/logo-shiba.jpg" alt=""> OHAYO TEA</div>
+      <button class="closeBtn" id="closeBtn" aria-label="Close">✕</button>
+    </div>
+    <ul class="MenuList">
+      <li><a href="#top">ホーム · Home <span>→</span></a></li>
+      <li><a href="#menu">メニュー · Menu <span>→</span></a></li>
+      <li><a href="https://www.ohayotea.com/vegan-menu" target="_blank" rel="noopener">ヴィーガン · Vegan menu <span>↗</span></a></li>
+      <li><a href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Deliverooで注文 · Order <span>↗</span></a></li>
+      <li><a href="https://maps.google.com/?q=95+Princess+Street+Manchester+M1+4HT" target="_blank" rel="noopener">お店 · Visit us <span>↗</span></a></li>
+    </ul>
+    <span class="MenuStory__title">おすすめの一杯 · Signature cups</span>
+    <ul class="MenuStoryList">
+      <li><a class="StoryTeaser" href="#menu"><div class="thumb"><img src="../assets/drink-brown-sugar-milk.jpg" alt=""></div><div><div class="Badge">おはよう<b> 黑糖</b></div><p class="title">Brown Sugar Tapioca Milk · 黑糖珍珠鮮奶</p></div></a></li>
+      <li><a class="StoryTeaser" href="#menu"><div class="thumb"><img src="../assets/drink-matcha-milk.jpg" alt=""></div><div><div class="Badge">おはよう<b> 抹茶</b></div><p class="title">Matcha Tapioca Milk · 靜岡抹茶珍珠鮮奶</p></div></a></li>
+      <li><a class="StoryTeaser" href="#menu"><div class="thumb"><img src="../assets/drink-strawberry-cheese.jpg" alt=""></div><div><div class="Badge">おはよう<b> チーズ</b></div><p class="title">Strawberry Tea · Cheese Foam · 芝芝草莓</p></div></a></li>
+      <li><a class="StoryTeaser" href="#menu"><div class="thumb"><img src="../assets/drink-super-fruitea.jpg" alt=""></div><div><div class="Badge">おはよう<b> 果茶</b></div><p class="title">Super Fruitea · 超級水果茶</p></div></a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  var fs=document.getElementById('fsMenu');
+  document.getElementById('menuBtn').addEventListener('click',function(){fs.classList.add('is-open');fs.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';});
+  function closeFs(){fs.classList.remove('is-open');fs.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  document.getElementById('closeBtn').addEventListener('click',closeFs);
+  fs.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeFs);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeFs();});
+
+  var scrollBtn=document.getElementById('scrollBtn');
+  scrollBtn.addEventListener('click',function(){window.scrollBy({top:window.innerHeight*0.9,behavior:'smooth'});});
+  window.addEventListener('scroll',function(){
+    if(window.scrollY>window.innerHeight*0.6)scrollBtn.classList.add('is-hide');else scrollBtn.classList.remove('is-hide');
+  },{passive:true});
+</script>
 </body>
 </html>
