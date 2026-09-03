@@ -17,6 +17,7 @@ concepts. Or open each one directly:
 | 01 | **Kawaii Pop** | `style-1-kawaii/index.html` | Cute, playful, mascot-led |
 | 02 | **Tokyo Street** | `style-2-street/index.html` | Dark, bold, high-energy |
 | 03 | **Modern Craft** | `style-3-craft/index.html` | Calm, editorial, premium |
+| 04 | **Story · お茶物語** | `style-4-story/index.html` | Japanese editorial / flat-illustration magazine |
 
 Each file is a single HTML page with embedded CSS + Google Fonts — no build step, no
 dependencies. Just double-click. (Internet is needed only for web fonts and the Google
@@ -78,6 +79,18 @@ for the closest real menu drinks that match the photos: **White Peach Tea w/ Che
 - **Feel:** loud, dark, urban. Giant "DRINK IT. DON'T ASK WHY." headline, tilted neon
   marquee, hover-zoom product grid. Uses the dark/neon-sign photography. Best for a Gen-Z,
   night-out, viral-boba crowd.
+
+### 04 · Story · お茶物語  ← client's requested direction
+- **Palette:** warm cream `#fef9f3` / `#fef3e9` / `#efdbcb`, warm-black ink `#2d2927`,
+  deep green `#32645a`, soft accents peach `#ffc8b8`, yellow `#ffd258`, coral `#f15464`,
+  ochre `#d89c52`, purple `#503278`.
+- **Type:** Zen Old Mincho (lyrical serif headlines) + Zen Kaku Gothic New (Japanese-capable
+  gothic body) + Zen Maru Gothic (rounded accents).
+- **Feel:** Japanese editorial "digital magazine" — flat rounded inline-SVG illustrations
+  (shiba, boba cup, tea leaves, fruit, shiba waffle), poetic bilingual headlines, story-card
+  grid, generous whitespace. Modelled on the **misatoto** microsite
+  (`town.shimane-misato.lg.jp/misatoto/`) the client referenced; palette & type sampled from
+  it, then fitted to OHAYO's real content, photos and menu.
 
 ### 03 · Modern Craft
 - **Palette:** warm paper `#f6efe4`, muted matcha `#5e6b3f`, clay `#b4553f`.
