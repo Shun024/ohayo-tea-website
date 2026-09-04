@@ -28,7 +28,7 @@
   /* ===== parallax illustrated background (scroll-reactive) ===== */
   .scenery{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
   .scenery .sky{position:absolute;inset:0;background:linear-gradient(180deg,var(--sky) 0%,#f8ecdd 45%,var(--sand) 100%)}
-  .layer{position:absolute;left:0;bottom:-90px;width:100%;height:auto;will-change:transform}
+  .layer{position:absolute;left:0;bottom:-90px;width:100%;height:74vh;will-change:transform}
   .sun{position:absolute;top:6%;right:8%;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#ffe9b0,#ffe09a);will-change:transform}
   .cloud{position:absolute;will-change:transform}
   .cloud svg{width:100%}
@@ -330,45 +330,70 @@
   <div class="cloud b" data-bg="0.05,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="30"/><circle cx="105" cy="45" r="36"/><circle cx="150" cy="58" r="26"/><rect x="58" y="62" width="94" height="24" rx="12"/></g></svg></div>
   <div class="cloud c" data-bg="-0.04,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="24"/><circle cx="100" cy="46" r="30"/><circle cx="140" cy="58" r="22"/><rect x="58" y="60" width="84" height="22" rx="11"/></g></svg></div>
 
-  <!-- All layers share the same 1600x700 space and nest as receding ground planes:
-       far/pale/high horizon -> near/dark/low. Each fills solid to the base (y700). -->
-  <!-- 1 · distant mountains + horizon hill + birds (slowest) -->
-  <svg class="layer" data-bg="0,-0.02" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax meet">
-    <path d="M150 400 L360 200 L570 400 Z" fill="#c3d9c6"/>
-    <path d="M338 222 L360 200 L400 246 L378 262 Z" fill="#eef4ec"/>
-    <path d="M1080 405 L1300 205 L1520 405 Z" fill="#c3d9c6"/>
-    <path d="M1278 228 L1300 205 L1342 252 L1320 268 Z" fill="#eef4ec"/>
-    <path d="M0 400 Q 320 330 660 385 T 1280 375 T 1600 400 L1600 700 L0 700 Z" fill="#cfe3d1"/>
-    <g stroke="#8aa79a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55">
-      <path d="M740 150 q10 -9 20 0 q10 -9 20 0"/><path d="M824 176 q8 -8 16 0 q8 -8 16 0"/><path d="M676 186 q8 -8 16 0 q8 -8 16 0"/></g>
+  <!-- Manchester scene — nested receding planes (far/pale skyline -> near/green park).
+       Shared 1600x700 space; each layer fills solid to the base (y700). -->
+  <!-- 1 · Manchester skyline + worker bees (slowest) -->
+  <svg class="layer" data-bg="0,-0.02" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice">
+    <path d="M0 440 H1600 V700 H0 Z" fill="#cdd9d4"/>
+    <g fill="#b7c7c1">
+      <rect x="86" y="330" width="58" height="110"/><rect x="150" y="298" width="40" height="142"/>
+      <rect x="232" y="250" width="46" height="190"/>
+      <rect x="300" y="150" width="72" height="290"/><rect x="358" y="118" width="14" height="72"/>
+      <rect x="980" y="320" width="52" height="120"/><rect x="1040" y="286" width="44" height="154"/>
+      <rect x="1168" y="196" width="84" height="244"/>
+      <g fill="#aebeb8"><rect x="1180" y="212" width="14" height="14"/><rect x="1206" y="212" width="14" height="14"/><rect x="1232" y="212" width="12" height="14"/><rect x="1180" y="240" width="14" height="14"/><rect x="1206" y="240" width="14" height="14"/><rect x="1232" y="240" width="12" height="14"/></g>
+      <rect x="1330" y="300" width="60" height="140"/><rect x="1410" y="330" width="52" height="110"/>
+      <path d="M892 440 V236 h44 V440 Z"/><path d="M892 236 h44 l-9 -28 h-26 Z"/><rect x="906" y="150" width="16" height="58"/><path d="M906 150 l8 -24 l8 24 Z"/>
+    </g>
+    <circle cx="914" cy="224" r="11" fill="#e7eeea"/><path d="M914 224 v-7 M914 224 h6" stroke="#8ba09a" stroke-width="2"/>
+    <g>
+      <g transform="translate(690 150)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g>
+      <g transform="translate(560 214) scale(.8)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g>
+      <g transform="translate(1090 168) scale(.9)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g>
+    </g>
   </svg>
-  <!-- 2 · mid hill + river + torii + pagoda (sits lower & greener) -->
-  <svg class="layer" data-bg="0,-0.035" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax meet">
-    <path d="M0 480 Q 360 415 780 465 T 1600 460 L1600 700 L0 700 Z" fill="#a3cbaa"/>
-    <path d="M900 700 C 864 610 1000 588 952 520 C 922 476 984 452 1012 440" fill="none" stroke="#d6ecef" stroke-width="34" stroke-linecap="round" opacity=".9"/>
-    <g fill="#c0442e"><rect x="1170" y="474" width="14" height="70"/><rect x="1232" y="474" width="14" height="70"/><path d="M1150 472 h116 l-8 -15 h-100 Z"/><rect x="1163" y="484" width="90" height="9"/></g>
-    <g><path d="M470 474 h120 l-19 -22 h-82 Z" fill="#8a5a3e"/><path d="M497 452 h66 l-13 -16 h-40 Z" fill="#8a5a3e"/><rect x="521" y="474" width="18" height="18" fill="#6f4632"/></g>
+  <!-- 2 · red-brick mills, chimneys & a canal viaduct (mid) -->
+  <svg class="layer" data-bg="0,-0.035" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice">
+    <path d="M0 512 H1600 V700 H0 Z" fill="#b3c4ac"/>
+    <rect x="360" y="238" width="26" height="276" fill="#a85536"/><rect x="354" y="232" width="38" height="14" fill="#8f4329"/>
+    <rect x="120" y="360" width="250" height="154" fill="#b5623f"/><rect x="120" y="352" width="250" height="12" fill="#8f4329"/>
+    <g fill="#efe0cf" opacity=".85"><rect x="140" y="378" width="18" height="24"/><rect x="176" y="378" width="18" height="24"/><rect x="212" y="378" width="18" height="24"/><rect x="248" y="378" width="18" height="24"/><rect x="284" y="378" width="18" height="24"/><rect x="320" y="378" width="18" height="24"/><rect x="140" y="422" width="18" height="24"/><rect x="176" y="422" width="18" height="24"/><rect x="212" y="422" width="18" height="24"/><rect x="248" y="422" width="18" height="24"/><rect x="284" y="422" width="18" height="24"/><rect x="320" y="422" width="18" height="24"/></g>
+    <!-- brick canal viaduct (Castlefield) -->
+    <g><rect x="1140" y="452" width="330" height="62" fill="#a85536"/><rect x="1140" y="446" width="330" height="10" fill="#8f4329"/>
+      <g fill="#7a3f2a"><path d="M1166 514 v-34 a24 24 0 0 1 48 0 v34 Z"/><path d="M1238 514 v-34 a24 24 0 0 1 48 0 v34 Z"/><path d="M1310 514 v-34 a24 24 0 0 1 48 0 v34 Z"/><path d="M1382 514 v-34 a24 24 0 0 1 48 0 v34 Z"/></g></g>
+    <path d="M1140 560 H1470 V700 H1140 Z" fill="#9fc0c4" opacity=".55"/>
   </svg>
-  <!-- 3 · near ground + path + tea rows + trees + lantern (lower & darker) -->
-  <svg class="layer" data-bg="0,-0.05" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax meet">
-    <path d="M0 550 Q 420 485 880 535 T 1600 530 L1600 700 L0 700 Z" fill="#5f9773"/>
+  <!-- 3 · green park + trees + lamp + post box + bench + path (near) -->
+  <svg class="layer" data-bg="0,-0.05" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice">
+    <path d="M0 550 Q 420 490 880 535 T 1600 530 L1600 700 L0 700 Z" fill="#5f9773"/>
     <path d="M820 700 C 786 636 918 616 884 560 C 866 528 902 516 930 512" fill="none" stroke="#e7d3b0" stroke-width="26" stroke-linecap="round" opacity=".85"/>
-    <g fill="#3f7a6d">
-      <circle cx="150" cy="566" r="22"/><circle cx="193" cy="572" r="26"/><circle cx="240" cy="566" r="22"/><circle cx="284" cy="573" r="24"/>
-      <circle cx="1360" cy="570" r="24"/><circle cx="1408" cy="576" r="28"/><circle cx="1458" cy="570" r="24"/><circle cx="1504" cy="576" r="22"/>
-      <circle cx="470" cy="596" r="20"/><circle cx="510" cy="602" r="24"/><circle cx="552" cy="596" r="20"/></g>
+    <g fill="#3f7a6d"><circle cx="470" cy="592" r="20"/><circle cx="510" cy="598" r="24"/><circle cx="552" cy="592" r="20"/></g>
     <g><rect x="316" y="512" width="14" height="46" fill="#7a4a2b"/><circle cx="323" cy="500" r="42" fill="#32645a"/><circle cx="307" cy="514" r="24" fill="#3f7a6d"/>
        <rect x="1236" y="504" width="15" height="52" fill="#7a4a2b"/><circle cx="1243" cy="490" r="48" fill="#2f5c50"/></g>
-    <g fill="#b9b3a6"><rect x="1092" y="520" width="12" height="38"/><rect x="1079" y="507" width="38" height="15" rx="3"/><path d="M1079 507 h38 l-9 -15 h-20 Z" fill="#a49e90"/><rect x="1090" y="558" width="16" height="10"/></g>
+    <!-- Victorian lamp post -->
+    <g fill="#2d2927"><rect x="1092" y="470" width="8" height="92"/><rect x="1082" y="464" width="28" height="10" rx="3"/><path d="M1086 464 h20 l-6 -16 h-8 Z" fill="#3a3632"/></g><circle cx="1096" cy="450" r="6" fill="#ffd258"/>
+    <!-- red pillar post box -->
+    <g><rect x="150" y="520" width="30" height="40" rx="6" fill="#c0392b"/><path d="M150 526 a15 15 0 0 1 30 0 Z" fill="#c0392b"/><rect x="150" y="524" width="30" height="7" fill="#a52f22"/><rect x="157" y="534" width="16" height="4" fill="#2d2927"/></g>
+    <!-- bench -->
+    <g fill="#7a5a44"><rect x="1360" y="534" width="72" height="7" rx="3"/><rect x="1360" y="520" width="72" height="7" rx="3"/><rect x="1366" y="534" width="6" height="20"/><rect x="1420" y="534" width="6" height="20"/></g>
   </svg>
-  <!-- 4 · foreground bank + flowers + grass (lowest & darkest) -->
-  <svg class="layer" data-bg="0,-0.065" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax meet">
+  <!-- 4 · foreground bank, flowers, grass + a yellow tram (lowest) -->
+  <svg class="layer" data-bg="0,-0.065" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax slice">
     <path d="M0 628 Q 300 590 600 622 T 1200 622 T 1600 620 L1600 700 L0 700 Z" fill="#4c805f"/>
+    <!-- yellow Metrolink tram -->
+    <g transform="translate(90 566)">
+      <rect x="0" y="8" width="250" height="66" rx="16" fill="#ffd23a"/>
+      <path d="M0 40 q-12 4 -12 20 v6 a8 8 0 0 0 8 8 h4 Z" fill="#ffd23a"/>
+      <rect x="14" y="24" width="222" height="26" rx="6" fill="#3a3f45"/>
+      <g fill="#cfe7ee"><rect x="20" y="28" width="40" height="18" rx="3"/><rect x="68" y="28" width="40" height="18" rx="3"/><rect x="116" y="28" width="40" height="18" rx="3"/><rect x="164" y="28" width="40" height="18" rx="3"/></g>
+      <rect x="0" y="70" width="250" height="8" fill="#e0b52e"/>
+      <circle cx="60" cy="80" r="9" fill="#2d2927"/><circle cx="190" cy="80" r="9" fill="#2d2927"/>
+      <rect x="8" y="12" width="10" height="30" rx="4" fill="#e0b52e"/>
+    </g>
     <g stroke="#3f7a6d" stroke-width="6" stroke-linecap="round" fill="none">
-      <path d="M60 648 q-6 -30 2 -46"/><path d="M78 648 q4 -26 -2 -44"/><path d="M94 648 q8 -24 2 -40"/>
-      <path d="M1516 648 q-6 -30 2 -46"/><path d="M1534 648 q4 -26 -2 -44"/><path d="M1550 648 q8 -24 2 -40"/></g>
-    <g transform="translate(190 632)"><rect x="-2" y="0" width="5" height="34" fill="#3f7a6d"/><g fill="#f15464"><circle cx="-9" cy="-4" r="6"/><circle cx="9" cy="-4" r="6"/><circle cx="0" cy="-13" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#ffd258"/></g>
-    <g transform="translate(1430 632)"><rect x="-2" y="0" width="5" height="34" fill="#3f7a6d"/><g fill="#ffc8b8"><circle cx="-9" cy="-4" r="6"/><circle cx="9" cy="-4" r="6"/><circle cx="0" cy="-13" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#f15464"/></g>
+      <path d="M470 648 q-6 -30 2 -46"/><path d="M488 648 q4 -26 -2 -44"/><path d="M1516 648 q-6 -30 2 -46"/><path d="M1534 648 q4 -26 -2 -44"/></g>
+    <g transform="translate(560 632)"><rect x="-2" y="0" width="5" height="34" fill="#3f7a6d"/><g fill="#f15464"><circle cx="-9" cy="-4" r="6"/><circle cx="9" cy="-4" r="6"/><circle cx="0" cy="-13" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#ffd258"/></g>
+    <g transform="translate(1360 632)"><rect x="-2" y="0" width="5" height="34" fill="#3f7a6d"/><g fill="#ffc8b8"><circle cx="-9" cy="-4" r="6"/><circle cx="9" cy="-4" r="6"/><circle cx="0" cy="-13" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#f15464"/></g>
     <g transform="translate(1050 640)"><rect x="-2" y="0" width="5" height="28" fill="#3f7a6d"/><g fill="#503278" opacity=".85"><circle cx="-8" cy="-3" r="5"/><circle cx="8" cy="-3" r="5"/><circle cx="0" cy="-11" r="5"/><circle cx="0" cy="5" r="5"/></g><circle cx="0" cy="-3" r="4" fill="#ffd258"/></g>
   </svg>
 </div>
