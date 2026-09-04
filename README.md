@@ -104,6 +104,12 @@ OHAYO's real content, photos and menu.
   - Poetic closing (「物語はつづくよ、どこまでも。ずっと、おはよう。」) with stacked **gold buttons**,
     and a **fullscreen overlay menu** with drink "story teasers" — both straight from the
     reference.
+- **Custom SVG illustrations (hand-built):** the hero **tea-dog mascot** (holding a boba,
+  tail-sway animation), a full set of **8 flat-vector drink illustrations** (used in the story
+  teasers *and* the menu grid, replacing the photos) + a **Shiba-waffle**, and a **richer
+  parallax landscape** (snow-capped mountains, birds, a red torii, a pagoda, a stone lantern,
+  a winding path, tea-bush rows and foreground flowers). All within the locked palette. The
+  real drink photos remain in `assets/drink-*.jpg` if the client prefers photos in the menu.
 - **Caveat:** the scroll *motion* is there, but misatoto's background art is a bespoke,
   hand-illustrated *animated canvas map* of the whole town — commissioned artwork. This
   concept recreates the same **interface/behaviour** (parallax + reveal on scroll) with an

@@ -105,9 +105,11 @@
   .panel .lead{text-align:center;opacity:.75;margin:.4rem 0 2rem}
   .m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
   .m-card{background:var(--sand);border-radius:16px;overflow:hidden}
-  .m-card .ph{aspect-ratio:1;overflow:hidden;background:#fff}
+  .m-card .ph{aspect-ratio:1;overflow:hidden;background:#fbeede;display:grid;place-items:center}
   .m-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .m-card .ph svg{width:76%;height:76%;transition:transform .3s}
   .m-card:hover .ph img{transform:scale(1.05)}
+  .m-card:hover .ph svg{transform:translateY(-4px)}
   .m-card .b{padding:.8rem .9rem 1rem}
   .m-card h4{font-weight:700;font-size:.98rem;line-height:1.35}
   .m-card .zh{color:var(--green);font-size:.82rem;margin-top:.1rem}
@@ -175,6 +177,100 @@
 </head>
 <body>
 
+<!-- ===== reusable flat-vector drink illustrations (used in teasers + menu) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="d-brownsugar" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#f5e6d2"/>
+    <g fill="#c07f3f" opacity=".5"><path d="M35 92 q11 8 0 18 q-5 -9 0 -18Z"/><path d="M82 88 q-11 8 0 18 q5 -9 0 -18Z"/><path d="M42 110 q12 9 0 18 q-5 -9 0 -18Z"/><path d="M78 112 q-12 9 0 18 q5 -9 0 -18Z"/></g>
+    <path d="M38 128 H82 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#3a2a1e"/>
+    <g fill="#241812"><circle cx="46" cy="146" r="4"/><circle cx="58" cy="150" r="4"/><circle cx="70" cy="146" r="4"/><circle cx="52" cy="139" r="4"/><circle cx="66" cy="139" r="4"/></g>
+    <ellipse cx="60" cy="48" rx="31" ry="11" fill="#fff" opacity=".92"/>
+    <path d="M29 47 q31 -19 62 0 l0 -3 q-31 -17 -62 0Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <circle cx="60" cy="98" r="13" fill="none" stroke="#c98a52" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-matcha" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#a7d187"/>
+    <path d="M30 48 H90 L87 82 H33 Z" fill="#8cbf66"/>
+    <path d="M38 128 H82 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#3a2a1e"/>
+    <g fill="#241812"><circle cx="46" cy="146" r="4"/><circle cx="58" cy="150" r="4"/><circle cx="70" cy="146" r="4"/><circle cx="52" cy="139" r="4"/><circle cx="66" cy="139" r="4"/></g>
+    <ellipse cx="60" cy="48" rx="31" ry="11" fill="#fff" opacity=".92"/>
+    <path d="M29 47 q31 -19 62 0 l0 -3 q-31 -17 -62 0Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <circle cx="60" cy="98" r="13" fill="none" stroke="#4c6b3a" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-strawberry-cheese" viewBox="0 0 120 170">
+    <path d="M30 56 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#f0637f"/>
+    <path d="M32 78 H88 L86 110 H34 Z" fill="#e64c6a"/>
+    <g fill="#c0304c"><circle cx="48" cy="120" r="2.4"/><circle cx="66" cy="128" r="2.4"/><circle cx="58" cy="112" r="2.4"/><circle cx="74" cy="116" r="2.4"/></g>
+    <path d="M30 58 q30 -24 60 0 q-2 -14 -30 -14 q-28 0 -30 14Z" fill="#ffe6a8"/>
+    <path d="M30 58 q30 20 60 0 l-1 8 q-29 16 -58 0Z" fill="#f7d68a"/>
+    <rect x="55" y="18" width="11" height="46" rx="5" fill="#f15464" transform="rotate(9 60 40)"/>
+    <circle cx="60" cy="104" r="13" fill="none" stroke="#fff" stroke-width="2.5" opacity=".8"/>
+  </symbol>
+  <symbol id="d-superfruitea" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#e9a94f"/>
+    <path d="M30 48 H90 L88 74 H32 Z" fill="#f0be6f"/>
+    <g opacity=".95">
+      <circle cx="46" cy="112" r="12" fill="#ff9d43"/><g stroke="#fff" stroke-width="1.6"><line x1="46" y1="102" x2="46" y2="122"/><line x1="36" y1="112" x2="56" y2="112"/><line x1="39" y1="105" x2="53" y2="119"/><line x1="53" y1="105" x2="39" y2="119"/></g>
+      <circle cx="72" cy="128" r="9" fill="#ffd258"/><g stroke="#fff" stroke-width="1.4"><line x1="72" y1="121" x2="72" y2="135"/><line x1="65" y1="128" x2="79" y2="128"/></g>
+      <path d="M60 92 l7 4 -3 8 -7 -1Z" fill="#f15464"/>
+    </g>
+    <g fill="#fff" opacity=".5"><rect x="38" y="80" width="10" height="10" rx="2"/><rect x="72" y="86" width="9" height="9" rx="2"/></g>
+    <path d="M28 48 h64 v-4 h-64Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#7fbf4d" transform="rotate(9 60 34)"/>
+    <path d="M84 44 q10 -10 20 -4 q-6 12 -20 8Z" fill="#ff9d43"/>
+  </symbol>
+  <symbol id="d-whitepeach-cheese" viewBox="0 0 120 170">
+    <path d="M30 56 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#f3c98f"/>
+    <path d="M32 82 H88 L86 116 H34 Z" fill="#eeb877"/>
+    <circle cx="54" cy="124" r="10" fill="#ffcdb0"/><path d="M54 116 q6 -6 12 -2 q-4 8 -12 4Z" fill="#f0637f"/>
+    <path d="M30 58 q30 -24 60 0 q-2 -14 -30 -14 q-28 0 -30 14Z" fill="#fff0cf"/>
+    <path d="M30 58 q30 20 60 0 l-1 8 q-29 16 -58 0Z" fill="#f7e2b0"/>
+    <rect x="55" y="18" width="11" height="46" rx="5" fill="#f15464" transform="rotate(9 60 40)"/>
+    <circle cx="60" cy="104" r="13" fill="none" stroke="#c98a52" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-strawberry-milk" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#ffc6d0"/>
+    <path d="M35 104 q25 -14 50 0 l0 20 q-25 12 -50 0Z" fill="#fff" opacity=".85"/>
+    <path d="M38 128 H82 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#3a2a1e"/>
+    <g fill="#241812"><circle cx="46" cy="146" r="4"/><circle cx="58" cy="150" r="4"/><circle cx="70" cy="146" r="4"/><circle cx="52" cy="139" r="4"/><circle cx="66" cy="139" r="4"/></g>
+    <ellipse cx="60" cy="48" rx="31" ry="11" fill="#fff" opacity=".92"/>
+    <path d="M29 47 q31 -19 62 0 l0 -3 q-31 -17 -62 0Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <circle cx="60" cy="92" r="12" fill="none" stroke="#e58aa0" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-lime-bomber" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#d9e69c"/>
+    <path d="M30 48 H90 L88 76 H32 Z" fill="#c7db83"/>
+    <g><circle cx="48" cy="116" r="11" fill="#8ec84f"/><g stroke="#fff" stroke-width="1.5"><line x1="48" y1="106" x2="48" y2="126"/><line x1="38" y1="116" x2="58" y2="116"/><line x1="41" y1="109" x2="55" y2="123"/><line x1="55" y1="109" x2="41" y2="123"/></g>
+      <circle cx="72" cy="130" r="8" fill="#7fbf4d"/></g>
+    <g fill="#fff" opacity=".5"><rect x="40" y="84" width="10" height="10" rx="2"/><rect x="70" y="90" width="9" height="9" rx="2"/><rect x="56" y="96" width="9" height="9" rx="2"/></g>
+    <path d="M28 48 h64 v-4 h-64Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <path d="M82 44 q10 -8 20 -2 q-6 11 -20 7Z" fill="#8ec84f"/>
+  </symbol>
+  <symbol id="d-topping-treasure" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#dcbb8b"/>
+    <path d="M34 100 h52 l-1 16 h-50Z" fill="#ffd258"/>
+    <g><rect x="40" y="120" width="9" height="9" rx="2" fill="#f0637f"/><rect x="66" y="122" width="9" height="9" rx="2" fill="#8ec84f"/><rect x="54" y="118" width="9" height="9" rx="2" fill="#ffd258"/></g>
+    <path d="M38 132 H82 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#3a2a1e"/>
+    <g fill="#241812"><circle cx="47" cy="147" r="4"/><circle cx="60" cy="151" r="4"/><circle cx="72" cy="147" r="4"/><circle cx="66" cy="140" r="4"/></g>
+    <ellipse cx="60" cy="48" rx="31" ry="11" fill="#fff" opacity=".92"/>
+    <path d="M29 47 q31 -19 62 0 l0 -3 q-31 -17 -62 0Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <circle cx="60" cy="86" r="12" fill="none" stroke="#c98a52" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-waffle" viewBox="0 0 140 140">
+    <g transform="translate(14 8)"><path d="M0 60 q8 -60 56 -60 q48 0 56 60 q5 56 -56 62 q-61 -6 -56 -62Z" fill="#e7a86a"/>
+    <path d="M6 10 q-14 -26 6 -30 q20 8 16 30Z" fill="#e7a86a"/><path d="M106 10 q14 -26 -6 -30 q-20 8 -16 30Z" fill="#e7a86a"/>
+    <path d="M18 66 q38 24 76 0 q-10 36 -38 36 q-28 0 -38 -36Z" fill="#fff6ee"/>
+    <circle cx="36" cy="52" r="5.5" fill="#2d2927"/><circle cx="76" cy="52" r="5.5" fill="#2d2927"/><circle cx="56" cy="70" r="4.5" fill="#2d2927"/>
+    <circle cx="20" cy="64" r="8" fill="#ffb0a3"/><circle cx="92" cy="64" r="8" fill="#ffb0a3"/>
+    <g stroke="#c9884f" stroke-width="3" opacity=".55" fill="none"><path d="M14 38 h84M10 56 h92M14 74 h84"/></g></g>
+  </symbol>
+</defs></svg>
+
 <!-- parallax illustrated scenery -->
 <div class="scenery" aria-hidden="true">
   <div class="sky"></div>
@@ -183,22 +279,46 @@
   <div class="cloud b" data-bg="0.05,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="30"/><circle cx="105" cy="45" r="36"/><circle cx="150" cy="58" r="26"/><rect x="58" y="62" width="94" height="24" rx="12"/></g></svg></div>
   <div class="cloud c" data-bg="-0.04,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="24"/><circle cx="100" cy="46" r="30"/><circle cx="140" cy="58" r="22"/><rect x="58" y="60" width="84" height="22" rx="11"/></g></svg></div>
 
-  <!-- far hills (slow) -->
-  <svg class="layer" data-bg="0,-0.04" viewBox="0 0 1800 520" preserveAspectRatio="xMidYMax meet">
-    <path d="M0 300 Q 300 200 640 280 T 1240 260 T 1800 300 V520 H0 Z" fill="#cfe3d1"/>
+  <!-- far mountains + birds (slowest) -->
+  <svg class="layer" data-bg="0,-0.03" viewBox="0 0 1800 560" preserveAspectRatio="xMidYMax meet">
+    <path d="M120 320 L320 130 L520 320 Z" fill="#c3d9c6"/>
+    <path d="M300 150 L320 130 L360 175 L338 190 Z" fill="#eef4ec"/>
+    <path d="M1280 330 L1470 160 L1660 330 Z" fill="#c3d9c6"/>
+    <path d="M1452 178 L1470 160 L1508 205 L1486 218 Z" fill="#eef4ec"/>
+    <path d="M0 330 Q 300 235 640 315 T 1240 295 T 1800 330 V560 H0 Z" fill="#cfe3d1"/>
+    <g stroke="#8aa79a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7">
+      <path d="M760 140 q10 -10 20 0 q10 -10 20 0"/><path d="M842 168 q8 -8 16 0 q8 -8 16 0"/><path d="M690 176 q8 -8 16 0 q8 -8 16 0"/></g>
   </svg>
-  <!-- mid hills + river (medium) -->
-  <svg class="layer" data-bg="0,-0.08" viewBox="0 0 1800 460" preserveAspectRatio="xMidYMax meet">
-    <path d="M0 240 Q 380 140 760 220 T 1800 210 V460 H0 Z" fill="#9ec7a6"/>
-    <path d="M900 460 C 850 320 1040 280 980 190 C 940 120 1020 80 1000 30" fill="none" stroke="#d6ecef" stroke-width="42" stroke-linecap="round"/>
+  <!-- mid hills + river + torii + pagoda (medium) -->
+  <svg class="layer" data-bg="0,-0.07" viewBox="0 0 1800 480" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 250 Q 380 150 760 230 T 1800 220 V480 H0 Z" fill="#9ec7a6"/>
+    <path d="M900 480 C 850 340 1040 300 980 210 C 940 140 1020 100 1000 46" fill="none" stroke="#d6ecef" stroke-width="44" stroke-linecap="round"/>
+    <g fill="#c0442e"><rect x="1180" y="252" width="15" height="92"/><rect x="1244" y="252" width="15" height="92"/><path d="M1158 250 h124 l-8 -16 h-108 Z"/><rect x="1172" y="262" width="96" height="10"/></g>
+    <g><path d="M512 252 h128 l-20 -24 h-88 Z" fill="#8a5a3e"/><path d="M540 228 h72 l-14 -18 h-44 Z" fill="#8a5a3e"/><rect x="566" y="252" width="20" height="20" fill="#6f4632"/></g>
   </svg>
-  <!-- near hill + trees + tea bushes (fast) -->
-  <svg class="layer" data-bg="0,-0.14" viewBox="0 0 1800 420" preserveAspectRatio="xMidYMax meet">
-    <path d="M0 220 Q 450 120 900 200 T 1800 190 V420 H0 Z" fill="#5f9773"/>
-    <g fill="#3f7a6d"><circle cx="240" cy="230" r="28"/><circle cx="292" cy="236" r="32"/><circle cx="350" cy="230" r="26"/>
-      <circle cx="1480" cy="236" r="32"/><circle cx="1536" cy="242" r="28"/><circle cx="1424" cy="242" r="26"/></g>
-    <g><rect x="600" y="176" width="12" height="52" fill="#7a4a2b"/><circle cx="606" cy="162" r="40" fill="#32645a"/>
-      <rect x="1230" y="168" width="14" height="58" fill="#7a4a2b"/><circle cx="1237" cy="150" r="46" fill="#2f5c50"/></g>
+  <!-- near hill + path + tea rows + trees + lantern (fast) -->
+  <svg class="layer" data-bg="0,-0.12" viewBox="0 0 1800 440" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 230 Q 450 130 900 210 T 1800 200 V440 H0 Z" fill="#5f9773"/>
+    <path d="M840 440 C 800 350 960 330 916 262 C 892 226 928 206 960 196" fill="none" stroke="#e7d3b0" stroke-width="30" stroke-linecap="round" opacity=".85"/>
+    <g fill="#3f7a6d">
+      <circle cx="150" cy="262" r="24"/><circle cx="196" cy="268" r="28"/><circle cx="246" cy="262" r="24"/><circle cx="292" cy="270" r="26"/>
+      <circle cx="1420" cy="266" r="26"/><circle cx="1470" cy="272" r="30"/><circle cx="1522" cy="266" r="26"/><circle cx="1570" cy="272" r="24"/>
+      <circle cx="470" cy="300" r="22"/><circle cx="512" cy="306" r="26"/><circle cx="558" cy="300" r="22"/></g>
+    <g><rect x="300" y="196" width="14" height="56" fill="#7a4a2b"/><circle cx="307" cy="182" r="46" fill="#32645a"/><circle cx="290" cy="196" r="26" fill="#3f7a6d"/>
+       <rect x="1520" y="186" width="16" height="62" fill="#7a4a2b"/><circle cx="1528" cy="168" r="52" fill="#2f5c50"/></g>
+    <g fill="#b9b3a6"><rect x="1112" y="256" width="12" height="42"/><rect x="1098" y="242" width="40" height="16" rx="3"/><path d="M1098 242 h40 l-9 -16 h-22 Z" fill="#a49e90"/><rect x="1110" y="298" width="16" height="10"/></g>
+  </svg>
+  <!-- foreground grass + flowers (fastest) -->
+  <svg class="layer" data-bg="0,-0.2" viewBox="0 0 1800 240" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 130 Q 300 88 600 128 T 1200 128 T 1800 128 V240 H0 Z" fill="#4f8462"/>
+    <g stroke="#3f7a6d" stroke-width="6" stroke-linecap="round" fill="none">
+      <path d="M70 168 q-6 -34 2 -52"/><path d="M88 168 q4 -30 -2 -50"/><path d="M104 168 q8 -28 2 -46"/>
+      <path d="M1700 168 q-6 -34 2 -52"/><path d="M1718 168 q4 -30 -2 -50"/><path d="M1734 168 q8 -28 2 -46"/></g>
+    <g>
+      <g transform="translate(210 150)"><rect x="-2" y="0" width="5" height="40" fill="#3f7a6d"/><circle cx="0" cy="-4" r="10" fill="#ffd258"/><g fill="#f15464"><circle cx="-10" cy="-4" r="6"/><circle cx="10" cy="-4" r="6"/><circle cx="0" cy="-14" r="6"/><circle cx="0" cy="6" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#ffd258"/></g>
+      <g transform="translate(1560 150)"><rect x="-2" y="0" width="5" height="40" fill="#3f7a6d"/><g fill="#ffc8b8"><circle cx="-9" cy="-4" r="6"/><circle cx="9" cy="-4" r="6"/><circle cx="0" cy="-13" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#f15464"/></g>
+      <g transform="translate(940 158)"><rect x="-2" y="0" width="5" height="34" fill="#3f7a6d"/><g fill="#503278" opacity=".85"><circle cx="-8" cy="-3" r="5"/><circle cx="8" cy="-3" r="5"/><circle cx="0" cy="-11" r="5"/><circle cx="0" cy="5" r="5"/></g><circle cx="0" cy="-3" r="4" fill="#ffd258"/></g>
+    </g>
   </svg>
 </div>
 
@@ -306,7 +426,7 @@
         </div>
         <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:8%;right:2%" data-fg="0.12" viewBox="0 0 100 120"><path d="M28 34 h44 l-5 66 a10 10 0 0 1 -10 9 h-14 a10 10 0 0 1 -10 -9 Z" fill="#fff" stroke="#d89c52" stroke-width="3"/><path d="M31 74 h38 l-3 26 a10 10 0 0 1 -10 9 h-14 a10 10 0 0 1 -10 -9 Z" fill="#5b3b28"/><rect x="26" y="28" width="48" height="9" rx="4" fill="#2d2927"/><circle cx="40" cy="92" r="4" fill="#2d2927"/><circle cx="52" cy="96" r="4" fill="#2d2927"/><circle cx="62" cy="92" r="4" fill="#2d2927"/></svg>
+      <svg class="spot" style="top:6%;right:2%;width:160px" data-fg="0.12" viewBox="0 0 120 170"><use href="#d-brownsugar"/></svg>
     </section>
 
     <section class="scene">
@@ -320,7 +440,7 @@
         </div>
         <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:10%;left:2%" data-fg="0.16" viewBox="0 0 110 110"><circle cx="55" cy="58" r="34" fill="#dff0ea"/><path d="M55 22 q11 13 0 24 q-11 -11 0 -24Z" fill="#32645a"/><path d="M33 50 q16 28 44 10" stroke="#32645a" stroke-width="4" fill="none"/><circle cx="46" cy="64" r="4" fill="#32645a"/><circle cx="66" cy="64" r="4" fill="#32645a"/></svg>
+      <svg class="spot" style="top:8%;left:2%;width:160px" data-fg="0.16" viewBox="0 0 120 170"><use href="#d-matcha"/></svg>
     </section>
 
     <section class="scene">
@@ -334,7 +454,7 @@
         </div>
         <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:6%;right:3%" data-fg="0.1" viewBox="0 0 110 110"><circle cx="42" cy="50" r="22" fill="#f15464"/><circle cx="68" cy="58" r="17" fill="#ffb0a3"/><path d="M42 26 q9 9 0 18 q-9 -9 0 -18Z" fill="#32645a"/><circle cx="56" cy="80" r="11" fill="#ffd258"/></svg>
+      <svg class="spot" style="top:6%;right:3%;width:160px" data-fg="0.1" viewBox="0 0 120 170"><use href="#d-superfruitea"/></svg>
     </section>
 
     <section class="scene">
@@ -347,7 +467,7 @@
         </div>
         <div class="teaser__more reveal"><span class="read">読む &nbsp;Read</span></div>
       </a>
-      <svg class="spot" style="top:4%;left:2%;width:160px" data-fg="0.14" viewBox="0 0 140 130"><g transform="translate(14 8)"><path d="M0 60 q8 -60 56 -60 q48 0 56 60 q5 56 -56 62 q-61 -6 -56 -62Z" fill="#e7a86a"/><path d="M6 10 q-14 -26 6 -30 q20 8 16 30Z" fill="#e7a86a"/><path d="M106 10 q14 -26 -6 -30 q-20 8 -16 30Z" fill="#e7a86a"/><path d="M18 66 q38 24 76 0 q-10 36 -38 36 q-28 0 -38 -36Z" fill="#fff6ee"/><circle cx="36" cy="52" r="5.5" fill="#2d2927"/><circle cx="76" cy="52" r="5.5" fill="#2d2927"/><circle cx="56" cy="70" r="4.5" fill="#2d2927"/><circle cx="20" cy="64" r="8" fill="#ffb0a3"/><circle cx="92" cy="64" r="8" fill="#ffb0a3"/></g></svg>
+      <svg class="spot" style="top:4%;left:2%;width:170px" data-fg="0.14" viewBox="0 0 140 140"><use href="#d-waffle"/></svg>
     </section>
 
     <section class="scene">
@@ -372,14 +492,14 @@
       <h2>品書き · Signature cups</h2>
       <p class="lead">A few favourites — full menu &amp; vegan options in store and on Deliveroo.</p>
       <div class="m-grid">
-        <article class="m-card"><div class="ph"><img src="../assets/drink-brown-sugar-milk.jpg" alt=""></div><div class="b"><h4>Brown Sugar Tapioca Milk</h4><div class="zh palt">黑糖珍珠鮮奶</div><div class="pr">£4.7 / £5.2</div></div></article>
-        <article class="m-card"><div class="ph"><img src="../assets/drink-matcha-milk.jpg" alt=""></div><div class="b"><h4>Matcha Tapioca Milk</h4><div class="zh palt">靜岡抹茶珍珠鮮奶</div><div class="pr">£5.0 / £5.5</div></div></article>
-        <article class="m-card"><div class="ph"><img src="../assets/drink-strawberry-cheese.jpg" alt=""></div><div class="b"><h4>Strawberry Tea · Cheese Foam</h4><div class="zh palt">芝芝草莓</div><div class="pr">£5.9</div></div></article>
-        <article class="m-card"><div class="ph"><img src="../assets/drink-super-fruitea.jpg" alt=""></div><div class="b"><h4>Super Fruitea</h4><div class="zh palt">超級水果茶</div><div class="pr">£5.6</div></div></article>
-        <article class="m-card"><div class="ph"><img src="../assets/drink-white-peach-cheese.jpg" alt=""></div><div class="b"><h4>White Peach · Cheese Foam</h4><div class="zh palt">芝士白桃</div><div class="pr">£4.5</div></div></article>
-        <article class="m-card"><div class="ph"><img src="../assets/drink-strawberry-milk.jpg" alt=""></div><div class="b"><h4>Strawberry Tapioca Milk</h4><div class="zh palt">草莓珍珠鮮奶</div><div class="pr">£5.0 / £5.5</div></div></article>
-        <article class="m-card"><div class="ph"><img src="../assets/drink-lime-bomber.jpg" alt=""></div><div class="b"><h4>Lime Bomber</h4><div class="zh palt">暴檸四季春</div><div class="pr">£5.5</div></div></article>
-        <article class="m-card"><div class="ph"><img src="../assets/drink-topping-treasure.jpg" alt=""></div><div class="b"><h4>Topping Treasure Milk Tea</h4><div class="zh palt">寶藏奶茶</div><div class="pr">£4.6 / £5.2</div></div></article>
+        <article class="m-card"><div class="ph"><svg viewBox="0 0 120 170"><use href="#d-brownsugar"/></svg></div><div class="b"><h4>Brown Sugar Tapioca Milk</h4><div class="zh palt">黑糖珍珠鮮奶</div><div class="pr">£4.7 / £5.2</div></div></article>
+        <article class="m-card"><div class="ph"><svg viewBox="0 0 120 170"><use href="#d-matcha"/></svg></div><div class="b"><h4>Matcha Tapioca Milk</h4><div class="zh palt">靜岡抹茶珍珠鮮奶</div><div class="pr">£5.0 / £5.5</div></div></article>
+        <article class="m-card"><div class="ph"><svg viewBox="0 0 120 170"><use href="#d-strawberry-cheese"/></svg></div><div class="b"><h4>Strawberry Tea · Cheese Foam</h4><div class="zh palt">芝芝草莓</div><div class="pr">£5.9</div></div></article>
+        <article class="m-card"><div class="ph"><svg viewBox="0 0 120 170"><use href="#d-superfruitea"/></svg></div><div class="b"><h4>Super Fruitea</h4><div class="zh palt">超級水果茶</div><div class="pr">£5.6</div></div></article>
+        <article class="m-card"><div class="ph"><svg viewBox="0 0 120 170"><use href="#d-whitepeach-cheese"/></svg></div><div class="b"><h4>White Peach · Cheese Foam</h4><div class="zh palt">芝士白桃</div><div class="pr">£4.5</div></div></article>
+        <article class="m-card"><div class="ph"><svg viewBox="0 0 120 170"><use href="#d-strawberry-milk"/></svg></div><div class="b"><h4>Strawberry Tapioca Milk</h4><div class="zh palt">草莓珍珠鮮奶</div><div class="pr">£5.0 / £5.5</div></div></article>
+        <article class="m-card"><div class="ph"><svg viewBox="0 0 120 170"><use href="#d-lime-bomber"/></svg></div><div class="b"><h4>Lime Bomber</h4><div class="zh palt">暴檸四季春</div><div class="pr">£5.5</div></div></article>
+        <article class="m-card"><div class="ph"><svg viewBox="0 0 120 170"><use href="#d-topping-treasure"/></svg></div><div class="b"><h4>Topping Treasure Milk Tea</h4><div class="zh palt">寶藏奶茶</div><div class="pr">£4.6 / £5.2</div></div></article>
       </div>
       <p class="m-note">Regular / Large · toppings from £0.5 · non-dairy milk +£0.6 · 95 Princess Street, Manchester M1 4HT · open 7 days from 12pm</p>
     </div>
