@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OHAYO TEA — Journey concept</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+<meta name="description" content="OHAYO TEA — an ordinary cup, and the little story behind it. A Shiba-Inu tea house in the heart of Manchester." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;500;700;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --sand:#efdbcb;--sky:#f6e6d3;--paper:#fef9f3;--ink:#2d2927;
+    --purple:#503278;--peach:#ffc8b8;--coral:#f15464;--green:#32645a;--green2:#3f7a6d;
+    --gold:#c48426;--yellow:#ffd258;--ochre:#d89c52;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans JP',system-ui,sans-serif;color:var(--ink);background:var(--sand);line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .palt{font-feature-settings:"palt" 1;letter-spacing:.08em}
+  .Container{width:min(1040px,88vw);margin-inline:auto}
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+  /* ===== parallax illustrated background (scroll-reactive) ===== */
+  .scenery{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .scenery .sky{position:absolute;inset:0;background:linear-gradient(180deg,var(--sky) 0%,#f8ecdd 45%,var(--sand) 100%)}
+  .pano{position:absolute;left:0;bottom:0;height:100vh;width:auto;will-change:transform}
+  .sun{position:absolute;top:6%;right:8%;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#ffe9b0,#ffe09a);will-change:transform}
+  .cloud{position:absolute;will-change:transform}
+  .cloud svg{width:100%}
+  .cloud.a{top:12%;left:-6%;width:200px;animation:drift 26s linear infinite alternate}
+  .cloud.b{top:26%;right:-4%;width:160px;animation:drift 34s linear infinite alternate-reverse}
+  .cloud.c{top:40%;left:20%;width:130px;animation:drift 44s linear infinite alternate}
+  @keyframes drift{from{transform:translateX(-30px)}to{transform:translateX(60px)}}
+
+  /* ===== fixed chrome ===== */
+  .chrome{position:fixed;top:0;left:0;right:0;z-index:20;pointer-events:none}
+  .chrome .Container{position:relative;height:0}
+  .menuBtn{pointer-events:auto;position:absolute;width:56px;height:56px;top:40px;right:0;border:0;border-radius:16px;background:var(--ink);cursor:pointer;display:grid;place-items:center;transition:background .35s}
+  .menuBtn span{display:block;width:22px;height:2px;background:#fff;margin:3px 0;transition:.35s}
+  .menuBtn:hover{background:#fff;outline:2px solid var(--ink)}
+  .menuBtn:hover span{background:var(--ink)}
+  .avatarBtn{pointer-events:auto;position:absolute;width:56px;height:56px;top:106px;right:0;border:0;border-radius:50%;background:var(--paper);cursor:pointer;overflow:hidden;padding:0}
+  .avatarBtn img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#fff}
+  .avatarBtn:hover{outline:2px solid var(--ink);background:#fff}
+  .scrollBtn{pointer-events:auto;position:fixed;width:56px;height:56px;right:max(6vw,20px);bottom:40px;border:0;border-radius:50%;background:var(--ink);color:#fff;cursor:pointer;z-index:20;display:grid;place-items:center;transition:.35s;font-size:1.2rem}
+  .scrollBtn:hover{background:#fff;color:var(--ink);outline:2px solid var(--ink)}
+  .scrollBtn.is-hide{opacity:0;visibility:hidden}
+  .scrollBtn .arw{animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(-3px)}50%{transform:translateY(3px)}}
+
+  /* ===== content over the scenery ===== */
+  main{position:relative;z-index:5}
+  .scene{padding:6vh 0}
+  .teasers .scene{position:relative;min-height:100vh;display:flex;align-items:center}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:14vh 0 8vh}
+  .hero__logo{width:200px;height:200px;border-radius:50%;object-fit:cover;background:var(--paper);border:6px solid var(--paper);box-shadow:0 20px 50px -24px rgba(45,41,39,.5);margin:0 auto 2rem}
+  .hero__art{width:min(360px,82vw);height:auto;margin:0 auto 1.6rem;display:block;filter:drop-shadow(0 24px 40px rgba(45,41,39,.28))}
+  .hero__art .sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 4.5s ease-in-out infinite}
+  @keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+  .hero__desc{font-weight:700;font-size:clamp(1.4rem,3.6vw,2.125rem);line-height:2}
+  .hero__desc .text{background:linear-gradient(to bottom,var(--paper) 92%,transparent 92%);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .15em}
+  .hero__desc.small{font-size:clamp(1rem,2.4vw,1.4rem);margin-top:1.4em;margin-left:2em}
+  .hero__en{margin-top:1.8rem;opacity:.8;font-weight:500}
+
+  /* FEATURED */
+  .featured{margin:0 auto;max-width:560px;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(45,41,39,.55);text-align:left;transition:transform .25s}
+  .featured:hover{transform:translateY(-5px)}
+  .featured .thumb{aspect-ratio:16/10;overflow:hidden;background:#fff}
+  .featured .thumb img{width:100%;height:100%;object-fit:cover}
+  .featured .body{padding:1.4rem 1.6rem 1.7rem}
+  .featured .lead{font-size:.92rem;opacity:.75;margin-bottom:.6rem}
+  .featured .title{font-weight:700;font-size:1.3rem;line-height:1.5;margin:.7rem 0 1rem}
+
+  /* BADGE */
+  .Badge{display:inline-block;padding:.35em .5em .2em;font-weight:300;font-size:1.05rem;line-height:1;color:#fff;background:var(--purple);transition:background .35s}
+  .Badge b{font-weight:500;color:var(--peach);transition:color .35s}
+  .teaser:hover .Badge,.featured:hover .Badge{background:var(--coral)}
+  .teaser:hover .Badge b,.featured:hover .Badge b{color:var(--purple)}
+
+  /* READ pill */
+  .read{display:inline-block;padding:.7em 1.6em .5em;border-radius:99em;font-weight:700;font-size:1.05rem;color:#fff;background:var(--ink);transition:.35s}
+  .teaser:hover .read,.featured:hover .read{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
+
+  /* TEASERS */
+  .teaser{display:block;max-width:640px;margin:0}
+  .teaser.right{margin-left:auto;text-align:right}
+  .teaser__badge{margin-bottom:15px}
+  .headline{font-weight:700;line-height:1.35;font-size:clamp(1.6rem,4.4vw,2.6rem)}
+  .headline .line{display:block}
+  .headline .line span{background:linear-gradient(to bottom,var(--paper) 90%,rgba(255,255,255,0) 90%);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:.02em .22em}
+  .headline .en{font-weight:500;font-size:.66em;opacity:.95}
+  .teaser__more{margin-top:28px}
+
+  /* floating spot illustrations (parallax) */
+  .spot{position:absolute;width:140px;height:auto;z-index:1;will-change:transform}
+  .shiba{position:absolute;width:150px;height:auto;z-index:2;will-change:transform}
+  /* animated avatar button (tail-wag + blink on hover) */
+  .avatarShiba{width:100%;height:100%;display:block;border-radius:50%}
+  .avatarShiba .tail{transform-box:fill-box;transform-origin:24% 76%}
+  .avatarBtn:hover .avatarShiba .tail{animation:wag .38s ease-in-out infinite alternate}
+  @keyframes wag{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}
+  .avatarShiba .eye{transform-box:fill-box;transform-origin:center}
+  .avatarBtn:hover .avatarShiba .eye{animation:blink 1.8s ease-in-out infinite}
+  @keyframes blink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(.12)}}
+
+  /* MENU */
+  .panel{position:relative;z-index:5;background:var(--paper);border-radius:28px;box-shadow:0 30px 60px -40px rgba(45,41,39,.5);padding:clamp(1.6rem,4vw,3rem);margin:2rem auto}
+  .panel h2{font-weight:900;font-size:clamp(1.6rem,3.6vw,2.3rem);text-align:center}
+  .panel .lead{text-align:center;opacity:.75;margin:.4rem 0 2rem}
+  .m-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.2rem}
+  .m-card{background:var(--sand);border-radius:16px;overflow:hidden}
+  .m-card .ph{aspect-ratio:1;overflow:hidden;background:#fbeede;display:grid;place-items:center}
+  .m-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+  .m-card .ph svg{width:76%;height:76%;transition:transform .3s}
+  .m-card:hover .ph img{transform:scale(1.05)}
+  .m-card:hover .ph svg{transform:translateY(-4px)}
+  .m-card .b{padding:.8rem .9rem 1rem}
+  .m-card h4{font-weight:700;font-size:.98rem;line-height:1.35}
+  .m-card .zh{color:var(--green);font-size:.82rem;margin-top:.1rem}
+  .m-card .pr{margin-top:.4rem;font-weight:700;color:var(--coral)}
+  .m-note{text-align:center;opacity:.7;margin-top:1.4rem;font-size:.9rem}
+
+  /* STORY FOOTER */
+  .storyFooter{position:relative;z-index:5;text-align:center;padding:10vh 0 6vh}
+  .storyFooter__desc{font-weight:700;font-size:clamp(1.4rem,3.4vw,2.125rem);line-height:2;margin-bottom:2.2rem}
+  .storyFooter__desc span{background:linear-gradient(to bottom,var(--paper) 90%,transparent 90%);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .18em}
+  .goldBtn{width:min(320px,80vw);display:block;margin:0 auto 18px;padding:.75em 1.6em .55em;border-radius:99em;font-weight:700;font-size:1.2rem;color:#fff;background:var(--gold);text-align:right;position:relative;transition:.35s}
+  .goldBtn::before{content:"→";position:absolute;left:1.2em;top:50%;transform:translateY(-50%)}
+  .goldBtn:hover{background:#fff;color:var(--ink)}
+
+  /* real footer */
+  .siteFooter{position:relative;z-index:5;background:var(--ink);color:var(--paper);text-align:center;padding:3rem 0 2rem}
+  .siteFooter .brand{font-weight:900;font-size:1.4rem;margin-bottom:.4rem}
+  .siteFooter .tag{color:var(--yellow);margin-bottom:1.2rem;font-weight:700}
+  .socials{display:flex;gap:.8rem;justify-content:center;margin-bottom:1.2rem}
+  .socials a{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);display:grid;place-items:center;font-weight:700}
+  .socials a:hover{background:var(--paper);color:var(--ink)}
+  .fine{opacity:.6;font-size:.82rem;line-height:1.7}
+
+  /* ===== scroll-reveal animation (the js-parallaxItem effect) ===== */
+  .reveal{opacity:0;transform:translateY(46px);transition:opacity .9s cubic-bezier(.22,.94,.44,1),transform .9s cubic-bezier(.22,.94,.44,1)}
+  .reveal.in{opacity:1;transform:none}
+  .headline.reveal .line{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.94,.44,1)}
+  .headline.reveal.in .line{opacity:1;transform:none}
+  .headline.reveal.in .line:nth-child(1){transition-delay:.05s}
+  .headline.reveal.in .line:nth-child(2){transition-delay:.15s}
+  .headline.reveal.in .line:nth-child(3){transition-delay:.25s}
+  .headline.reveal.in .line:nth-child(4){transition-delay:.35s}
+  @media(prefers-reduced-motion:reduce){
+    .reveal,.headline.reveal .line{opacity:1;transform:none;transition:none}
+    .cloud,.hero__art .sway,.avatarShiba .tail,.avatarShiba .eye{animation:none}
+  }
+
+  /* ===== fullscreen menu ===== */
+  .FullscreenMenu{position:fixed;inset:0;z-index:30;background:var(--sand);overflow-y:auto;padding:2.5rem 0 4rem;opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .4s,transform .4s,visibility .4s}
+  .FullscreenMenu.is-open{opacity:1;visibility:visible;transform:none}
+  .FM__header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem}
+  .FM__logo{display:flex;align-items:center;gap:.6rem;font-weight:900;font-size:1.3rem}
+  .FM__logo img{width:44px;height:44px;border-radius:50%;object-fit:cover;background:#fff}
+  .closeBtn{width:56px;height:56px;border:0;border-radius:16px;background:var(--ink);color:#fff;font-size:1.4rem;cursor:pointer}
+  .closeBtn:hover{background:#fff;color:var(--ink);outline:2px solid var(--ink)}
+  .MenuList{list-style:none;border-top:1px solid #dcc7b2}
+  .MenuList a{display:flex;justify-content:space-between;align-items:center;padding:1.1rem .2rem;border-bottom:1px solid #dcc7b2;font-weight:700;font-size:1.3rem}
+  .MenuList a:hover{color:var(--coral)}
+  .MenuStory__title{display:block;font-weight:900;margin:2rem 0 1rem;font-size:1.1rem;color:var(--green)}
+  .MenuStoryList{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+  .StoryTeaser{display:flex;gap:.9rem;background:var(--paper);border-radius:14px;overflow:hidden;padding:.6rem}
+  .StoryTeaser:hover{transform:translateY(-3px);transition:transform .2s}
+  .StoryTeaser .thumb{width:84px;height:84px;border-radius:10px;overflow:hidden;flex:none;background:#fff}
+  .StoryTeaser .thumb img{width:100%;height:100%;object-fit:cover}
+  .StoryTeaser .title{font-weight:700;font-size:.95rem;line-height:1.4;margin-top:.4rem}
+
+  /* let grid/flex children shrink so long names never overflow the row */
+  .m-card,.m-card .ph svg{min-width:0;max-width:100%}
+  .m-card h4,.m-card .zh,.StoryTeaser .title{overflow-wrap:anywhere}
+  .StoryTeaser,.StoryTeaser>div{min-width:0}
+
+  @media(max-width:820px){
+    .m-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .MenuStory__title{margin-top:1.4rem}
+    .MenuStoryList{grid-template-columns:minmax(0,1fr)}
+    .hero__logo{width:150px;height:150px}
+    /* stack story illustration above the text so nothing overlaps */
+    .teasers .scene{min-height:auto;flex-direction:column;align-items:center;padding:7vh 0;text-align:center}
+    .teaser,.teaser.right{max-width:100%;text-align:center;margin:0}
+    .teaser__badge{display:flex;justify-content:center}
+    .spot{position:static;order:-1;width:140px!important;height:auto;margin:0 auto 1.4rem;
+          top:auto!important;left:auto!important;right:auto!important;bottom:auto!important}
+    /* shrink headlines so lines fit the narrow screen */
+    .hero__desc{font-size:1.3rem}
+    .hero__desc.small{font-size:.9rem;margin-left:0}
+    .headline{font-size:1.35rem}
+    .hero__en{font-size:.92rem;max-width:26ch;margin-left:auto;margin-right:auto}
+    .storyFooter__desc{font-size:1.4rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== reusable flat-vector drink illustrations (used in teasers + menu) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="d-brownsugar" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#f5e6d2"/>
+    <g fill="#c07f3f" opacity=".5"><path d="M35 92 q11 8 0 18 q-5 -9 0 -18Z"/><path d="M82 88 q-11 8 0 18 q5 -9 0 -18Z"/><path d="M42 110 q12 9 0 18 q-5 -9 0 -18Z"/><path d="M78 112 q-12 9 0 18 q5 -9 0 -18Z"/></g>
+    <path d="M38 128 H82 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#3a2a1e"/>
+    <g fill="#241812"><circle cx="46" cy="146" r="4"/><circle cx="58" cy="150" r="4"/><circle cx="70" cy="146" r="4"/><circle cx="52" cy="139" r="4"/><circle cx="66" cy="139" r="4"/></g>
+    <ellipse cx="60" cy="48" rx="31" ry="11" fill="#fff" opacity=".92"/>
+    <path d="M29 47 q31 -19 62 0 l0 -3 q-31 -17 -62 0Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <circle cx="60" cy="98" r="13" fill="none" stroke="#c98a52" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-matcha" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#a7d187"/>
+    <path d="M30 48 H90 L87 82 H33 Z" fill="#8cbf66"/>
+    <path d="M38 128 H82 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#3a2a1e"/>
+    <g fill="#241812"><circle cx="46" cy="146" r="4"/><circle cx="58" cy="150" r="4"/><circle cx="70" cy="146" r="4"/><circle cx="52" cy="139" r="4"/><circle cx="66" cy="139" r="4"/></g>
+    <ellipse cx="60" cy="48" rx="31" ry="11" fill="#fff" opacity=".92"/>
+    <path d="M29 47 q31 -19 62 0 l0 -3 q-31 -17 -62 0Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <circle cx="60" cy="98" r="13" fill="none" stroke="#4c6b3a" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-strawberry-cheese" viewBox="0 0 120 170">
+    <path d="M30 56 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#f0637f"/>
+    <path d="M32 78 H88 L86 110 H34 Z" fill="#e64c6a"/>
+    <g fill="#c0304c"><circle cx="48" cy="120" r="2.4"/><circle cx="66" cy="128" r="2.4"/><circle cx="58" cy="112" r="2.4"/><circle cx="74" cy="116" r="2.4"/></g>
+    <path d="M30 58 q30 -24 60 0 q-2 -14 -30 -14 q-28 0 -30 14Z" fill="#ffe6a8"/>
+    <path d="M30 58 q30 20 60 0 l-1 8 q-29 16 -58 0Z" fill="#f7d68a"/>
+    <rect x="55" y="18" width="11" height="46" rx="5" fill="#f15464" transform="rotate(9 60 40)"/>
+    <circle cx="60" cy="104" r="13" fill="none" stroke="#fff" stroke-width="2.5" opacity=".8"/>
+  </symbol>
+  <symbol id="d-superfruitea" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#e9a94f"/>
+    <path d="M30 48 H90 L88 74 H32 Z" fill="#f0be6f"/>
+    <g opacity=".95">
+      <circle cx="46" cy="112" r="12" fill="#ff9d43"/><g stroke="#fff" stroke-width="1.6"><line x1="46" y1="102" x2="46" y2="122"/><line x1="36" y1="112" x2="56" y2="112"/><line x1="39" y1="105" x2="53" y2="119"/><line x1="53" y1="105" x2="39" y2="119"/></g>
+      <circle cx="72" cy="128" r="9" fill="#ffd258"/><g stroke="#fff" stroke-width="1.4"><line x1="72" y1="121" x2="72" y2="135"/><line x1="65" y1="128" x2="79" y2="128"/></g>
+      <path d="M60 92 l7 4 -3 8 -7 -1Z" fill="#f15464"/>
+    </g>
+    <g fill="#fff" opacity=".5"><rect x="38" y="80" width="10" height="10" rx="2"/><rect x="72" y="86" width="9" height="9" rx="2"/></g>
+    <path d="M28 48 h64 v-4 h-64Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#7fbf4d" transform="rotate(9 60 34)"/>
+    <path d="M84 44 q10 -10 20 -4 q-6 12 -20 8Z" fill="#ff9d43"/>
+  </symbol>
+  <symbol id="d-whitepeach-cheese" viewBox="0 0 120 170">
+    <path d="M30 56 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#f3c98f"/>
+    <path d="M32 82 H88 L86 116 H34 Z" fill="#eeb877"/>
+    <circle cx="54" cy="124" r="10" fill="#ffcdb0"/><path d="M54 116 q6 -6 12 -2 q-4 8 -12 4Z" fill="#f0637f"/>
+    <path d="M30 58 q30 -24 60 0 q-2 -14 -30 -14 q-28 0 -30 14Z" fill="#fff0cf"/>
+    <path d="M30 58 q30 20 60 0 l-1 8 q-29 16 -58 0Z" fill="#f7e2b0"/>
+    <rect x="55" y="18" width="11" height="46" rx="5" fill="#f15464" transform="rotate(9 60 40)"/>
+    <circle cx="60" cy="104" r="13" fill="none" stroke="#c98a52" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-strawberry-milk" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#ffc6d0"/>
+    <path d="M35 104 q25 -14 50 0 l0 20 q-25 12 -50 0Z" fill="#fff" opacity=".85"/>
+    <path d="M38 128 H82 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#3a2a1e"/>
+    <g fill="#241812"><circle cx="46" cy="146" r="4"/><circle cx="58" cy="150" r="4"/><circle cx="70" cy="146" r="4"/><circle cx="52" cy="139" r="4"/><circle cx="66" cy="139" r="4"/></g>
+    <ellipse cx="60" cy="48" rx="31" ry="11" fill="#fff" opacity=".92"/>
+    <path d="M29 47 q31 -19 62 0 l0 -3 q-31 -17 -62 0Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <circle cx="60" cy="92" r="12" fill="none" stroke="#e58aa0" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-lime-bomber" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#d9e69c"/>
+    <path d="M30 48 H90 L88 76 H32 Z" fill="#c7db83"/>
+    <g><circle cx="48" cy="116" r="11" fill="#8ec84f"/><g stroke="#fff" stroke-width="1.5"><line x1="48" y1="106" x2="48" y2="126"/><line x1="38" y1="116" x2="58" y2="116"/><line x1="41" y1="109" x2="55" y2="123"/><line x1="55" y1="109" x2="41" y2="123"/></g>
+      <circle cx="72" cy="130" r="8" fill="#7fbf4d"/></g>
+    <g fill="#fff" opacity=".5"><rect x="40" y="84" width="10" height="10" rx="2"/><rect x="70" y="90" width="9" height="9" rx="2"/><rect x="56" y="96" width="9" height="9" rx="2"/></g>
+    <path d="M28 48 h64 v-4 h-64Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <path d="M82 44 q10 -8 20 -2 q-6 11 -20 7Z" fill="#8ec84f"/>
+  </symbol>
+  <symbol id="d-topping-treasure" viewBox="0 0 120 170">
+    <path d="M30 48 H90 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#dcbb8b"/>
+    <path d="M34 100 h52 l-1 16 h-50Z" fill="#ffd258"/>
+    <g><rect x="40" y="120" width="9" height="9" rx="2" fill="#f0637f"/><rect x="66" y="122" width="9" height="9" rx="2" fill="#8ec84f"/><rect x="54" y="118" width="9" height="9" rx="2" fill="#ffd258"/></g>
+    <path d="M38 132 H82 L85 150 a9 9 0 0 1 -9 8 H44 a9 9 0 0 1 -9 -8 Z" fill="#3a2a1e"/>
+    <g fill="#241812"><circle cx="47" cy="147" r="4"/><circle cx="60" cy="151" r="4"/><circle cx="72" cy="147" r="4"/><circle cx="66" cy="140" r="4"/></g>
+    <ellipse cx="60" cy="48" rx="31" ry="11" fill="#fff" opacity=".92"/>
+    <path d="M29 47 q31 -19 62 0 l0 -3 q-31 -17 -62 0Z" fill="#2d2927"/>
+    <rect x="55" y="12" width="11" height="44" rx="5" fill="#f15464" transform="rotate(9 60 34)"/>
+    <circle cx="60" cy="86" r="12" fill="none" stroke="#c98a52" stroke-width="2.5"/>
+  </symbol>
+  <symbol id="d-waffle" viewBox="0 0 140 140">
+    <ellipse cx="70" cy="130" rx="40" ry="6" fill="#d9b98a" opacity=".35"/>
+    <path d="M40 46 q-14 -34 5 -40 q22 6 19 40Z" fill="#e0a45c"/><path d="M100 46 q14 -34 -5 -40 q-22 6 -19 40Z" fill="#e0a45c"/>
+    <path d="M49 42 q-8 -20 5 -24 q13 4 10 24Z" fill="#c9863c"/><path d="M91 42 q8 -20 -5 -24 q-13 4 -10 24Z" fill="#c9863c"/>
+    <path d="M22 80 q0 -46 48 -46 q48 0 48 46 q0 46 -48 50 q-48 -4 -48 -50Z" fill="#e0a45c"/>
+    <g fill="#cf8f43" opacity=".5"><rect x="36" y="52" width="8" height="8" rx="2"/><rect x="50" y="48" width="8" height="8" rx="2"/><rect x="82" y="48" width="8" height="8" rx="2"/><rect x="96" y="52" width="8" height="8" rx="2"/><rect x="27" y="74" width="8" height="8" rx="2"/><rect x="105" y="74" width="8" height="8" rx="2"/><rect x="30" y="94" width="8" height="8" rx="2"/><rect x="102" y="94" width="8" height="8" rx="2"/></g>
+    <path d="M44 86 q26 20 52 0 q-6 26 -26 27 q-20 -1 -26 -27Z" fill="#fff2df"/>
+    <path d="M50 76 q7 -8 14 0" fill="none" stroke="#2d2927" stroke-width="4.5" stroke-linecap="round"/><path d="M76 76 q7 -8 14 0" fill="none" stroke="#2d2927" stroke-width="4.5" stroke-linecap="round"/>
+    <ellipse cx="42" cy="90" rx="8" ry="5" fill="#ffb0a3" opacity=".85"/><ellipse cx="98" cy="90" rx="8" ry="5" fill="#ffb0a3" opacity=".85"/>
+    <path d="M64 90 h12 l-6 7Z" fill="#2d2927"/>
+    <path d="M70 97 q-7 8 -14 4 M70 97 q7 8 14 4" fill="none" stroke="#2d2927" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="s-peek" viewBox="0 0 140 100">
+    <rect x="40" y="74" width="22" height="16" rx="8" fill="#f0d3a4"/><rect x="78" y="74" width="22" height="16" rx="8" fill="#f0d3a4"/>
+    <g fill="#3f2e22" opacity=".22"><rect x="46" y="82" width="10" height="3" rx="1.5"/><rect x="84" y="82" width="10" height="3" rx="1.5"/></g>
+    <path d="M42 46 q-12 -34 5 -38 q18 7 13 38Z" fill="#e7a86a"/><path d="M98 46 q12 -34 -5 -38 q-18 7 -13 38Z" fill="#e7a86a"/>
+    <path d="M52 40 q-6 -18 5 -22 q10 5 7 22Z" fill="#c98a52"/><path d="M88 40 q6 -18 -5 -22 q-10 5 -7 22Z" fill="#c98a52"/>
+    <ellipse cx="70" cy="56" rx="40" ry="34" fill="#f0d3a4"/>
+    <path d="M40 64 q30 20 60 0 q-5 22 -30 23 q-25 -1 -30 -23Z" fill="#fff6ee"/>
+    <path d="M56 54 q6 -7 12 0" fill="none" stroke="#2d2927" stroke-width="4" stroke-linecap="round"/><path d="M72 54 q6 -7 12 0" fill="none" stroke="#2d2927" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="50" cy="66" rx="8" ry="5" fill="#ffb0a3" opacity=".8"/><ellipse cx="90" cy="66" rx="8" ry="5" fill="#ffb0a3" opacity=".8"/>
+    <path d="M66 66 h8 l-4 6Z" fill="#2d2927"/><path d="M70 72 q-6 7 -12 3 M70 72 q6 7 12 3" fill="none" stroke="#2d2927" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="s-wave" viewBox="0 0 120 150">
+    <path d="M84 104 q30 -4 33 -33 q5 25 -11 39 q-14 12 -26 6Z" fill="#e9b985"/>
+    <path d="M34 146 q-8 -58 40 -58 q48 0 40 58Z" fill="#eec79a"/><path d="M36 146 q-4 -44 38 -44 q42 0 38 44Z" fill="#f6ddb8"/>
+    <path d="M50 118 q-16 6 -14 26" fill="none" stroke="#eec79a" stroke-width="12" stroke-linecap="round"/>
+    <path d="M74 110 q20 -6 24 -30" fill="none" stroke="#eec79a" stroke-width="12" stroke-linecap="round"/><circle cx="100" cy="78" r="9" fill="#f0d3a4"/>
+    <path d="M40 58 q-14 -34 4 -40 q20 7 16 40Z" fill="#eec79a"/><path d="M80 58 q14 -34 -4 -40 q-20 7 -16 40Z" fill="#eec79a"/>
+    <path d="M48 50 q-7 -18 5 -22 q11 5 8 22Z" fill="#c98a52"/><path d="M72 50 q7 -18 -5 -22 q-11 5 -8 22Z" fill="#c98a52"/>
+    <ellipse cx="60" cy="64" rx="34" ry="30" fill="#f0d3a4"/>
+    <path d="M34 72 q26 18 52 0 q-5 20 -26 21 q-21 -1 -26 -21Z" fill="#fff6ee"/>
+    <path d="M46 62 q6 -7 12 0" fill="none" stroke="#2d2927" stroke-width="4" stroke-linecap="round"/><path d="M62 62 q6 -7 12 0" fill="none" stroke="#2d2927" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="42" cy="74" rx="8" ry="5" fill="#ffb0a3" opacity=".8"/><ellipse cx="78" cy="74" rx="8" ry="5" fill="#ffb0a3" opacity=".8"/>
+    <path d="M56 74 h8 l-4 6Z" fill="#2d2927"/>
+  </symbol>
+  <symbol id="s-sip" viewBox="0 0 120 150">
+    <path d="M84 104 q30 -4 33 -33 q5 25 -11 39 q-14 12 -26 6Z" fill="#e9b985"/>
+    <path d="M34 146 q-8 -58 40 -58 q48 0 40 58Z" fill="#eec79a"/><path d="M36 146 q-4 -44 38 -44 q42 0 38 44Z" fill="#f6ddb8"/>
+    <path d="M40 58 q-14 -34 4 -40 q20 7 16 40Z" fill="#eec79a"/><path d="M80 58 q14 -34 -4 -40 q-20 7 -16 40Z" fill="#eec79a"/>
+    <path d="M48 50 q-7 -18 5 -22 q11 5 8 22Z" fill="#c98a52"/><path d="M72 50 q7 -18 -5 -22 q-11 5 -8 22Z" fill="#c98a52"/>
+    <ellipse cx="60" cy="62" rx="34" ry="30" fill="#f0d3a4"/>
+    <path d="M34 70 q26 18 52 0 q-5 20 -26 21 q-21 -1 -26 -21Z" fill="#fff6ee"/>
+    <path d="M46 60 q6 -7 12 0" fill="none" stroke="#2d2927" stroke-width="4" stroke-linecap="round"/><path d="M62 60 q6 -7 12 0" fill="none" stroke="#2d2927" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="42" cy="72" rx="8" ry="5" fill="#ffb0a3" opacity=".8"/><ellipse cx="78" cy="72" rx="8" ry="5" fill="#ffb0a3" opacity=".8"/>
+    <path d="M56 72 h8 l-4 6Z" fill="#2d2927"/>
+    <rect x="70" y="66" width="6" height="34" rx="3" fill="#f15464" transform="rotate(12 73 83)"/>
+    <path d="M50 100 h26 l-3 36 a6 6 0 0 1 -6 5 h-8 a6 6 0 0 1 -6 -5Z" fill="#fff"/>
+    <path d="M52 124 h22 l-2 12 a6 6 0 0 1 -6 5 h-8 a6 6 0 0 1 -6 -5Z" fill="#3a2a1e"/>
+    <rect x="47" y="95" width="32" height="8" rx="4" fill="#2d2927"/>
+    <path d="M50 104 q-8 -6 -4 -16" fill="none" stroke="#eec79a" stroke-width="10" stroke-linecap="round"/>
+    <path d="M76 104 q8 -6 4 -16" fill="none" stroke="#eec79a" stroke-width="10" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="mcr-beetham" viewBox="0 0 120 400">
+    <rect x="57" y="6" width="4" height="54" fill="#7b929b"/>
+    <rect x="34" y="58" width="74" height="66" fill="#aebfc7"/>
+    <rect x="34" y="120" width="52" height="280" fill="#9fb6bf"/>
+    <rect x="40" y="62" width="9" height="62" fill="#cbd9de" opacity=".55"/>
+    <rect x="40" y="120" width="9" height="280" fill="#c6d5da" opacity=".5"/>
+    <g stroke="#89a3ac" stroke-width="1.6" opacity=".5">
+      <line x1="34" y1="80" x2="108" y2="80"/><line x1="34" y1="102" x2="108" y2="102"/>
+      <line x1="34" y1="150" x2="86" y2="150"/><line x1="34" y1="180" x2="86" y2="180"/><line x1="34" y1="210" x2="86" y2="210"/><line x1="34" y1="240" x2="86" y2="240"/><line x1="34" y1="270" x2="86" y2="270"/><line x1="34" y1="300" x2="86" y2="300"/><line x1="34" y1="330" x2="86" y2="330"/><line x1="34" y1="360" x2="86" y2="360"/><line x1="34" y1="390" x2="86" y2="390"/>
+      <line x1="52" y1="120" x2="52" y2="400"/><line x1="68" y1="120" x2="68" y2="400"/></g>
+  </symbol>
+  <symbol id="mcr-townhall" viewBox="0 0 140 420">
+    <path d="M46 420 V170 H94 V420 Z" fill="#b3a488"/>
+    <g stroke="#9c8d70" stroke-width="3"><line x1="48" y1="300" x2="92" y2="300"/><line x1="48" y1="360" x2="92" y2="360"/></g>
+    <g fill="#8f8064"><path d="M58 252 h9 v-16 a4.5 4.5 0 0 0 -9 0 Z"/><path d="M73 252 h9 v-16 a4.5 4.5 0 0 0 -9 0 Z"/></g>
+    <rect x="42" y="120" width="56" height="52" fill="#a89878"/>
+    <circle cx="70" cy="146" r="15" fill="#efe9dd" stroke="#8f8064" stroke-width="2"/>
+    <path d="M70 146 V135 M70 146 h8" stroke="#2d2927" stroke-width="2"/>
+    <rect x="46" y="90" width="48" height="32" fill="#a89878"/>
+    <g fill="#7d6f56"><path d="M54 122 v-18 a6 6 0 0 1 12 0 v18Z"/><path d="M74 122 v-18 a6 6 0 0 1 12 0 v18Z"/></g>
+    <path d="M40 92 L70 18 L100 92 Z" fill="#8f8168"/><rect x="68" y="6" width="4" height="14" fill="#8f8168"/>
+    <g fill="#9c8d70"><rect x="34" y="96" width="8" height="36"/><path d="M34 96 l4 -14 l4 14Z"/><rect x="98" y="96" width="8" height="36"/><path d="M98 96 l4 -14 l4 14Z"/></g>
+  </symbol>
+  <symbol id="mcr-bee" viewBox="0 0 180 150">
+    <clipPath id="beebody"><ellipse cx="92" cy="92" rx="56" ry="42"/></clipPath>
+    <g opacity=".85"><ellipse cx="74" cy="44" rx="36" ry="23" fill="#dceef2" transform="rotate(-20 74 44)"/><ellipse cx="112" cy="44" rx="36" ry="23" fill="#dceef2" transform="rotate(20 112 44)"/>
+      <ellipse cx="74" cy="44" rx="36" ry="23" fill="none" stroke="#bcd6dc" stroke-width="2" transform="rotate(-20 74 44)"/><ellipse cx="112" cy="44" rx="36" ry="23" fill="none" stroke="#bcd6dc" stroke-width="2" transform="rotate(20 112 44)"/></g>
+    <path d="M144 92 l30 -14 l-6 28 Z" fill="#2d2927"/>
+    <ellipse cx="92" cy="92" rx="56" ry="42" fill="#f4b12e"/>
+    <g clip-path="url(#beebody)" fill="#2d2927"><rect x="66" y="48" width="20" height="88"/><rect x="100" y="48" width="20" height="88"/><rect x="134" y="48" width="20" height="88"/></g>
+    <circle cx="40" cy="88" r="22" fill="#2d2927"/>
+    <path d="M30 70 q-10 -18 -22 -18" stroke="#2d2927" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="7" cy="51" r="4.5" fill="#2d2927"/>
+    <path d="M42 66 q-2 -20 8 -27" stroke="#2d2927" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="51" cy="38" r="4.5" fill="#2d2927"/>
+    <circle cx="36" cy="85" r="4" fill="#fff"/><circle cx="37" cy="86" r="2" fill="#2d2927"/>
+    <path d="M31 96 q7 6 15 1" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="80" cy="108" rx="9" ry="5.5" fill="#ffb0a3" opacity=".65"/>
+  </symbol>
+</defs></svg>
+
+<!-- parallax illustrated scenery -->
+<div class="scenery" aria-hidden="true">
+  <div class="sky"></div>
+  <div class="sun" data-bg="0,0.05"></div>
+  <div class="cloud a" data-bg="-0.06,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="34"/><circle cx="105" cy="45" r="40"/><circle cx="150" cy="58" r="30"/><rect x="55" y="60" width="100" height="26" rx="13"/></g></svg></div>
+  <div class="cloud b" data-bg="0.05,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="30"/><circle cx="105" cy="45" r="36"/><circle cx="150" cy="58" r="26"/><rect x="58" y="62" width="94" height="24" rx="12"/></g></svg></div>
+  <div class="cloud c" data-bg="-0.04,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="24"/><circle cx="100" cy="46" r="30"/><circle cx="140" cy="58" r="22"/><rect x="58" y="60" width="84" height="22" rx="11"/></g></svg></div>
+
+  <!-- FAR panorama: hills, mountains (outskirts) -> city skyline (Beetham + Town Hall) -->
+  <svg class="pano far" data-pan="1" viewBox="0 0 3600 900" preserveAspectRatio="xMinYMax meet">
+    <path d="M0 560 Q 420 505 840 550 T 1680 545 T 2520 545 T 3600 550 L3600 900 L0 900 Z" fill="#cdd9d4"/>
+    <path d="M150 560 L340 350 L530 560 Z" fill="#c3d9c6"/><path d="M318 376 L340 350 L380 398 Z" fill="#eef4ec"/>
+    <path d="M560 560 L740 388 L920 560 Z" fill="#c3d9c6"/>
+    <g fill="#b7c7c1"><rect x="2360" y="430" width="60" height="130"/><rect x="2432" y="400" width="44" height="160"/>
+      <rect x="3140" y="410" width="60" height="150"/><rect x="3222" y="440" width="50" height="120"/><rect x="3300" y="420" width="56" height="140"/></g>
+    <use href="#mcr-beetham" x="2520" y="150" width="120" height="410"/>
+    <use href="#mcr-townhall" x="2930" y="238" width="132" height="322"/>
+    <g transform="translate(1150 150) scale(1)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g><g transform="translate(1500 220) scale(0.8)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g><g transform="translate(2150 180) scale(0.9)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g><g transform="translate(3080 170) scale(0.85)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g>
+  </svg>
+  <!-- NEAR panorama: green ground, canal + mills + tram, city park + worker bee -->
+  <svg class="pano near" data-pan="1" viewBox="0 0 3600 900" preserveAspectRatio="xMinYMax meet">
+    <path d="M0 615 Q 500 575 1000 615 T 2000 615 T 3000 615 T 3600 615 L3600 900 L0 900 Z" fill="#5f9773"/>
+    <path d="M-40 900 C 260 770 200 700 560 665 C 980 626 1180 700 1560 665 C 2040 620 2360 700 2860 665 C 3120 645 3320 690 3660 660" fill="none" stroke="#e7d3b0" stroke-width="24" stroke-linecap="round" opacity=".6"/>
+    <!-- Zone A: pond, trees, bushes, flowers -->
+    <ellipse cx="520" cy="672" rx="150" ry="28" fill="#9fc0c4" opacity=".8"/>
+    <g fill="#3f7a6d"><circle cx="180" cy="628" r="26"/><circle cx="224" cy="634" r="30"/><circle cx="270" cy="628" r="26"/></g>
+    <g><rect x="380" y="560" width="16" height="60" fill="#7a4a2b"/><circle cx="388" cy="544" r="46" fill="#32645a"/></g>
+    <g><rect x="820" y="568" width="14" height="52" fill="#7a4a2b"/><circle cx="827" cy="554" r="40" fill="#2f5c50"/></g>
+    <g transform="translate(300 652)"><rect x="-2" y="0" width="5" height="30" fill="#3f7a6d"/><g fill="#f15464"><circle cx="-8" cy="-3" r="6"/><circle cx="8" cy="-3" r="6"/><circle cx="0" cy="-12" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-3" r="5" fill="#ffd258"/></g><g transform="translate(720 662)"><rect x="-2" y="0" width="5" height="30" fill="#3f7a6d"/><g fill="#ffc8b8"><circle cx="-8" cy="-3" r="6"/><circle cx="8" cy="-3" r="6"/><circle cx="0" cy="-12" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-3" r="5" fill="#f15464"/></g>
+    <!-- Zone B: mills, chimneys, canal + viaduct, tram -->
+    <rect x="1150" y="300" width="28" height="316" fill="#a85536"/><rect x="1144" y="294" width="40" height="14" fill="#8f4329"/>
+    <rect x="1200" y="430" width="300" height="188" fill="#b5623f"/><rect x="1200" y="422" width="300" height="12" fill="#8f4329"/>
+    <g fill="#efe0cf" opacity=".85"><rect x="1224" y="452" width="18" height="24"/><rect x="1260" y="452" width="18" height="24"/><rect x="1296" y="452" width="18" height="24"/><rect x="1332" y="452" width="18" height="24"/><rect x="1368" y="452" width="18" height="24"/><rect x="1404" y="452" width="18" height="24"/><rect x="1224" y="496" width="18" height="24"/><rect x="1260" y="496" width="18" height="24"/><rect x="1296" y="496" width="18" height="24"/><rect x="1332" y="496" width="18" height="24"/><rect x="1368" y="496" width="18" height="24"/><rect x="1404" y="496" width="18" height="24"/></g>
+    <rect x="1770" y="330" width="26" height="288" fill="#a85536"/><rect x="1764" y="324" width="38" height="14" fill="#8f4329"/>
+    <rect x="1620" y="470" width="230" height="148" fill="#b5623f"/><rect x="1620" y="462" width="230" height="12" fill="#8f4329"/>
+    <g fill="#efe0cf" opacity=".85"><rect x="1642" y="486" width="18" height="22"/><rect x="1678" y="486" width="18" height="22"/><rect x="1714" y="486" width="18" height="22"/><rect x="1750" y="486" width="18" height="22"/><rect x="1786" y="486" width="18" height="22"/><rect x="1642" y="524" width="18" height="22"/><rect x="1678" y="524" width="18" height="22"/><rect x="1714" y="524" width="18" height="22"/><rect x="1750" y="524" width="18" height="22"/><rect x="1786" y="524" width="18" height="22"/></g>
+    <rect x="1900" y="646" width="380" height="54" fill="#9fc0c4" opacity=".7"/>
+    <g><rect x="1900" y="474" width="380" height="58" fill="#a85536"/><rect x="1900" y="468" width="380" height="10" fill="#8f4329"/>
+      <g fill="#7a3f2a"><path d="M1930 532 v-32 a24 24 0 0 1 48 0 v32 Z"/><path d="M2002 532 v-32 a24 24 0 0 1 48 0 v32 Z"/><path d="M2074 532 v-32 a24 24 0 0 1 48 0 v32 Z"/><path d="M2146 532 v-32 a24 24 0 0 1 48 0 v32 Z"/><path d="M2218 532 v-32 a24 24 0 0 1 48 0 v32 Z"/></g></g>
+    <g transform="translate(1250 566)">
+      <rect x="0" y="8" width="250" height="66" rx="16" fill="#ffd23a"/><path d="M0 40 q-12 4 -12 20 v6 a8 8 0 0 0 8 8 h4 Z" fill="#ffd23a"/>
+      <rect x="14" y="24" width="222" height="26" rx="6" fill="#3a3f45"/>
+      <g fill="#cfe7ee"><rect x="20" y="28" width="40" height="18" rx="3"/><rect x="68" y="28" width="40" height="18" rx="3"/><rect x="116" y="28" width="40" height="18" rx="3"/><rect x="164" y="28" width="40" height="18" rx="3"/></g>
+      <rect x="0" y="70" width="250" height="8" fill="#e0b52e"/><circle cx="60" cy="80" r="9" fill="#2d2927"/><circle cx="190" cy="80" r="9" fill="#2d2927"/><rect x="8" y="12" width="10" height="30" rx="4" fill="#e0b52e"/></g>
+    <!-- Zone C: park (post box, lamp, bench), trees, big worker bee, flowers -->
+    <g><rect x="2560" y="560" width="14" height="60" fill="#7a4a2b"/><circle cx="2567" cy="546" r="42" fill="#32645a"/></g>
+    <g><rect x="3400" y="566" width="14" height="54" fill="#7a4a2b"/><circle cx="3407" cy="552" r="40" fill="#2f5c50"/></g>
+    <g><rect x="2420" y="574" width="30" height="42" rx="6" fill="#c0392b"/><path d="M2420 580 a15 15 0 0 1 30 0 Z" fill="#c0392b"/><rect x="2420" y="578" width="30" height="7" fill="#a52f22"/><rect x="2427" y="588" width="16" height="4" fill="#2d2927"/></g>
+    <g fill="#2d2927"><rect x="3080" y="524" width="8" height="92"/><rect x="3070" y="518" width="28" height="10" rx="3"/><path d="M3074 518 h20 l-6 -16 h-8 Z" fill="#3a3632"/></g><circle cx="3084" cy="504" r="6" fill="#ffd258"/>
+    <g fill="#7a5a44"><rect x="3210" y="592" width="72" height="7" rx="3"/><rect x="3210" y="578" width="72" height="7" rx="3"/><rect x="3216" y="592" width="6" height="20"/><rect x="3270" y="592" width="6" height="20"/></g>
+    <use href="#mcr-bee" x="2760" y="452" width="230" height="192"/>
+    <g transform="translate(2650 662)"><rect x="-2" y="0" width="5" height="30" fill="#3f7a6d"/><g fill="#f15464"><circle cx="-8" cy="-3" r="6"/><circle cx="8" cy="-3" r="6"/><circle cx="0" cy="-12" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-3" r="5" fill="#ffd258"/></g><g transform="translate(3330 662)"><rect x="-2" y="0" width="5" height="30" fill="#3f7a6d"/><g fill="#503278"><circle cx="-8" cy="-3" r="6"/><circle cx="8" cy="-3" r="6"/><circle cx="0" cy="-12" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-3" r="5" fill="#ffd258"/></g>
+  </svg>
+</div>
+
+<!-- fixed chrome -->
+<div class="chrome">
+  <div class="Container">
+    <button class="menuBtn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    <a class="avatarBtn" href="#top" aria-label="OHAYO TEA">
+      <svg class="avatarShiba" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="32" fill="#f3e7d3"/>
+        <path class="tail" d="M44 40 q16 -2 18 -18 q3 14 -6 22 q-8 6 -14 2Z" fill="#e9b985"/>
+        <path d="M18 26 q-7 -18 3 -21 q11 4 9 21Z" fill="#e7a86a"/><path d="M46 26 q7 -18 -3 -21 q-11 4 -9 21Z" fill="#e7a86a"/>
+        <path d="M23 22 q-4 -10 3 -12 q6 3 4 12Z" fill="#c98a52"/><path d="M41 22 q4 -10 -3 -12 q-6 3 -4 12Z" fill="#c98a52"/>
+        <ellipse cx="32" cy="34" rx="20" ry="17" fill="#f0d3a4"/>
+        <path d="M17 38 q15 11 30 0 q-3 12 -15 13 q-12 -1 -15 -13Z" fill="#fff6ee"/>
+        <ellipse class="eye" cx="26" cy="34" rx="2.6" ry="3.2" fill="#2d2927"/><ellipse class="eye" cx="38" cy="34" rx="2.6" ry="3.2" fill="#2d2927"/>
+        <ellipse cx="20" cy="40" rx="4.5" ry="3" fill="#ffb0a3" opacity=".85"/><ellipse cx="44" cy="40" rx="4.5" ry="3" fill="#ffb0a3" opacity=".85"/>
+        <path d="M30 40 h4 l-2 3Z" fill="#2d2927"/>
+      </svg>
+    </a>
+  </div>
+</div>
+<button class="scrollBtn" id="scrollBtn" aria-label="Scroll down"><span class="arw">↓</span></button>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="Container">
+      <svg class="hero__art reveal" data-fg="0.05" viewBox="0 0 440 400" role="img" aria-label="OHAYO TEA — the tea-dog holding a bubble tea">
+        <!-- soft medallion + rays -->
+        <circle cx="220" cy="196" r="176" fill="#fff6ea"/>
+        <g stroke="#ffd258" stroke-width="7" stroke-linecap="round" opacity=".85">
+          <line x1="220" y1="16" x2="220" y2="42"/><line x1="360" y1="56" x2="343" y2="75"/>
+          <line x1="80" y1="56" x2="97" y2="75"/><line x1="404" y1="196" x2="379" y2="196"/>
+          <line x1="36" y1="196" x2="61" y2="196"/><line x1="360" y1="336" x2="343" y2="317"/>
+          <line x1="80" y1="336" x2="97" y2="317"/></g>
+        <circle cx="220" cy="196" r="150" fill="#f3e7d3"/>
+        <!-- little hill + tea bushes behind -->
+        <clipPath id="med"><circle cx="220" cy="196" r="150"/></clipPath>
+        <g clip-path="url(#med)">
+          <path d="M70 300 Q 220 250 370 300 V360 H70 Z" fill="#8fbe9f"/>
+          <path d="M70 330 Q 220 296 370 330 V360 H70 Z" fill="#5f9773"/>
+          <g fill="#3f7a6d"><circle cx="110" cy="322" r="20"/><circle cx="140" cy="330" r="24"/><circle cx="330" cy="326" r="22"/><circle cx="300" cy="332" r="18"/></g>
+        </g>
+        <!-- tail -->
+        <path class="sway" d="M300 250 q56 -6 60 -54 q4 40 -18 62 q-20 20 -42 12 Z" fill="#e9b985"/>
+        <path class="sway" d="M300 250 q42 -6 50 -40" fill="none" stroke="#d89c52" stroke-width="4"/>
+        <!-- body -->
+        <path d="M150 356 q-14 -96 70 -96 q84 0 70 96 Z" fill="#eec79a"/>
+        <path d="M150 356 q-8 -70 70 -70 q78 0 70 70 Z" fill="#f6ddb8"/>
+        <!-- arms holding cup -->
+        <path d="M182 300 q-16 26 6 44 q14 10 26 2" fill="#eec79a"/>
+        <path d="M258 300 q16 26 -6 44 q-14 10 -26 2" fill="#eec79a"/>
+        <!-- boba cup -->
+        <g>
+          <path d="M188 286 h64 l-7 78 a10 10 0 0 1 -10 9 h-30 a10 10 0 0 1 -10 -9 Z" fill="#fff"/>
+          <path d="M191 330 h58 l-4 34 a10 10 0 0 1 -10 9 h-30 a10 10 0 0 1 -10 -9 Z" fill="#5b3b28"/>
+          <circle cx="205" cy="352" r="5" fill="#2d2927"/><circle cx="220" cy="360" r="5" fill="#2d2927"/><circle cx="235" cy="352" r="5" fill="#2d2927"/><circle cx="213" cy="342" r="5" fill="#2d2927"/><circle cx="228" cy="343" r="5" fill="#2d2927"/>
+          <rect x="184" y="280" width="72" height="13" rx="6" fill="#2d2927"/>
+          <rect x="214" y="238" width="13" height="58" rx="6" fill="#f15464" transform="rotate(10 220 267)"/>
+          <circle cx="220" cy="316" r="15" fill="none" stroke="#d89c52" stroke-width="3"/>
+        </g>
+        <!-- head -->
+        <g>
+          <path d="M148 150 q-26 -54 8 -60 q30 8 26 54 Z" fill="#eec79a"/>
+          <path d="M292 150 q26 -54 -8 -60 q-30 8 -26 54 Z" fill="#eec79a"/>
+          <path d="M156 132 q-14 -30 6 -34 q16 6 14 34 Z" fill="#c98a52"/>
+          <path d="M284 132 q14 -30 -6 -34 q-16 6 -14 34 Z" fill="#c98a52"/>
+          <ellipse cx="220" cy="176" rx="86" ry="78" fill="#f0d3a4"/>
+          <path d="M158 196 q62 44 124 0 q-6 60 -62 62 q-56 -2 -62 -62 Z" fill="#fff6ee"/>
+          <!-- eyes (happy closed) -->
+          <path d="M186 172 q10 -12 20 0" fill="none" stroke="#2d2927" stroke-width="5" stroke-linecap="round"/>
+          <path d="M234 172 q10 -12 20 0" fill="none" stroke="#2d2927" stroke-width="5" stroke-linecap="round"/>
+          <!-- blush -->
+          <ellipse cx="176" cy="196" rx="13" ry="9" fill="#ffb0a3" opacity=".8"/>
+          <ellipse cx="264" cy="196" rx="13" ry="9" fill="#ffb0a3" opacity=".8"/>
+          <!-- nose + smile -->
+          <path d="M214 196 h12 l-6 8 Z" fill="#2d2927"/>
+          <path d="M220 204 q-10 12 -20 6 M220 204 q10 12 20 6" fill="none" stroke="#2d2927" stroke-width="4" stroke-linecap="round"/>
+        </g>
+        <!-- floating leaves -->
+        <path class="sway" d="M96 150 q-16 14 -6 30 q18 -4 20 -22 q-6 -8 -14 -8Z" fill="#32645a"/>
+        <path class="sway" d="M356 168 q16 12 8 30 q-18 -2 -22 -20 q6 -10 14 -10Z" fill="#3f7a6d"/>
+      </svg>
+      <p class="hero__desc palt reveal"><span class="text">An ordinary cup,</span><br/><span class="text">an extraordinary story.</span></p>
+      <p class="hero__desc small palt reveal"><span class="text">A little tea-dog's journey through Manchester —</span></p>
+      <p class="hero__en reveal">Freshly brewed fruit tea, matcha &amp; boba — handcrafted in the heart of Manchester.</p>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="scene" id="featured"><div class="Container">
+    <a class="featured reveal" href="#story1">
+      <div class="thumb"><img src="../assets/hero-hand-sign.jpg" alt=""></div>
+      <div class="body">
+        <p class="lead">A new story is brewing at OHAYO TEA. Come and read it.</p>
+        <div class="Badge">OHAYO<b> Tea-dog</b></div>
+        <p class="title">The little tea-dog of Manchester — freshly brewed fruit tea, handcrafted cup by cup.</p>
+        <span class="read">Read →</span>
+      </div>
+    </a>
+  </div></section>
+
+  <!-- STORY TEASERS -->
+  <h2 class="vh">OHAYO Stories</h2>
+  <div class="teasers Container">
+
+    <section class="scene" id="story1">
+      <a class="teaser">
+        <div class="teaser__badge reveal"><div class="Badge">OHAYO<b> Brown Sugar</b></div></div>
+        <div class="headline palt reveal">
+          <span class="line"><span>Not your ordinary cup.</span></span>
+          <span class="line"><span class="en">Slow-cooked pearls,</span></span>
+          <span class="line"><span class="en">tiger-striped in the cup —</span></span>
+          <span class="line"><span class="en">brown sugar, done right.</span></span>
+        </div>
+        <div class="teaser__more reveal"><span class="read">Read →</span></div>
+      </a>
+      <svg class="spot" style="top:6%;right:2%;width:160px" data-fg="0.12" viewBox="0 0 120 170"><use href="#d-brownsugar"/></svg>
+    </section>
+
+    <section class="scene">
+      <a class="teaser right">
+        <div class="teaser__badge reveal"><div class="Badge">OHAYO<b> Matcha</b></div></div>
+        <div class="headline palt reveal">
+          <span class="line"><span>Slow, and unhurried.</span></span>
+          <span class="line"><span class="en">Stone-ground matcha,</span></span>
+          <span class="line"><span class="en">whisked fresh for</span></span>
+          <span class="line"><span class="en">every single cup.</span></span>
+        </div>
+        <div class="teaser__more reveal"><span class="read">Read →</span></div>
+      </a>
+      <svg class="spot" style="top:8%;left:2%;width:160px" data-fg="0.16" viewBox="0 0 120 170"><use href="#d-matcha"/></svg>
+    </section>
+
+    <section class="scene">
+      <a class="teaser">
+        <div class="teaser__badge reveal"><div class="Badge">OHAYO<b> Fruit Tea</b></div></div>
+        <div class="headline palt reveal">
+          <span class="line"><span>From leaf to cup.</span></span>
+          <span class="line"><span class="en">Manchester's first</span></span>
+          <span class="line"><span class="en">freshly-brewed fruit tea —</span></span>
+          <span class="line"><span class="en">real leaves, real fruit.</span></span>
+        </div>
+        <div class="teaser__more reveal"><span class="read">Read →</span></div>
+      </a>
+      <svg class="spot" style="top:6%;right:3%;width:160px" data-fg="0.1" viewBox="0 0 120 170"><use href="#d-superfruitea"/></svg>
+    </section>
+
+    <section class="scene">
+      <a class="teaser right">
+        <div class="teaser__badge reveal"><div class="Badge">OHAYO<b> Manchester</b></div></div>
+        <div class="headline palt reveal">
+          <span class="line"><span>Born in Manchester.</span></span>
+          <span class="line"><span class="en">brewed in the heart</span></span>
+          <span class="line"><span class="en">of the city — proudly.</span></span>
+        </div>
+        <div class="teaser__more reveal"><span class="read">Read →</span></div>
+      </a>
+      <svg class="spot" style="top:12%;left:1%;width:210px" data-fg="0.14" viewBox="0 0 180 150"><use href="#mcr-bee"/></svg>
+    </section>
+
+    <section class="scene">
+      <a class="teaser">
+        <div class="teaser__badge reveal"><div class="Badge">OHAYO<b> Vegan</b></div></div>
+        <div class="headline palt reveal">
+          <span class="line"><span>A cup for everyone.</span></span>
+          <span class="line"><span class="en">A full vegan menu —</span></span>
+          <span class="line"><span class="en">a whole menu, not</span></span>
+          <span class="line"><span class="en">an afterthought.</span></span>
+        </div>
+        <div class="teaser__more reveal"><span class="read">Read →</span></div>
+      </a>
+      <svg class="spot" style="top:12%;right:3%" data-fg="0.13" viewBox="0 0 100 110"><path d="M50 26 C40 42 40 60 50 76 C60 60 60 42 50 26Z" fill="#32645a"/><path d="M50 76 C34 68 27 55 27 42 C43 46 50 62 50 76Z" fill="#3f7a6d"/><path d="M50 76 C66 68 73 55 73 42 C57 46 50 62 50 76Z" fill="#3f7a6d"/></svg>
+    </section>
+
+  </div>
+
+  <!-- STORY FOOTER -->
+  <section class="storyFooter"><div class="Container">
+    <p class="storyFooter__desc palt reveal"><span>The story keeps pouring,</span><br/><span>cup after cup — ohayo!</span></p>
+    <a class="goldBtn reveal" href="#story1">Our teas</a>
+    <a class="goldBtn reveal" href="https://maps.google.com/?q=95+Princess+Street+Manchester+M1+4HT" target="_blank" rel="noopener">Visit us</a>
+    <a class="goldBtn reveal" href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Order on Deliveroo</a>
+  </div></section>
+
+</main>
+
+<footer class="siteFooter">
+  <div class="Container">
+    <div class="brand">OHAYO TEA</div>
+    <div class="tag palt">An ordinary cup, an extraordinary story.</div>
+    <div class="socials">
+      <a href="https://instagram.com/ohayotea" target="_blank" rel="noopener" title="Instagram">IG</a>
+      <a href="https://facebook.com/OHAYOTEA/" target="_blank" rel="noopener" title="Facebook">f</a>
+      <a href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener" title="Deliveroo">D</a>
+    </div>
+    <div class="fine">95 Princess Street, Manchester M1 4HT · 0161 236 4883 · contact@ohayotea.com<br/>
+    Concept redesign — “Journey” direction, modelled closely on the misatoto microsite (town.shimane-misato.lg.jp/misatoto). Menu &amp; prices from the current in-store menu.</div>
+  </div>
+</footer>
+
+<!-- FULLSCREEN MENU -->
+<div class="FullscreenMenu" id="fsMenu" aria-hidden="true">
+  <div class="Container">
+    <div class="FM__header">
+      <div class="FM__logo"><img src="../assets/logo-shiba.jpg" alt=""> OHAYO TEA</div>
+      <button class="closeBtn" id="closeBtn" aria-label="Close">✕</button>
+    </div>
+    <ul class="MenuList">
+      <li><a href="#top">Home <span>→</span></a></li>
+      <li><a href="#story1">Our teas <span>→</span></a></li>
+      <li><a href="https://www.ohayotea.com/vegan-menu" target="_blank" rel="noopener">Vegan menu <span>↗</span></a></li>
+      <li><a href="https://deliveroo.co.uk/brands/ohayo-tea?utm_medium=affiliate" target="_blank" rel="noopener">Order on Deliveroo <span>↗</span></a></li>
+      <li><a href="https://maps.google.com/?q=95+Princess+Street+Manchester+M1+4HT" target="_blank" rel="noopener">Visit us <span>↗</span></a></li>
+    </ul>
+    <span class="MenuStory__title">Signature cups</span>
+    <ul class="MenuStoryList">
+      <li><a class="StoryTeaser" href="#story1"><div class="thumb"><img src="../assets/drink-brown-sugar-milk.jpg" alt=""></div><div><div class="Badge">OHAYO<b> Brown Sugar</b></div><p class="title">Brown Sugar Tapioca Milk · 黑糖珍珠鮮奶</p></div></a></li>
+      <li><a class="StoryTeaser" href="#story1"><div class="thumb"><img src="../assets/drink-matcha-milk.jpg" alt=""></div><div><div class="Badge">OHAYO<b> Matcha</b></div><p class="title">Matcha Tapioca Milk · 靜岡抹茶珍珠鮮奶</p></div></a></li>
+      <li><a class="StoryTeaser" href="#story1"><div class="thumb"><img src="../assets/drink-strawberry-cheese.jpg" alt=""></div><div><div class="Badge">OHAYO<b> Cheese</b></div><p class="title">Strawberry Tea · Cheese Foam · 芝芝草莓</p></div></a></li>
+      <li><a class="StoryTeaser" href="#story1"><div class="thumb"><img src="../assets/drink-super-fruitea.jpg" alt=""></div><div><div class="Badge">OHAYO<b> Fruit Tea</b></div><p class="title">Super Fruitea · 超級水果茶</p></div></a></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  /* fullscreen menu */
+  var fs=document.getElementById('fsMenu');
+  document.getElementById('menuBtn').addEventListener('click',function(){fs.classList.add('is-open');fs.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';});
+  function closeFs(){fs.classList.remove('is-open');fs.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  document.getElementById('closeBtn').addEventListener('click',closeFs);
+  fs.querySelectorAll('a').forEach(function(a){a.addEventListener('click',closeFs);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeFs();});
+
+  /* scroll-down button */
+  var scrollBtn=document.getElementById('scrollBtn');
+  scrollBtn.addEventListener('click',function(){window.scrollBy({top:window.innerHeight*0.9,behavior:'smooth'});});
+
+  /* ===== horizontal journey: scrolling pans the Manchester panorama ===== */
+  var panos=[].slice.call(document.querySelectorAll('.pano'));
+  var fgEls=[].slice.call(document.querySelectorAll('[data-fg]'));
+  var ticking=false, vh=window.innerHeight, vw=window.innerWidth;
+  window.addEventListener('resize',function(){vh=window.innerHeight;vw=window.innerWidth;requestAnimationFrame(frame);},{passive:true});
+  function frame(){
+    var y=window.scrollY;
+    var max=document.documentElement.scrollHeight - vh; var p= max>0 ? y/max : 0;
+    var near=document.querySelector('.pano.near');
+    var nearMax= near ? Math.max(0, near.getBoundingClientRect().width - vw) : 0;
+    for(var i=0;i<panos.length;i++){
+      var sp=parseFloat(panos[i].getAttribute('data-pan'))||1;
+      panos[i].style.transform='translate3d('+(-p*nearMax*sp)+'px,0,0)';
+    }
+    for(var j=0;j<fgEls.length;j++){
+      var s2=parseFloat(fgEls[j].getAttribute('data-fg'));
+      var r=fgEls[j].getBoundingClientRect();
+      var d=(r.top+r.height/2)-vh/2;
+      fgEls[j].style.transform='translate3d(0,'+(-d*s2)+'px,0)';
+    }
+    if(y>vh*0.6)scrollBtn.classList.add('is-hide');else scrollBtn.classList.remove('is-hide');
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(frame);ticking=true;}},{passive:true});
+  window.addEventListener('load',frame); frame();
+
+  /* ===== scroll-reveal (js-parallaxItem style) ===== */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.18,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>
