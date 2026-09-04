@@ -110,12 +110,14 @@ OHAYO's real content, photos and menu.
   parallax landscape** (snow-capped mountains, birds, a red torii, a pagoda, a stone lantern,
   a winding path, tea-bush rows and foreground flowers). All within the locked palette. The
   real drink photos remain in `assets/drink-*.jpg` if the client prefers photos in the menu.
-- **Manchester-themed landscape:** the parallax scene is a Manchester cityscape (skyline with
-  a Beetham-style tower, a CIS-style tower and the Town Hall clock tower; red-brick mill +
-  chimney; a canal viaduct; a green park with a Victorian lamp, bench, red pillar post box and
-  a winding path; a yellow Metrolink tram; and Manchester **worker bees** in place of birds).
-  It fills ~74vh for more presence. (Earlier Japanese-countryside version — torii, pagoda,
-  Mt-Fuji hills — replaced per client request.)
+- **Manchester-themed landscape:** the parallax scene is a Manchester cityscape headlined by
+  two recognisable landmarks — **Beetham Tower** (glass tower with its cantilever "blade" top)
+  and **Manchester Town Hall** (gothic clock tower). Plus red-brick mill + chimney, a canal
+  viaduct, a green park (Victorian lamp, bench, red pillar post box, winding path), a yellow
+  Metrolink tram, and Manchester **worker bees**. Fills ~74vh. (Earlier Japanese-countryside
+  version replaced per client request; the shiba-waffle illustration was dropped and the
+  scattered shiba poses removed to let the drinks + landmarks lead — the hero tea-dog mascot
+  stays as the brand.)
 - **Caveat:** the scroll *motion* is there, but misatoto's background art is a bespoke,
   hand-illustrated *animated canvas map* of the whole town — commissioned artwork. This
   concept recreates the same **interface/behaviour** (parallax + reveal on scroll) with an
