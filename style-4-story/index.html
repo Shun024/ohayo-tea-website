@@ -28,7 +28,7 @@
   /* ===== parallax illustrated background (scroll-reactive) ===== */
   .scenery{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
   .scenery .sky{position:absolute;inset:0;background:linear-gradient(180deg,var(--sky) 0%,#f8ecdd 45%,var(--sand) 100%)}
-  .layer{position:absolute;left:50%;bottom:-4%;width:1800px;margin-left:-900px;will-change:transform}
+  .layer{position:absolute;left:0;bottom:-90px;width:100%;height:auto;will-change:transform}
   .sun{position:absolute;top:6%;right:8%;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#ffe9b0,#ffe09a);will-change:transform}
   .cloud{position:absolute;will-change:transform}
   .cloud svg{width:100%}
@@ -182,7 +182,6 @@
     .MenuStoryList{grid-template-columns:1fr}
     .spot{width:96px}
     .hero__logo{width:150px;height:150px}
-    .layer{width:1200px;margin-left:-600px}
   }
 </style>
 </head>
@@ -331,46 +330,46 @@
   <div class="cloud b" data-bg="0.05,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="30"/><circle cx="105" cy="45" r="36"/><circle cx="150" cy="58" r="26"/><rect x="58" y="62" width="94" height="24" rx="12"/></g></svg></div>
   <div class="cloud c" data-bg="-0.04,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="24"/><circle cx="100" cy="46" r="30"/><circle cx="140" cy="58" r="22"/><rect x="58" y="60" width="84" height="22" rx="11"/></g></svg></div>
 
-  <!-- far mountains + birds (slowest) -->
-  <svg class="layer" data-bg="0,-0.03" viewBox="0 0 1800 560" preserveAspectRatio="xMidYMax meet">
-    <path d="M120 320 L320 130 L520 320 Z" fill="#c3d9c6"/>
-    <path d="M300 150 L320 130 L360 175 L338 190 Z" fill="#eef4ec"/>
-    <path d="M1280 330 L1470 160 L1660 330 Z" fill="#c3d9c6"/>
-    <path d="M1452 178 L1470 160 L1508 205 L1486 218 Z" fill="#eef4ec"/>
-    <path d="M0 330 Q 300 235 640 315 T 1240 295 T 1800 330 V560 H0 Z" fill="#cfe3d1"/>
-    <g stroke="#8aa79a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7">
-      <path d="M760 140 q10 -10 20 0 q10 -10 20 0"/><path d="M842 168 q8 -8 16 0 q8 -8 16 0"/><path d="M690 176 q8 -8 16 0 q8 -8 16 0"/></g>
+  <!-- All layers share the same 1600x700 space and nest as receding ground planes:
+       far/pale/high horizon -> near/dark/low. Each fills solid to the base (y700). -->
+  <!-- 1 · distant mountains + horizon hill + birds (slowest) -->
+  <svg class="layer" data-bg="0,-0.02" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax meet">
+    <path d="M150 400 L360 200 L570 400 Z" fill="#c3d9c6"/>
+    <path d="M338 222 L360 200 L400 246 L378 262 Z" fill="#eef4ec"/>
+    <path d="M1080 405 L1300 205 L1520 405 Z" fill="#c3d9c6"/>
+    <path d="M1278 228 L1300 205 L1342 252 L1320 268 Z" fill="#eef4ec"/>
+    <path d="M0 400 Q 320 330 660 385 T 1280 375 T 1600 400 L1600 700 L0 700 Z" fill="#cfe3d1"/>
+    <g stroke="#8aa79a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55">
+      <path d="M740 150 q10 -9 20 0 q10 -9 20 0"/><path d="M824 176 q8 -8 16 0 q8 -8 16 0"/><path d="M676 186 q8 -8 16 0 q8 -8 16 0"/></g>
   </svg>
-  <!-- mid hills + river + torii + pagoda (medium) -->
-  <svg class="layer" data-bg="0,-0.07" viewBox="0 0 1800 480" preserveAspectRatio="xMidYMax meet">
-    <path d="M0 250 Q 380 150 760 230 T 1800 220 V480 H0 Z" fill="#9ec7a6"/>
-    <path d="M900 480 C 850 340 1040 300 980 210 C 940 140 1020 100 1000 46" fill="none" stroke="#d6ecef" stroke-width="44" stroke-linecap="round"/>
-    <g fill="#c0442e"><rect x="1180" y="252" width="15" height="92"/><rect x="1244" y="252" width="15" height="92"/><path d="M1158 250 h124 l-8 -16 h-108 Z"/><rect x="1172" y="262" width="96" height="10"/></g>
-    <g><path d="M512 252 h128 l-20 -24 h-88 Z" fill="#8a5a3e"/><path d="M540 228 h72 l-14 -18 h-44 Z" fill="#8a5a3e"/><rect x="566" y="252" width="20" height="20" fill="#6f4632"/></g>
+  <!-- 2 · mid hill + river + torii + pagoda (sits lower & greener) -->
+  <svg class="layer" data-bg="0,-0.035" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 480 Q 360 415 780 465 T 1600 460 L1600 700 L0 700 Z" fill="#a3cbaa"/>
+    <path d="M900 700 C 864 610 1000 588 952 520 C 922 476 984 452 1012 440" fill="none" stroke="#d6ecef" stroke-width="34" stroke-linecap="round" opacity=".9"/>
+    <g fill="#c0442e"><rect x="1170" y="474" width="14" height="70"/><rect x="1232" y="474" width="14" height="70"/><path d="M1150 472 h116 l-8 -15 h-100 Z"/><rect x="1163" y="484" width="90" height="9"/></g>
+    <g><path d="M470 474 h120 l-19 -22 h-82 Z" fill="#8a5a3e"/><path d="M497 452 h66 l-13 -16 h-40 Z" fill="#8a5a3e"/><rect x="521" y="474" width="18" height="18" fill="#6f4632"/></g>
   </svg>
-  <!-- near hill + path + tea rows + trees + lantern (fast) -->
-  <svg class="layer" data-bg="0,-0.12" viewBox="0 0 1800 440" preserveAspectRatio="xMidYMax meet">
-    <path d="M0 230 Q 450 130 900 210 T 1800 200 V440 H0 Z" fill="#5f9773"/>
-    <path d="M840 440 C 800 350 960 330 916 262 C 892 226 928 206 960 196" fill="none" stroke="#e7d3b0" stroke-width="30" stroke-linecap="round" opacity=".85"/>
+  <!-- 3 · near ground + path + tea rows + trees + lantern (lower & darker) -->
+  <svg class="layer" data-bg="0,-0.05" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 550 Q 420 485 880 535 T 1600 530 L1600 700 L0 700 Z" fill="#5f9773"/>
+    <path d="M820 700 C 786 636 918 616 884 560 C 866 528 902 516 930 512" fill="none" stroke="#e7d3b0" stroke-width="26" stroke-linecap="round" opacity=".85"/>
     <g fill="#3f7a6d">
-      <circle cx="150" cy="262" r="24"/><circle cx="196" cy="268" r="28"/><circle cx="246" cy="262" r="24"/><circle cx="292" cy="270" r="26"/>
-      <circle cx="1420" cy="266" r="26"/><circle cx="1470" cy="272" r="30"/><circle cx="1522" cy="266" r="26"/><circle cx="1570" cy="272" r="24"/>
-      <circle cx="470" cy="300" r="22"/><circle cx="512" cy="306" r="26"/><circle cx="558" cy="300" r="22"/></g>
-    <g><rect x="300" y="196" width="14" height="56" fill="#7a4a2b"/><circle cx="307" cy="182" r="46" fill="#32645a"/><circle cx="290" cy="196" r="26" fill="#3f7a6d"/>
-       <rect x="1520" y="186" width="16" height="62" fill="#7a4a2b"/><circle cx="1528" cy="168" r="52" fill="#2f5c50"/></g>
-    <g fill="#b9b3a6"><rect x="1112" y="256" width="12" height="42"/><rect x="1098" y="242" width="40" height="16" rx="3"/><path d="M1098 242 h40 l-9 -16 h-22 Z" fill="#a49e90"/><rect x="1110" y="298" width="16" height="10"/></g>
+      <circle cx="150" cy="566" r="22"/><circle cx="193" cy="572" r="26"/><circle cx="240" cy="566" r="22"/><circle cx="284" cy="573" r="24"/>
+      <circle cx="1360" cy="570" r="24"/><circle cx="1408" cy="576" r="28"/><circle cx="1458" cy="570" r="24"/><circle cx="1504" cy="576" r="22"/>
+      <circle cx="470" cy="596" r="20"/><circle cx="510" cy="602" r="24"/><circle cx="552" cy="596" r="20"/></g>
+    <g><rect x="316" y="512" width="14" height="46" fill="#7a4a2b"/><circle cx="323" cy="500" r="42" fill="#32645a"/><circle cx="307" cy="514" r="24" fill="#3f7a6d"/>
+       <rect x="1236" y="504" width="15" height="52" fill="#7a4a2b"/><circle cx="1243" cy="490" r="48" fill="#2f5c50"/></g>
+    <g fill="#b9b3a6"><rect x="1092" y="520" width="12" height="38"/><rect x="1079" y="507" width="38" height="15" rx="3"/><path d="M1079 507 h38 l-9 -15 h-20 Z" fill="#a49e90"/><rect x="1090" y="558" width="16" height="10"/></g>
   </svg>
-  <!-- foreground grass + flowers (fastest) -->
-  <svg class="layer" data-bg="0,-0.2" viewBox="0 0 1800 240" preserveAspectRatio="xMidYMax meet">
-    <path d="M0 130 Q 300 88 600 128 T 1200 128 T 1800 128 V240 H0 Z" fill="#4f8462"/>
+  <!-- 4 · foreground bank + flowers + grass (lowest & darkest) -->
+  <svg class="layer" data-bg="0,-0.065" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMax meet">
+    <path d="M0 628 Q 300 590 600 622 T 1200 622 T 1600 620 L1600 700 L0 700 Z" fill="#4c805f"/>
     <g stroke="#3f7a6d" stroke-width="6" stroke-linecap="round" fill="none">
-      <path d="M70 168 q-6 -34 2 -52"/><path d="M88 168 q4 -30 -2 -50"/><path d="M104 168 q8 -28 2 -46"/>
-      <path d="M1700 168 q-6 -34 2 -52"/><path d="M1718 168 q4 -30 -2 -50"/><path d="M1734 168 q8 -28 2 -46"/></g>
-    <g>
-      <g transform="translate(210 150)"><rect x="-2" y="0" width="5" height="40" fill="#3f7a6d"/><circle cx="0" cy="-4" r="10" fill="#ffd258"/><g fill="#f15464"><circle cx="-10" cy="-4" r="6"/><circle cx="10" cy="-4" r="6"/><circle cx="0" cy="-14" r="6"/><circle cx="0" cy="6" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#ffd258"/></g>
-      <g transform="translate(1560 150)"><rect x="-2" y="0" width="5" height="40" fill="#3f7a6d"/><g fill="#ffc8b8"><circle cx="-9" cy="-4" r="6"/><circle cx="9" cy="-4" r="6"/><circle cx="0" cy="-13" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#f15464"/></g>
-      <g transform="translate(940 158)"><rect x="-2" y="0" width="5" height="34" fill="#3f7a6d"/><g fill="#503278" opacity=".85"><circle cx="-8" cy="-3" r="5"/><circle cx="8" cy="-3" r="5"/><circle cx="0" cy="-11" r="5"/><circle cx="0" cy="5" r="5"/></g><circle cx="0" cy="-3" r="4" fill="#ffd258"/></g>
-    </g>
+      <path d="M60 648 q-6 -30 2 -46"/><path d="M78 648 q4 -26 -2 -44"/><path d="M94 648 q8 -24 2 -40"/>
+      <path d="M1516 648 q-6 -30 2 -46"/><path d="M1534 648 q4 -26 -2 -44"/><path d="M1550 648 q8 -24 2 -40"/></g>
+    <g transform="translate(190 632)"><rect x="-2" y="0" width="5" height="34" fill="#3f7a6d"/><g fill="#f15464"><circle cx="-9" cy="-4" r="6"/><circle cx="9" cy="-4" r="6"/><circle cx="0" cy="-13" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#ffd258"/></g>
+    <g transform="translate(1430 632)"><rect x="-2" y="0" width="5" height="34" fill="#3f7a6d"/><g fill="#ffc8b8"><circle cx="-9" cy="-4" r="6"/><circle cx="9" cy="-4" r="6"/><circle cx="0" cy="-13" r="6"/><circle cx="0" cy="5" r="6"/></g><circle cx="0" cy="-4" r="5" fill="#f15464"/></g>
+    <g transform="translate(1050 640)"><rect x="-2" y="0" width="5" height="28" fill="#3f7a6d"/><g fill="#503278" opacity=".85"><circle cx="-8" cy="-3" r="5"/><circle cx="8" cy="-3" r="5"/><circle cx="0" cy="-11" r="5"/><circle cx="0" cy="5" r="5"/></g><circle cx="0" cy="-3" r="4" fill="#ffd258"/></g>
   </svg>
 </div>
 
@@ -642,7 +641,10 @@
     var y=window.scrollY;
     for(var i=0;i<bgEls.length;i++){
       var s=bgEls[i].getAttribute('data-bg').split(',');
-      bgEls[i].style.transform='translate3d('+(y*parseFloat(s[0]))+'px,'+(y*parseFloat(s[1]))+'px,0)';
+      var tx=y*parseFloat(s[0]); var ty=y*parseFloat(s[1]);
+      /* clamp so fixed background layers drift subtly and never pull apart */
+      tx=Math.max(-110,Math.min(110,tx)); ty=Math.max(-70,Math.min(70,ty));
+      bgEls[i].style.transform='translate3d('+tx+'px,'+ty+'px,0)';
     }
     for(var j=0;j<fgEls.length;j++){
       var sp=parseFloat(fgEls[j].getAttribute('data-fg'));
