@@ -32,6 +32,7 @@
   .sun{position:absolute;top:6%;right:8%;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#ffe9b0,#ffe09a);will-change:transform}
   .cloud{position:absolute;will-change:transform}
   .cloud svg{width:100%}
+  .haze{position:absolute;left:0;right:0;bottom:28vh;height:20vh;background:linear-gradient(180deg,rgba(254,249,243,0) 0%,rgba(254,246,236,.55) 60%,rgba(239,219,203,.15) 100%);pointer-events:none}
   .cloud.a{top:12%;left:-6%;width:200px;animation:drift 26s linear infinite alternate}
   .cloud.b{top:26%;right:-4%;width:160px;animation:drift 34s linear infinite alternate-reverse}
   .cloud.c{top:40%;left:20%;width:130px;animation:drift 44s linear infinite alternate}
@@ -389,7 +390,7 @@
   <div class="cloud c" data-bg="-0.04,0"><svg viewBox="0 0 200 90"><g fill="#fff8ee"><circle cx="60" cy="55" r="24"/><circle cx="100" cy="46" r="30"/><circle cx="140" cy="58" r="22"/><rect x="58" y="60" width="84" height="22" rx="11"/></g></svg></div>
 
   <!-- FAR panorama: hills, mountains (outskirts) -> city skyline (Beetham + Town Hall) -->
-  <svg class="pano far" data-pan="1" viewBox="0 0 3600 900" preserveAspectRatio="xMinYMax meet">
+  <svg class="pano far" data-pan="0.78" viewBox="0 0 3600 900" preserveAspectRatio="xMinYMax meet">
     <path d="M0 560 Q 420 505 840 550 T 1680 545 T 2520 545 T 3600 550 L3600 900 L0 900 Z" fill="#cdd9d4"/>
     <path d="M150 560 L340 350 L530 560 Z" fill="#c3d9c6"/><path d="M318 376 L340 350 L380 398 Z" fill="#eef4ec"/>
     <path d="M560 560 L740 388 L920 560 Z" fill="#c3d9c6"/>
@@ -399,6 +400,7 @@
     <use href="#mcr-townhall" x="2930" y="238" width="132" height="322"/>
     <g transform="translate(1150 150) scale(1)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g><g transform="translate(1500 220) scale(0.8)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g><g transform="translate(2150 180) scale(0.9)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g><g transform="translate(3080 170) scale(0.85)"><ellipse rx="7" ry="5" fill="#f2b134"/><rect x="-4" y="-5" width="3" height="10" fill="#2d2927"/><rect x="1" y="-5" width="3" height="10" fill="#2d2927"/><ellipse cx="-5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/><ellipse cx="5" cy="-7" rx="4" ry="3" fill="#fff" opacity=".85"/></g>
   </svg>
+  <div class="haze"></div>
   <!-- NEAR panorama: green ground, canal + mills + tram, city park + worker bee -->
   <svg class="pano near" data-pan="1" viewBox="0 0 3600 900" preserveAspectRatio="xMinYMax meet">
     <path d="M0 615 Q 500 575 1000 615 T 2000 615 T 3000 615 T 3600 615 L3600 900 L0 900 Z" fill="#5f9773"/>
