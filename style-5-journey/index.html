@@ -69,6 +69,10 @@
   .hero__desc .text{background:linear-gradient(to bottom,var(--paper) 92%,transparent 92%);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .15em}
   .hero__desc.small{font-size:clamp(1rem,2.4vw,1.4rem);margin-top:1.4em;margin-left:2em}
   .hero__en{margin-top:1.8rem;opacity:.8;font-weight:500}
+  .hero{position:relative}
+  .scrollHint{position:absolute;left:0;right:0;bottom:4vh;display:flex;flex-direction:column;align-items:center;gap:.3rem;font-size:.8rem;font-weight:700;letter-spacing:.06em;opacity:.7}
+  .scrollHint .a{font-size:1.1rem;animation:hintbob 1.6s ease-in-out infinite}
+  @keyframes hintbob{0%,100%{transform:translateY(-3px)}50%{transform:translateY(3px)}}
 
   /* FEATURED */
   .featured{margin:0 auto;max-width:560px;background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:0 24px 50px -30px rgba(45,41,39,.55);text-align:left;transition:transform .25s}
@@ -156,7 +160,7 @@
   .headline.reveal.in .line:nth-child(4){transition-delay:.35s}
   @media(prefers-reduced-motion:reduce){
     .reveal,.headline.reveal .line{opacity:1;transform:none;transition:none}
-    .cloud,.hero__art .sway,.avatarShiba .tail,.avatarShiba .eye{animation:none}
+    .cloud,.hero__art .sway,.avatarShiba .tail,.avatarShiba .eye,.scrollHint .a{animation:none}
   }
 
   /* ===== fullscreen menu ===== */
@@ -523,6 +527,7 @@
       <p class="hero__desc small palt reveal"><span class="text">A little tea-dog's journey through Manchester —</span></p>
       <p class="hero__en reveal">Freshly brewed fruit tea, matcha &amp; boba — handcrafted in the heart of Manchester.</p>
     </div>
+    <div class="scrollHint"><span>scroll to explore</span><span class="a">↓</span></div>
   </section>
 
   <!-- FEATURED -->
